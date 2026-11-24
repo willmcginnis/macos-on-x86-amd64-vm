@@ -1,0 +1,800 @@
+{
+ "meta": {
+  "what": "Every entry of the kernel collection the furthest 27-only root booted with.",
+  "as_of": "2026-11-08",
+  "evidence": "measured",
+  "how": "Each entry's Mach-O UUID was compared with the 27.0.1 Kernel Debug Kit's x86_64 kexts and with the set of kexts borrowed from macOS 26.",
+  "classes": {
+   "apple-27-x86_64": "Apple's own 27.0.1 x86_64 kext from the Kernel Debug Kit",
+   "borrowed-tahoe-x86_64": "an x86_64 kext from macOS 26 (Tahoe); for 8 of the 9, 27.0.1 ships no x86_64 build of it, and AppleRTC is the exception (27.0.1 has one, not yet swapped in)",
+   "apple-27-lifted": "Apple's own 27.0.1 arm64e kext, recompiled to x86_64 by the project's lifter",
+   "self-built-kernel": "the kernel itself, built by the project from Apple's published xnu source (see docs/components.md)"
+  }
+ },
+ "kexts": [
+  {
+   "bundle": "com.apple.AppleEthernetAquantiaAqtionFirmware",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.AppleFSCompression.AppleFSCompressionTypeDataless",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.AppleFSCompression.AppleFSCompressionTypeZlib",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.AppleSystemPolicy",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.BootCache",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.audio.TrustedClockingKEXT",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleACPIButtons",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleACPIEC",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleACPIPlatform",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleAHCIPort",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleAPIC",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleActuatorDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBCMWLANBusInterfacePCIeMac",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBCMWLANCoreMac",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBSDKextStarter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothDebug",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothDebugService",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothHIDKeyboard",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothHIDMouse",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothModule",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBluetoothMultitouch",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleBusPowerController",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleConvergedIPCOLYBTControl",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleConvergedPCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleCredentialManager",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleDiskImages2",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEFINVRAM",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEFIRuntime",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEffaceableNOR",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEffaceableStorage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEffaceableTDM",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEpochManager",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEthernetAquantiaAqtion",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleEthernetRL",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleFDEKeyStore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleFileSystemDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleGameControllerPersonality",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHIDALSService",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHIDKeyboard",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHIDMouse",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHPET",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHPM",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleHollywood",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIRController",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleInputDeviceSupport",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIntelLpssDmac",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIntelLpssGspi",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIntelLpssI2C",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIntelLpssI2CController",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleIntelLpssSpiController",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleKeyStore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleLSIFusionMPT",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleLockdownMode",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleMemorexCDROMDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleMobileFileIntegrity",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleMultiFunctionManagerMac",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleMultitouchDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleOLYHALMac",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.ApplePIODMA",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.ApplePVPanic",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleRAID",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleRTC",
+   "class": "borrowed-tahoe-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSEPManager",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSMC",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSSE",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSkywalkAVB",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSmartBatteryManager",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleSyntheticGameController",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltDPAdapterFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltDPInAdapter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltDPOutAdapter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltNHI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltPCIDownAdapter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltPCIUpAdapter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleThunderboltUTDM",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleTopCaseHIDEventDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBCardReader",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBDisplays",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBHIDMouse",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBHostMergeProperties",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBMassStorageInterfaceNub",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBMergeNub",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBODD",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBTDM",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleUSBTopCaseDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleVirtIO",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.AppleXsanScheme",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.BCMWLANFirmware4364.Hashstore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.BCMWLANFirmware4378.Hashstore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.BCMWLANFirmware4387.Hashstore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.BCMWLANFirmware4388.Hashstore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.CoreStorage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.CoreStorageFsck",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.FileBackingStore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.HTTPBackingStore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.KernelBacked",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.RAMBackingStore",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.ReadWriteDiskImage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.SparseDiskImage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.DiskImages.UDIFDiskImage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.IOBluetoothHIDDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.IOImageLoader",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.IOSlaveProcessor",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.MKE_LF_D211A",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.MKE_SR_8171",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.NVSMU",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.PioneerSuperDrive",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.PlasmonUDO",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.WriteProtectedMediaDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.corecapture",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.iPodSBCDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.mDNSOffloadUserClient",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBCommon",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBEHCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBEHCIPCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHostBillboardDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHostCompositeDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHostDeviceSupport",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHostPacketFilter",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHostiOSDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBHub",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBVHCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBVHCICommon",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBXHCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.AppleUSBXHCIPCI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.IOUSBHostHIDDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.cdc",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.cdc.ecm",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.cdc.ncm",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.ethernet.asix",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.networking",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.usb.realtek8153patcher",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.driver.watchdog",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.filesystems.apfs",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.filesystems.autofs",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.filesystems.hfs.kext",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.filesystems.lifs",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.filesystems.tmpfs",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.AppleBCM5701Ethernet",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.CoreAnalyticsFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.EndpointSecurity",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IO80211Family",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOACPIFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOAHCIBlockStorage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOAHCIFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOAHCISerialATAPI",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOATABlockStorage",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOATAFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOATAPIProtocolTransport",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOBDStorageFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOBluetoothFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOBufferCopyController",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOBufferCopyEngineFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOCDStorageFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IODVDStorageFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOGameControllerFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOHIDFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOKitRegistryCompatibility",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IONVMeFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IONetworkingFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOPCIFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IORDMAFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOReportFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSCSIArchitectureModelFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSCSIBlockCommandsDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSCSIMultimediaCommandsDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSCSIParallelFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSCSIReducedBlockCommandsDevice",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSMBusFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSerialFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSkywalkFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSlowAdaptiveClockingFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOStorageFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOSurface",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOThunderboltFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOTimeSyncFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOUSBHostFamily",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.IOUSBMassStorageDriver",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.iokit.SCSITaskUserClient",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.AppleEncryptedArchive",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.Compression",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.Libm",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.XrtHostedXnu",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.corecrypto",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kec.pthread",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kernel",
+   "class": "self-built-kernel"
+  },
+  {
+   "bundle": "com.apple.kext.AppleMatch",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kext.CoreTrust",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.kext.triggers",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.nke.applicationfirewall",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.private.KextAudit",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.security.AppleImage4",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.security.Image4",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.security.quarantine",
+   "class": "apple-27-x86_64"
+  },
+  {
+   "bundle": "com.apple.security.sandbox",
+   "class": "apple-27-lifted"
+  }
+ ]
+}

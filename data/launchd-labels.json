@@ -1,0 +1,2972 @@
+{
+ "meta": {
+  "what": "Every launchd job label whose program is on 27.0.1's system volume (or, for five under /Library/Apple, in its Data-volume template), on the furthest booted macOS 27.0.1-only root: where its program comes from, and whether it ran in one boot of that root.",
+  "as_of": "2026-11-08",
+  "boots": 1,
+  "evidence": {
+   "measured": "each program's architectures (the class column); and, per label, the job status in one boot: whether a process existed, shown by a process id, and any exit status",
+   "inferred": "which binary each job was executing, for every label except launchd and xpcproxy: it follows from what was placed on disk, not from a hash taken inside the guest"
+  },
+  "how": "Class: each program's architectures were read path by path from Apple's 27.0.1 system volume on a Mac running 27.0.1; the programs of the five labels under /Library/Apple (four programs) were read from the Data-volume template in Apple's 27.0.1 image instead. State: the job table printed to the guest's serial console during one boot of about 1,000 seconds; 'ran' means a pid or an exit status appeared in some sample. On-demand jobs that were not needed in that window show as not started. Labels come from 27.0.1's launchd plists and the job tables of two boots of this root; states come from one of those boots. The counts are of labels, not programs: a program can serve more than one label.",
+  "not_measured": "Whether a job that ran did its work: 'ran' means a process existed. Which binary a job ran was hashed inside the guest only for launchd and xpcproxy; for the rest it is inferred from the placement records.",
+  "left_out": "What each count covers. Listed here: 421 labels; 388 of them were in that boot's job table and 118 ran, 15 of those with a nonzero exit status; the other 33 were not in that boot's job table at all and show as not started. Not listed: 31 labels that are not programs of 27's system volume or its Data-volume template (scripts, per-boot labels, the lab's own test jobs, and com.apple.MRTd, whose program 27.0.1's image does not contain); 23 of them were in the job table and 8 ran, all with exit status 0. So the whole job table of that boot was 411 labels, of which 126 ran, the figure the feature matrix gives. The 3 borrowed macOS 26 programs were replaced by 27's own in three later boots; their rows show the boot counted here.",
+  "classes": {
+   "apple-27-x86_64": "Apple's own 27.0.1 program, which still ships an x86_64 slice; run as Apple shipped it",
+   "apple-27-arm64e-translated": "Apple's own 27.0.1 program, shipped without an x86_64 slice (arm64e; arm64e and arm64 for the two programs behind the three XProtect labels); run under translation by the kernel's foreign-architecture exec route",
+   "apple-27-lifted": "Apple's own 27.0.1 arm64e program, recompiled to x86_64 by the project's lifter and linked against 27's x86_64 libraries",
+   "borrowed-tahoe-x86_64": "an x86_64 build of the same program from macOS 26 (Tahoe), used in the boot counted here; 27's own arm64e builds replaced all three in three later boots",
+   "apple-27-flags-changed": "Apple's own 27.0.1 file, bytes unchanged, file flags changed"
+  },
+  "skipped_other": 31,
+  "counts": {"job_table_labels": 411, "job_table_ran": 126, "ran_nonzero_exit": 15, "listed": 421, "listed_in_job_table": 388, "listed_ran": 118, "listed_not_in_job_table": 33, "not_listed": 31, "not_listed_in_job_table": 23, "not_listed_ran": 8}
+ },
+ "labels": [
+  {
+   "label": "com.apple.AEServer",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Frameworks/AE.framework/Versions/A/Support/AEServer",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AirPlayXPCHelper",
+   "program": "/usr/libexec/AirPlayXPCHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AppSSOAgent.login",
+   "program": "/System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSOAgent.app/Contents/MacOS/AppSSOAgent",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AppSSODaemon",
+   "program": "/System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSODaemon",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AppleCredentialManagerDaemon",
+   "program": "/System/Library/PrivateFrameworks/AppleCredentialManager.framework/AppleCredentialManagerDaemon",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AppleQEMUGuestAgent",
+   "program": "/usr/libexec/AppleQEMUGuestAgent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AssetCache.builtin",
+   "program": "/usr/libexec/AssetCache/AssetCache",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AssetCacheLocatorService",
+   "program": "/System/Library/PrivateFrameworks/AssetCacheServices.framework/Versions/A/XPCServices/AssetCacheLocatorService.xpc/Contents/MacOS/AssetCacheLocatorService",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AssetCacheManagerService",
+   "program": "/System/Library/PrivateFrameworks/AssetCacheServicesExtensions.framework/XPCServices/AssetCacheManagerService.xpc/Contents/MacOS/AssetCacheManagerService",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.AssetCacheTetheratorService",
+   "program": "/System/Library/PrivateFrameworks/AssetCacheServicesExtensions.framework/XPCServices/AssetCacheTetheratorService.xpc/Contents/MacOS/AssetCacheTetheratorService",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.BTServer.le",
+   "program": "/usr/sbin/BTLEServer",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.BlueTool",
+   "program": "/usr/sbin/BlueTool",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.CSCSupportd",
+   "program": "/usr/libexec/CSCSupportd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ContainerMigrationService",
+   "program": "/usr/libexec/ContainerMigrationService",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.CoreAuthentication.daemon",
+   "program": "/System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.CrashReporterSupportHelper",
+   "program": "/System/Library/CoreServices/CrashReporterSupportHelper",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.CryptoTokenKit.ahp",
+   "program": "/System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DataDetectorsSourceAccess",
+   "program": "/usr/libexec/DataDetectorsSourceAccess",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DesktopServicesHelper",
+   "program": "/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Resources/DesktopServicesHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DesktopServicesScriptingHelper",
+   "program": "/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Resources/DesktopServicesScriptingHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DumpGPURestart",
+   "program": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/DumpGPURestart",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DumpPanic",
+   "program": "/usr/libexec/DumpPanic",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DumpPanic.Accessory",
+   "program": "/usr/libexec/DumpPanic",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.DumpPanicRecoveryOS",
+   "program": "/usr/libexec/DumpPanicRecoveryOS",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.FileCoordination",
+   "program": "/usr/sbin/filecoordinationd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.GSSCred",
+   "program": "/System/Library/Frameworks/GSS.framework/Helpers/GSSCred",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.GameController.gamecontrollerd",
+   "program": "/usr/libexec/gamecontrollerd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.IFCStart",
+   "program": "/usr/libexec/ifcstart",
+   "class": "apple-27-lifted",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.IOAccelMemoryInfoCollector",
+   "program": "/usr/libexec/IOAccelMemoryInfoCollector",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.InstallerDiagnostics.installerdiagd",
+   "program": "/System/Library/PrivateFrameworks/InstallerDiagnostics.framework/Versions/A/Resources/installerdiagd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.InstallerDiagnostics.installerdiagwatcher",
+   "program": "/System/Library/PrivateFrameworks/InstallerDiagnostics.framework/Versions/A/Resources/installerdiagwatcher",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.InstallerProgress",
+   "program": "/System/Library/CoreServices/Installer Progress.app/Contents/MacOS/Installer Progress",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.Kerberos.digest-service",
+   "program": "/System/Library/PrivateFrameworks/Heimdal.framework/Helpers/digest-service",
+   "class": "apple-27-x86_64",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.Kerberos.kadmind",
+   "program": "/System/Library/PrivateFrameworks/Heimdal.framework/Helpers/kadmind",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.Kerberos.kcm",
+   "program": "/System/Library/PrivateFrameworks/Heimdal.framework/Helpers/kcm",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.Kerberos.kdc",
+   "program": "/System/Library/PrivateFrameworks/Heimdal.framework/Helpers/kdc",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.Kerberos.kpasswdd",
+   "program": "/System/Library/PrivateFrameworks/Heimdal.framework/Helpers/kpasswdd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.KernelEventAgent",
+   "program": "/usr/sbin/KernelEventAgent",
+   "class": "apple-27-lifted",
+   "state": "ran, nonzero exit status",
+   "exit_status": 74
+  },
+  {
+   "label": "com.apple.LocalAuthentication.UIAgent",
+   "program": "/System/Library/Frameworks/LocalAuthentication.framework/Support/coreautha.bundle/Contents/MacOS/coreautha",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.LocalAuthentication.userauthd",
+   "program": "/System/Library/Frameworks/LocalAuthentication.framework/Support/userauthd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ManagedClient",
+   "program": "/System/Library/CoreServices/ManagedClient.app/Contents/MacOS/ManagedClient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ManagedClient.enroll",
+   "program": "/System/Library/CoreServices/ManagedClient.app/Contents/MacOS/ManagedClient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ManagedClient.mechanism",
+   "program": "/System/Library/CoreServices/ManagedClient.app/Contents/MacOS/ManagedClient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ManagedClient.startup",
+   "program": "/System/Library/CoreServices/ManagedClient.app/Contents/MacOS/ManagedClient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.MobileFileIntegrity",
+   "program": "/usr/libexec/amfid",
+   "class": "borrowed-tahoe-x86_64",
+   "state": "ran, nonzero exit status",
+   "exit_status": -11
+  },
+  {
+   "label": "com.apple.NetworkSharing",
+   "program": "/usr/libexec/InternetSharing",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.PasswordService",
+   "program": "/usr/sbin/PasswordService",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.PerfPowerServices",
+   "program": "/usr/libexec/PerfPowerServices",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.PerfPowerServicesExtended",
+   "program": "/usr/libexec/PerfPowerServicesExtended",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.PowerUIAgent",
+   "program": "/usr/libexec/PowerUIAgent",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.RFBEventHelper",
+   "program": "/System/Library/CoreServices/RFBEventHelper.bundle/Contents/MacOS/RFBEventHelperd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.RemoteDesktop.PrivilegeProxy",
+   "program": "/System/Library/CoreServices/RemoteManagement/AppleVNCServer.bundle/Contents/Support/VNCPrivilegeProxy",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.RemotePairTool",
+   "program": "/System/Library/CoreServices/RemotePairTool",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ReportCrash.Root",
+   "program": "/System/Library/CoreServices/ReportCrash",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ReportMemoryException",
+   "program": "/usr/libexec/ReportMemoryException",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ReportSystemMemory",
+   "program": "/System/Library/CoreServices/ReportSystemMemory",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.SCHelper",
+   "program": "/System/Library/Frameworks/SystemConfiguration.framework/Versions/A/Helpers/SCHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.SafeEjectGPUStartupDaemon",
+   "program": "/System/Library/CoreServices/Menu Extras/SafeEjectGPUExtra.menu/Contents/MacOS/SafeEjectGPUStartupDaemon",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.SubmitDiagInfo",
+   "program": "/System/Library/CoreServices/SubmitDiagInfo",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.TrustEvaluationAgent.system",
+   "program": "/System/Library/PrivateFrameworks/TrustEvaluationAgent.framework/Resources/trustevaluationagent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.UpdateSettings",
+   "program": "/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/UpdateSettingsTool",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.UserEventAgent-System",
+   "program": "/usr/libexec/UserEventAgent",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.UserNotificationCenter",
+   "program": "/System/Library/CoreServices/uncd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ValidUpdater",
+   "program": "/usr/libexec/ValidUpdater",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.Virtualization.AppleVirtualPlatformHIDBridge",
+   "program": "/usr/libexec/AppleVirtualPlatformHIDBridge",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.WindowServer",
+   "program": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.WirelessRadioManager",
+   "program": "/usr/sbin/WirelessRadioManagerd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.XProtect.daemon.scan",
+   "program": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/MacOS/XProtect",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.XProtect.daemon.scan.startup",
+   "program": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/MacOS/XProtect",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.XprotectFramework.PluginService",
+   "program": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.accessoryaccessd",
+   "program": "/System/Library/Frameworks/AccessoryAccess.framework/Resources/accessoryaccessd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.accessoryd",
+   "program": "/System/Library/PrivateFrameworks/CoreAccessories.framework/Support/accessoryd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.accessoryupdaterd",
+   "program": "/System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.adid",
+   "program": "/System/Library/PrivateFrameworks/CoreADI.framework/adid",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.airportd",
+   "program": "/usr/libexec/airportd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.akd",
+   "program": "/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.alf",
+   "program": "/usr/libexec/ApplicationFirewall/socketfilterfw",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.alwaysonexclavesd",
+   "program": "/usr/libexec/alwaysonexclavesd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.analyticsd",
+   "program": "/System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.aned",
+   "program": "/usr/libexec/aned",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.aneuserd",
+   "program": "/usr/libexec/aneuserd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.apfsd",
+   "program": "/usr/libexec/apfsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.appinstalld",
+   "program": "/System/Library/PrivateFrameworks/MobileInstallation.framework/Support/appinstalld",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.appleh13camerad",
+   "program": "/usr/sbin/appleh13camerad",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.appleh16camerad",
+   "program": "/usr/sbin/appleh16camerad",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.applekeystored",
+   "program": "/usr/libexec/applekeystored",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.appleseed.fbahelperd",
+   "program": "/System/Library/CoreServices/Applications/Feedback Assistant.app/Contents/Library/LaunchServices/fbahelperd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.applessdstatistics",
+   "program": "/usr/libexec/applessdstatistics",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.appstored",
+   "program": "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstored",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.apsd",
+   "program": "/System/Library/PrivateFrameworks/ApplePushService.framework/apsd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.aslmanager",
+   "program": "/usr/sbin/aslmanager",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.asr",
+   "program": "/usr/sbin/asr",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.assetsubscriptiond",
+   "program": "/usr/libexec/assetsubscriptiond",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.atrun",
+   "program": "/usr/libexec/atrun",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.attentionawarenessd",
+   "program": "/usr/libexec/attentionawarenessd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audio.AudioComponentRegistrar",
+   "program": "/System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audio.coreaudiod",
+   "program": "/usr/sbin/coreaudiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audio.isolated.historicalaudiod",
+   "program": "/usr/libexec/historicalaudiod",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audio.isolated.micactivityd",
+   "program": "/usr/libexec/micactivityd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audio.systemsoundserverd",
+   "program": "/usr/sbin/systemsoundserverd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audioanalyticsd",
+   "program": "/usr/libexec/audioanalyticsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.audiomxd",
+   "program": "/usr/libexec/audiomxd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.auditd",
+   "program": "/usr/sbin/auditd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.autofsd",
+   "program": "/usr/libexec/autofsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.automountd",
+   "program": "/usr/libexec/automountd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.avbdeviced",
+   "program": "/usr/sbin/avbdeviced",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.backgroundtaskmanagementd",
+   "program": "/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Resources/backgroundtaskmanagementd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.backupd",
+   "program": "/System/Library/CoreServices/TimeMachine/backupd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.backupd-helper",
+   "program": "/System/Library/CoreServices/TimeMachine/backupd-helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.betaenrollmentd",
+   "program": "/usr/libexec/betaenrollmentd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.biomed",
+   "program": "/System/Library/PrivateFrameworks/BiomeStreams.framework/Support/biomed",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.biometrickitd",
+   "program": "/usr/libexec/biometrickitd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.bluetoothd",
+   "program": "/usr/sbin/bluetoothd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.bootinstalld",
+   "program": "/usr/libexec/bootinstalld",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.bootpd",
+   "program": "/usr/libexec/bootpd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.bridgeOSUpdateProxy",
+   "program": "/System/Library/PrivateFrameworks/BridgeOSSoftwareUpdate.framework/Support/bosUpdateProxy",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.bsd.dirhelper",
+   "program": "/usr/libexec/dirhelper",
+   "class": "apple-27-lifted",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cameracaptured",
+   "program": "/usr/libexec/cameracaptured",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cameraispd",
+   "program": "/usr/libexec/cameraispd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cameraispdarwinsimd",
+   "program": "/usr/libexec/cameraispdarwinsimd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.captiveagent",
+   "program": "/usr/libexec/captiveagent",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.centaurid",
+   "program": "/usr/libexec/centaurid",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.cfnetwork.cfnetworkagent",
+   "program": "/System/Library/Frameworks/CFNetwork.framework/Versions/A/Support/CFNetworkAgent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cfprefsd.xpc.daemon",
+   "program": "/usr/sbin/cfprefsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.clocksyncd",
+   "program": "/usr/libexec/clocksyncd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cloudd",
+   "program": "/System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cloudtelemetryd",
+   "program": "/System/Library/PrivateFrameworks/CloudTelemetry.framework/Support/cloudtelemetryd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cmio.VDCAssistant",
+   "program": "/System/Library/Frameworks/CoreMediaIO.framework/Resources/VDC.plugin/Contents/Resources/VDCAssistant",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cmio.iOSScreenCaptureAssistant",
+   "program": "/System/Library/Frameworks/CoreMediaIO.framework/Resources/iOSScreenCapture.plugin/Contents/Resources/iOSScreenCaptureAssistant",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cmio.registerassistantservice",
+   "program": "/System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/com.apple.cmio.registerassistantservice",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cmio.uvcassistantextension",
+   "program": "/System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/UVCAssistant.systemextension/Contents/MacOS/UVCAssistant",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cmio.videodriverkithostextension",
+   "program": "/usr/libexec/com.apple.cmio.videodriverkithostextension.systemextension/Contents/MacOS/com.apple.cmio.videodriverkithostextension",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.colorsync.displayservices",
+   "program": "/usr/libexec/colorsync.displayservices",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.colorsyncd",
+   "program": "/usr/libexec/colorsyncd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.configd",
+   "program": "/usr/libexec/configd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.containermanagerd.system",
+   "program": "/usr/libexec/containermanagerd_system",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.contextstored",
+   "program": "/System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/contextstored",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corebrightnessd",
+   "program": "/usr/libexec/corebrightnessd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corecaptured",
+   "program": "/usr/libexec/corecaptured",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coreduetd",
+   "program": "/usr/libexec/coreduetd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corekdld",
+   "program": "/System/Library/PrivateFrameworks/CoreKDL.framework/Support/corekdld",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corercd",
+   "program": "/usr/libexec/corercd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corerepaird",
+   "program": "/usr/libexec/corerepaird",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coreservices.appleevents",
+   "program": "/System/Library/CoreServices/appleeventsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coreservices.launchservicesd",
+   "program": "/System/Library/CoreServices/launchservicesd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coreservices.sharedfilelistd",
+   "program": "/System/Library/CoreServices/sharedfilelistd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coreservicesd",
+   "program": "/System/Library/CoreServices/coreservicesd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corespeechd_system",
+   "program": "/System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd_system",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corestorage.corestoraged",
+   "program": "/usr/libexec/corestoraged",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.corestorage.corestoragehelperd",
+   "program": "/usr/libexec/corestoragehelperd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.coresymbolicationd",
+   "program": "/System/Library/PrivateFrameworks/CoreSymbolication.framework/coresymbolicationd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.countryd",
+   "program": "/usr/libexec/countryd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.csrutil.report",
+   "program": "/usr/bin/csrutil",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ctkd",
+   "program": "/System/Library/Frameworks/CryptoTokenKit.framework/ctkd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.cvmsServ",
+   "program": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/CVMServer",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dasd",
+   "program": "/usr/libexec/dasd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.datastored",
+   "program": "/usr/libexec/datastored",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.deleted_helper",
+   "program": "/System/Library/PrivateFrameworks/CacheDelete.framework/deleted_helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.deviceconfigurationd",
+   "program": "/System/Library/PrivateFrameworks/DeviceConfiguration.framework/Versions/A/deviceconfigurationd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.deviceinterfaced",
+   "program": "/Library/Apple/System/Library/PrivateFrameworks/DeviceInterface.framework/Support/deviceinterfaced",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.devicemanagementclient.managedappsd",
+   "program": "/usr/libexec/managedappsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.devicemanagementclient.managedeventsd",
+   "program": "/usr/libexec/managedeventsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.devicemanagementclient.teslad",
+   "program": "/usr/libexec/teslad",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.devicerecoveryd",
+   "program": "/System/Library/PrivateFrameworks/DeviceRecovery.framework/Support/devicerecoveryd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dhcp6d",
+   "program": "/usr/libexec/dhcp6d",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diagnosticd",
+   "program": "/usr/libexec/diagnosticd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diagnosticextensions.osx.spotlight.helper",
+   "program": "/System/Library/PrivateFrameworks/DiagnosticExtensions.framework/PlugIns/osx-spotlight.appex/Contents/XPCServices/SpotlightHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diagnosticextensions.osx.timemachine.helper",
+   "program": "/System/Library/PrivateFrameworks/DiagnosticExtensions.framework/PlugIns/osx-timemachine.appex/Contents/XPCServices/timemachinehelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diagnosticservicesd",
+   "program": "/System/Library/CoreServices/diagnosticservicesd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskarbitrationd",
+   "program": "/usr/libexec/diskarbitrationd",
+   "class": "apple-27-lifted",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskimagesiod",
+   "program": "/usr/libexec/diskimagesiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskimagesiod.ram",
+   "program": "/usr/libexec/diskimagesiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskimagesiod.spb",
+   "program": "/usr/libexec/diskimagesiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskimagespawner",
+   "program": "/usr/libexec/diskimagespawner",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.diskmanagementstartup",
+   "program": "/usr/libexec/diskmanagementstartup",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.displaypolicyd",
+   "program": "/usr/libexec/displaypolicyd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.distnoted.xpc.daemon",
+   "program": "/usr/sbin/distnoted",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dprivacyd",
+   "program": "/usr/libexec/dprivacyd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dt.RemotePairingDataVaultHelper",
+   "program": "/Library/Apple/System/Library/PrivateFrameworks/RemotePairing.framework/Versions/A/Resources/bin/RemotePairingDataVaultHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dt.automationmode-writer",
+   "program": "/System/Library/PrivateFrameworks/AutomationMode.framework/automationmode-writer",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dt.fetchsymbolsd",
+   "program": "/usr/libexec/dtfetchsymbolsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dvdplayback.setregion",
+   "program": "/usr/bin/setregion",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.dynamic_pager",
+   "program": "/sbin/dynamic_pager",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.eapolcfg_auth",
+   "program": "/System/Library/PrivateFrameworks/EAP8021X.framework/Resources/eapolcfg_auth",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ecosystemanalyticsd",
+   "program": "/System/Library/PrivateFrameworks/EcosystemAnalytics.framework/Support/ecosystemanalyticsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ecosystemd",
+   "program": "/System/Library/PrivateFrameworks/Ecosystem.framework/Support/ecosystemd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.efilogin-helper",
+   "program": "/System/Library/PrivateFrameworks/EFILogin.framework/Resources/efilogin-helper",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.eligibilityd",
+   "program": "/usr/libexec/eligibilityd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.endpointsecurity.endpointsecurityd",
+   "program": "/usr/libexec/endpointsecurityd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.eoshostd",
+   "program": "/usr/libexec/eoshostd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.erasecontentsettingshelperd",
+   "program": "/System/Library/PrivateFrameworks/DeauthorizationKit.framework/Versions/A/Resources/erasecontentsettingshelperd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fairplayd",
+   "program": "/System/Library/PrivateFrameworks/CoreFP.framework/Versions/A/fairplayd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fairplaydeviceidentityd",
+   "program": "/usr/libexec/fairplaydeviceidentityd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.familycontrols",
+   "program": "/System/Library/PrivateFrameworks/FamilyControls.framework/Resources/parentalcontrolsd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.filesystems.doubleagentd",
+   "program": "/System/Library/PrivateFrameworks/DoubleAgent.framework/doubleagentd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.filesystems.fskitd",
+   "program": "/usr/libexec/fskitd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.filesystems.userfs_helper",
+   "program": "/System/Library/PrivateFrameworks/UserFS.framework/Resources/userfs_helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.filesystems.userfsd",
+   "program": "/System/Library/PrivateFrameworks/UserFS.framework/userfsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.findmy.findmybeaconingd",
+   "program": "/usr/libexec/findmybeaconingd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.findmymacd",
+   "program": "/System/Library/PrivateFrameworks/FindMyMac.framework/Resources/FindMyMacd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.findmymacmessenger",
+   "program": "/System/Library/PrivateFrameworks/FindMyMac.framework/Resources/FindMyMacMessenger.app/Contents/MacOS/FindMyMacMessenger",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fontmover",
+   "program": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontmover",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fpassetmanagerd",
+   "program": "/usr/libexec/fpassetmanagerd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fseventsd",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.fskit.fskit_helper",
+   "program": "/usr/libexec/fskit_helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ftp-proxy",
+   "program": "/usr/libexec/ftp-proxy",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.gamepolicyd",
+   "program": "/usr/libexec/gamepolicyd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.getty",
+   "program": "/usr/libexec/getty",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.griddatad",
+   "program": "/usr/libexec/griddatad",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.gssd",
+   "program": "/usr/sbin/gssd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.handwritingd",
+   "program": "/usr/libexec/handwritingd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.hdiejectd",
+   "program": "/System/Library/PrivateFrameworks/DiskImages.framework/Resources/hdiejectd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.hidd",
+   "program": "/usr/libexec/hidd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.icloud.findmydeviced",
+   "program": "/usr/libexec/findmydeviced",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.icloud.searchpartyd",
+   "program": "/usr/libexec/searchpartyd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.iconservices.iconservicesagent",
+   "program": "/System/Library/CoreServices/iconservicesagent",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.iconservices.iconservicesd",
+   "program": "/System/Library/CoreServices/iconservicesd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ifdreader",
+   "program": "/System/Library/CryptoTokenKit/com.apple.ifdreader.slotd/Contents/MacOS/com.apple.ifdreader",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.inboxupdaterd",
+   "program": "/usr/libexec/inboxupdaterd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.installandsetup.systemmigrationd",
+   "program": "/System/Library/PrivateFrameworks/SystemMigration.framework/Resources/systemmigrationd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.installcoordination_proxy",
+   "program": "/System/Library/PrivateFrameworks/InstallCoordination.framework/Support/installcoordination_proxy",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.installcoordinationd",
+   "program": "/System/Library/PrivateFrameworks/InstallCoordination.framework/Support/installcoordinationd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.installd",
+   "program": "/System/Library/PrivateFrameworks/PackageKit.framework/Resources/installd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.iomfb_bics_daemon",
+   "program": "/usr/libexec/IOMFB_bics_daemon",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.iomfb_fdr_loader",
+   "program": "/usr/bin/IOMFB_FDR_Loader",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.ionodecache",
+   "program": "/System/Library/CoreServices/ionodecache",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ioupsd",
+   "program": "/usr/libexec/ioupsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kcgend",
+   "program": "/usr/libexec/kcgend",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kcproxy",
+   "program": "/usr/libexec/kcproxy",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kdumpd",
+   "program": "/usr/libexec/kdumpd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kernelmanager_helper",
+   "program": "/usr/libexec/kernelmanager_helper",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kernelmanagerd",
+   "program": "/usr/libexec/kernelmanagerd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.kuncd",
+   "program": "/usr/libexec/kuncd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.libsqlite3.dbtelemetryd",
+   "program": "/usr/libexec/dbtelemetryd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.lightsoutmanagementd",
+   "program": "/usr/libexec/lightsoutmanagementd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.liquiddetectiond",
+   "program": "/System/Library/CoreServices/liquiddetectiond.app/liquiddetectiond",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.locationd",
+   "program": "/usr/libexec/locationd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.lockd",
+   "program": "/usr/sbin/rpc.lockd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.logd",
+   "program": "/usr/libexec/logd",
+   "class": "borrowed-tahoe-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.logd_helper",
+   "program": "/usr/libexec/logd_helper",
+   "class": "borrowed-tahoe-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.logd_reporter",
+   "program": "/usr/libexec/logd_reporter",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.logind",
+   "program": "/System/Library/CoreServices/logind",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.loginwindow",
+   "program": "/System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.logkextloadsd",
+   "program": "/usr/libexec/logkextloadsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.lsd",
+   "program": "/usr/libexec/lsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.lskdd",
+   "program": "/System/Library/PrivateFrameworks/CoreLSKD.framework/Versions/A/lskdd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mDNSResponder.reloaded",
+   "program": "/usr/sbin/mDNSResponder",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mDNSResponderHelper.reloaded",
+   "program": "/usr/sbin/mDNSResponderHelper",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.managedappdistributiond",
+   "program": "/System/Library/Frameworks/ManagedAppDistribution.framework/Support/managedappdistributiond",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mbsystemadministration",
+   "program": "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/mbsystemadministration",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mbusertrampoline",
+   "program": "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/mbusertrampoline",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mdmclient.daemon",
+   "program": "/usr/libexec/mdmclient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mdmclient.daemon.runatboot",
+   "program": "/usr/libexec/mdmclient",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mediaremoted",
+   "program": "/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.memory-maintenance",
+   "program": "/usr/libexec/mmaintenanced",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.metadata.mds",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.metadata.mds.index",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.metadata.mds.index.readonly",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.metadata.mds.scan",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdsync",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.metadata.mds.spindump",
+   "program": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.misagent",
+   "program": "/usr/libexec/misagent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.NRDUpdated",
+   "program": "/usr/libexec/NRDUpdated",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.keybagd",
+   "program": "/usr/libexec/keybagd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.notification_proxy",
+   "program": "/usr/libexec/notification_proxy",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.obliteration",
+   "program": "/usr/libexec/mobile_obliterator",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.softwareupdated",
+   "program": "/System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/Support/softwareupdated",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.storage_mounter",
+   "program": "/usr/libexec/MobileStorageMounter",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.storage_mounter_proxy",
+   "program": "/usr/libexec/mobile_storage_proxy",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobile.usermanagerd",
+   "program": "/usr/libexec/usermanagerd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobileactivationd",
+   "program": "/usr/libexec/mobileactivationd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobileassetd",
+   "program": "/usr/libexec/mobileassetd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.mobilegestalt.xpc",
+   "program": "/usr/libexec/MobileGestaltHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.modelcatalogd",
+   "program": "/System/Library/PrivateFrameworks/ModelCatalogRuntime.framework/Versions/A/modelcatalogd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.modelmanagerd",
+   "program": "/usr/libexec/modelmanagerd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": -9
+  },
+  {
+   "label": "com.apple.msrpc.echosvc",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.msrpc.lsarpc",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.msrpc.mdssvc",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.msrpc.netlogon",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.msrpc.srvsvc",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.msrpc.wkssvc",
+   "program": "/usr/libexec/rpcsvchost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.multiversed",
+   "program": "/usr/libexec/multiversed",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.musicd",
+   "program": "/System/Library/Frameworks/MusicKit.framework/Support/musicd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nand.aspcarry",
+   "program": "/usr/libexec/ASPCarryLog",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nand_task_scheduler",
+   "program": "/usr/libexec/NANDTaskScheduler",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nearbyd",
+   "program": "/usr/libexec/nearbyd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nehelper",
+   "program": "/usr/libexec/nehelper",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nesessionmanager",
+   "program": "/usr/libexec/nesessionmanager",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.netauth.sys.auth",
+   "program": "/System/Library/CoreServices/NetAuthAgent.app/Contents/MacOS/NetAuthSysAgent",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.netauth.sys.gui",
+   "program": "/System/Library/CoreServices/NetAuthAgent.app/Contents/MacOS/NetAuthAgent",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.netbiosd",
+   "program": "/usr/sbin/netbiosd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.newsyslog",
+   "program": "/usr/sbin/newsyslog",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nfcd",
+   "program": "/usr/libexec/nfcd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nfsconf",
+   "program": "/sbin/mount_nfs",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nfsd",
+   "program": "/sbin/nfsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nlcd",
+   "program": "/usr/libexec/nlcd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.notifyd",
+   "program": "/usr/sbin/notifyd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.nsurlsessiond_privileged",
+   "program": "/usr/libexec/nsurlsessiond",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ntalkd",
+   "program": "/usr/libexec/ntalkd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.oahd",
+   "program": "/usr/libexec/rosetta/oahd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.oahd-root-helper",
+   "program": "/usr/libexec/rosetta/oahd-root-helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ocspd",
+   "program": "/usr/sbin/ocspd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.odproxyd",
+   "program": "/usr/libexec/odproxyd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.online-auth-agent.xpc",
+   "program": "/usr/libexec/online-auth-agent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.opendirectoryd",
+   "program": "/usr/libexec/opendirectoryd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.osanalytics.osanalyticshelper",
+   "program": "/System/Library/CoreServices/osanalyticshelper",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.ospredictiond",
+   "program": "/usr/libexec/ospredictiond",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.pcapd",
+   "program": "/usr/libexec/pcapd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.peakpowermanagerd",
+   "program": "/usr/libexec/peakpowermanagerd",
+   "class": "apple-27-x86_64",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.perfpowermetricd",
+   "program": "/usr/libexec/perfpowermetricd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.pfctl",
+   "program": "/sbin/pfctl",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.pfd",
+   "program": "/usr/libexec/pfd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.postfix.master",
+   "program": "/usr/libexec/postfix/master",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.postfix.newaliases",
+   "program": "/usr/bin/newaliases",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.powerd",
+   "program": "/System/Library/CoreServices/powerd.bundle/powerd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.powerd.swd",
+   "program": "/System/Library/CoreServices/powerd.bundle/swd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.powerdatad",
+   "program": "/usr/libexec/powerdatad",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.powerexperienced",
+   "program": "/usr/libexec/powerexperienced",
+   "class": "apple-27-lifted",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.powerlogHelperd",
+   "program": "/usr/libexec/powerlogHelperd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.preferences.timezone.admintool",
+   "program": "/System/Library/PreferencePanes/DateAndTime.prefPane/Contents/Resources/TimeZone.prefPane/Contents/Resources/TimeZoneAdminTool",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.printtool.daemon",
+   "program": "/System/Library/Frameworks/ApplicationServices.framework/Frameworks/PrintCore.framework/Versions/A/printtool",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.prngseedd",
+   "program": "/usr/libexec/seputil",
+   "class": "apple-27-lifted",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.racoon",
+   "program": "/usr/sbin/racoon",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.rapportd",
+   "program": "/usr/libexec/rapportd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.relatived",
+   "program": "/usr/libexec/relatived",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.remoted",
+   "program": "/usr/libexec/remoted",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.remotemanagementd",
+   "program": "/System/Library/PrivateFrameworks/RemoteManagement.framework/remotemanagementd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.retimerd",
+   "program": "/usr/libexec/retimerd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.revisiond",
+   "program": "/System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/Support/revisiond",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.rpcbind",
+   "program": "/usr/sbin/rpcbind",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.rtcreportingd",
+   "program": "/usr/libexec/rtcreportingd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.runningboardd",
+   "program": "/usr/libexec/runningboardd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sandboxd",
+   "program": "/usr/libexec/sandboxd",
+   "class": "apple-27-flags-changed",
+   "state": "ran, nonzero exit status",
+   "exit_status": -6
+  },
+  {
+   "label": "com.apple.screensharing",
+   "program": "/System/Library/CoreServices/RemoteManagement/screensharingd.bundle/Contents/MacOS/screensharingd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.scsid",
+   "program": "/usr/libexec/scsid",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.secinitd",
+   "program": "/usr/libexec/secinitd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.FDERecoveryAgent",
+   "program": "/usr/libexec/FDERecoveryAgent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.agent.login",
+   "program": "/System/Library/Frameworks/Security.framework/Versions/A/MachServices/SecurityAgent.bundle/Contents/MacOS/SecurityAgent",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.authhost",
+   "program": "/System/Library/Frameworks/Security.framework/Versions/A/MachServices/authorizationhost.bundle/Contents/MacOS/authorizationhost",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.authtrampoline",
+   "program": "/System/Library/Frameworks/Security.framework/authtrampoline",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.cryptexd",
+   "program": "/usr/libexec/cryptexd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.syspolicy",
+   "program": "/usr/libexec/syspolicyd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.security.xprotectd",
+   "program": "/usr/libexec/xprotectd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.securityd",
+   "program": "/usr/sbin/securityd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.securityd.system",
+   "program": "/usr/libexec/securityd_system",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.seld",
+   "program": "/usr/libexec/seld",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sessionlogoutd",
+   "program": "/System/Library/CoreServices/sessionlogoutd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.signpost.signpost_reporter",
+   "program": "/usr/libexec/signpost_reporter",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.smb.preferences",
+   "program": "/usr/libexec/smb-sync-preferences",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.smbd",
+   "program": "/usr/sbin/smbd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sntpd",
+   "program": "/usr/sbin/sntpd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.softwareupdated",
+   "program": "/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdated",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.spindump",
+   "program": "/usr/sbin/spindump",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.srp-mdns-proxy",
+   "program": "/usr/libexec/srp-mdns-proxy",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.startupdiskhelper",
+   "program": "/usr/libexec/startupdiskhelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.statd.notify",
+   "program": "/usr/sbin/rpc.statd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.storage.spinandd",
+   "program": "/usr/libexec/spinandd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.storagede.helper",
+   "program": "/usr/libexec/StorageDEHelper",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.storagekitd",
+   "program": "/usr/libexec/storagekitd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.storereceiptinstaller",
+   "program": "/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/ReceiptInstaller",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.suhelperd",
+   "program": "/System/Library/CoreServices/Software Update.app/Contents/Resources/suhelperd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.swiftuitracingsupport.xpc",
+   "program": "/usr/libexec/swiftuitraced",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.symptomsd",
+   "program": "/usr/libexec/symptomsd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.symptomsd-diag",
+   "program": "/usr/libexec/symptomsd-diag",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sysdiagnose",
+   "program": "/usr/libexec/sysdiagnosed",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sysdiagnose_helper",
+   "program": "/usr/libexec/sysdiagnose_helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sysextd",
+   "program": "/System/Library/Frameworks/SystemExtensions.framework/Versions/A/Helpers/sysextd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.syslogd",
+   "program": "/usr/sbin/syslogd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.sysmond",
+   "program": "/usr/libexec/sysmond",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.system_installd",
+   "program": "/System/Library/PrivateFrameworks/PackageKit.framework/Resources/system_installd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.systemkeychain",
+   "program": "/usr/sbin/systemkeychain",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.systemstats.analysis",
+   "program": "/usr/sbin/systemstats",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.systemstats.daily",
+   "program": "/usr/sbin/systemstats",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.systemstats.microstackshot_periodic",
+   "program": "/usr/libexec/microstackshot",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.systemstatusd",
+   "program": "/System/Library/PrivateFrameworks/SystemStatusServer.framework/Support/systemstatusd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.tailspind",
+   "program": "/usr/libexec/tailspind",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.taskgated",
+   "program": "/usr/libexec/taskgated",
+   "class": "apple-27-flags-changed",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.taskgated-helper",
+   "program": "/usr/libexec/taskgated-helper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.tccd.system",
+   "program": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.testmanagerd.remote",
+   "program": "/usr/libexec/testmanagerd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.tftpd",
+   "program": "/usr/libexec/tftpd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.thermalmonitord",
+   "program": "/usr/libexec/thermalmonitord",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.threadradiod",
+   "program": "/System/Library/PrivateFrameworks/CoreThreadRadio.framework/threadradiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.timed",
+   "program": "/usr/libexec/timed",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.timezoneupdates.tzd",
+   "program": "/usr/libexec/tzd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.touchbarserver",
+   "program": "/usr/libexec/TouchBarServer",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.tracd",
+   "program": "/usr/libexec/tracd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.triald.system",
+   "program": "/usr/libexec/triald_system",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.trustd",
+   "program": "/usr/libexec/trustd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.trustdFileHelper",
+   "program": "/usr/libexec/trustdFileHelper",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.tzlinkd",
+   "program": "/usr/libexec/tzlinkd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.uarpassetmanagerd",
+   "program": "/usr/libexec/uarpassetmanagerd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.uarpd",
+   "program": "/usr/libexec/uarpd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.uarphidd",
+   "program": "/usr/libexec/uarphidd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.uninstalld",
+   "program": "/System/Library/PrivateFrameworks/Uninstall.framework/Resources/uninstalld",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.unmountassistant.sysagent",
+   "program": "/System/Library/CoreServices/UnmountAssistantAgent.app/Contents/Resources/UASysAgent",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.usbaudiod",
+   "program": "/System/Library/Audio/Plug-Ins/usbaudio.bundle/Contents/MacOS/usbaudiod",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.usbctelemetryd",
+   "program": "/usr/libexec/usbctelemetryd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.usbmuxd",
+   "program": "/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/usbmuxd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.usbpowerd",
+   "program": "/usr/libexec/usbpowerd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.usbsmartcardreaderd",
+   "program": "/System/Library/CryptoTokenKit/usbsmartcardreaderd.slotd/Contents/MacOS/usbsmartcardreaderd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.uucp",
+   "program": "/usr/sbin/uucico",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.vsdbutil",
+   "program": "/usr/sbin/vsdbutil",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.wallpaper.export",
+   "program": "/usr/libexec/wallpaperexportd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.warmd",
+   "program": "/usr/libexec/warmd",
+   "class": "apple-27-x86_64",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.watchdogd",
+   "program": "/usr/libexec/watchdogd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.wifiFirmwareLoader",
+   "program": "/usr/libexec/wifiFirmwareLoader",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran, nonzero exit status",
+   "exit_status": 1
+  },
+  {
+   "label": "com.apple.wifianalyticsd",
+   "program": "/usr/libexec/wifianalyticsd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.wifip2pd",
+   "program": "/usr/libexec/wifip2pd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.wifivelocityd",
+   "program": "/usr/libexec/wifivelocityd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xartstorageremoted",
+   "program": "/usr/libexec/xartstorageremoted",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xpc.roleaccountd",
+   "program": "/usr/libexec/xpcroleaccountd",
+   "class": "apple-27-lifted",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xpc.smd",
+   "program": "/usr/libexec/smd",
+   "class": "apple-27-arm64e-translated",
+   "state": "ran",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xpc.uscwoap",
+   "program": "/bin/bash",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xsan",
+   "program": "/System/Library/Filesystems/acfs.fs/Contents/bin/xsand",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xscertadmin",
+   "program": "/usr/sbin/xscertadmin",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xscertd",
+   "program": "/usr/libexec/xscertd",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.apple.xscertd-helper",
+   "program": "/usr/libexec/xscertd-helper",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.openssh.sshd",
+   "program": "/usr/libexec/sshd-keygen-wrapper",
+   "class": "apple-27-arm64e-translated",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "com.vix.cron",
+   "program": "/usr/sbin/cron",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "org.cups.cups-lpd",
+   "program": "/usr/libexec/cups/daemon/cups-lpd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  },
+  {
+   "label": "org.openldap.slapd",
+   "program": "/usr/libexec/slapd",
+   "class": "apple-27-x86_64",
+   "state": "not started",
+   "exit_status": null
+  }
+ ]
+}

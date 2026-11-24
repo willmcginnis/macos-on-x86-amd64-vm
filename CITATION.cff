@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+title: "Running macOS 27 on x86 hardware: a progress record"
+message: >-
+  If you refer to these measurements, please cite this record and include the
+  snapshot date and the internal revision given in data/status.json, because the
+  figures change as the work continues.
+type: dataset
+authors:
+  - given-names: "Will"
+    family-names: "McGinnis"
+    alias: "willmcginnis"
+abstract: >-
+  A progress record for an independent research project working to boot and run
+  macOS 27.0.1, a release Apple ships for Apple silicon only, on x86-64 hardware
+  as a virtual machine guest. Its furthest configuration so far reaches launchd's
+  daemon phase and ssh logins, on a self-built kernel, with no desktop. It holds
+  machine-readable progress tables covering a
+  feature matrix by layer, the boot-path programs, the launchd job labels whose
+  program paths are on 27.0.1's system volume or its Data-volume template, every
+  kernel-collection entry of the furthest booted root, the patches carried to a
+  third-party user-space translator, and a record of open walls and of risks
+  that were accepted rather than fixed. Each progress row states whether it was
+  measured or inferred, and most say how many boots or test cases it rests on.
+  It contains no Apple code and no build or translation tooling.
+keywords:
+  - macOS
+  - x86-64
+  - arm64
+  - virtualization
+  - QEMU
+  - KVM
+  - binary translation
+  - binary lifting
+  - xnu
+  - reverse engineering
+license: CC0-1.0
+version: "2.0.0"
+date-released: "2026-11-23"
+
+# version and date-released name the latest release in CHANGELOG.md.
+#
+# license above is the licence of the data and the generated tables, which is what
+# is being cited. The prose and the code in this repository are under different
+# terms; see the Licences section of README.md.
+#
+repository-code: "https://github.com/willmcginnis/macos-on-x86-amd64-vm"
+url: "https://github.com/willmcginnis/macos-on-x86-amd64-vm"
+# repository-code and url name the repository's home.

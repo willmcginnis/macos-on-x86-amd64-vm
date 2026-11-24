@@ -1,0 +1,36 @@
+{
+ "meta": {
+  "as_of": "2026-11-23",
+  "reflects_private_commit": "1f696787",
+  "note": "The project's working notes live in a private repository. This is the latest commit of it whose evidence these figures draw on, so that a later update can say what changed."
+ },
+ "release": {
+  "macos": "macOS 27.0.1 (build 26A434)",
+  "host": "an ordinary x86_64 PC running Linux, QEMU and KVM",
+  "build_host": "a Mac running macOS 27.0.1, used to read Apple's files and to build"
+ },
+ "headline": [
+  {"claim": "A root built only from macOS 27.0.1's own system volume, with a real Data volume, boots under QEMU and KVM and reaches launchd's daemon phase.", "evidence": "measured", "n": "many boots"},
+  {"claim": "On that root, macOS 27's own launchd (pid 1) and xpcproxy run as x86_64 programs recompiled from Apple's arm64e builds by the project's lifter.", "evidence": "measured", "n": "3 boots for launchd and 2 for xpcproxy, one configuration each"},
+  {"claim": "macOS 27's own arm64e Sandbox kext, its 958 reachable functions (of 967) recompiled to x86_64, loads and enforces: file read, write and exec denies, a network deny and default-deny give the same results as native 27.0.1.", "evidence": "measured", "n": "2 boots on Apple's kernel image; on the self-built kernel, 2 boots agreeing on every probe row plus 1 on a later version"},
+  {"claim": "Root logins over ssh return sw_vers 27.0.1 on x86_64.", "evidence": "measured", "n": "3 of 3 logins in 8 of 9 boots of the furthest configuration with a 180 s login timeout, 1 of 3 in one; 0 with a 60 s timeout, explained in docs/components.md"},
+  {"claim": "The kernel the furthest configuration uses is built by the project from Apple's published xnu source (macOS 26.5's), plus the interfaces 27 needs, re-derived from 27's own x86_64 machine code. It is not Apple's kernel and reports version 25.5.0.", "evidence": "measured", "n": "build reproduced for each version"}
+ ],
+ "not_shown": [
+  "No desktop on the 27-only root. On overlays of it, with the hybrid image's two display byte edits also placed in its cache, 27's WindowServer stays up; in 5 of 6 such boots it showed the boot progress window (Apple's logo and a progress bar), and in the remaining boot the screen stayed on the text console. None showed a login window. In one boot the login agent (SecurityAgent) logged that it was showing its window while its main thread stayed blocked waiting for a reply that never came; WindowServer had also refused it the front once. Which of these holds the window back is not settled. Full windows are shown only on a hybrid image (macOS 26's recovery volume with 27's files placed over it), which draws the recovery window, Disk Utility and the installer with a software compositor.",
+  "The kernel is self-built from Apple's macOS 26.5 source, not Apple's 27.0.1 kernel. Apple's own 27.0.1 x86_64 kernel also boots, but only with load-time patches.",
+  "No GPU acceleration: there is no Metal device.",
+  "Pieces of macOS 26 (Tahoe) are still in the boot: the x86 boot loader (boot.efi, which 27.0.1 does not ship), nine kexts, the tool that builds the kernel collection, and the APFS driver the boot loader uses. 27's own logd and logd_helper replaced macOS 26's in three boots.",
+  "The ssh logins are to a debug sshd the test payload starts, not to launchd's own sshd job, and that sshd is 27's arm64e program under translation.",
+  "macOS 27's own amfid runs under translation and stays up (4 boots). In one boot it refused an ad hoc signed program carrying a restricted entitlement, as Apple's does; whether it answers every signature check correctly has not been tested, and an edited-signature test did not discriminate.",
+  "sandboxd is not shown staying up when launchd starts it. With an earlier fix, a hand-started copy got past the failure in 2 of 2 boots, while the launchd-started copy kept restarting in the second (it ran with a trace option the hand-started one did not). That fix (patch X) had an open race and has been replaced by patch Y, whose boots are not written up in this record yet.",
+  "The 240-second registry stall early in boot is explained, and two fixes for it work in test boots (docs/gaps.md, B18), but neither is in the furthest configuration yet; without one, the network attaches only after the stall. The HID driver extension's crash at start has a fix that held in 3 boots, but keyboard and mouse input does not work yet: in two boots WindowServer logged the process holding keyboard focus as the destination of key presses, while the last pointer events seen were in the HID queue.",
+  "For most programs only 'running' was measured, not that they do their job.",
+  "Many results are one boot per configuration, often on a heavily loaded lab host. Behaviour past a 1-minute load average of about 100 has not been tested systematically; the first-run timings in docs/gaps.md (B15) were taken at a load of 130 to 198.",
+  "Lifted programs that must be platform binaries are signed with a lab key that Apple's developer trusted-key mechanism is told to trust. That is a lab arrangement, not something a user install could rely on."
+ ],
+ "pieces_by_origin": {
+  "what": "Where each launchd job's program on the furthest 27-only root comes from (data/launchd-labels.json), and how many of those labels ran in one boot, taken before 27's own amfid, logd and logd_helper replaced macOS 26's.",
+  "evidence": "measured", "n": 1
+ }
+}

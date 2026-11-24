@@ -1,0 +1,34 @@
+name: check
+
+# The tables in README.md and docs/ are generated from data/*.json. This job fails if
+# any of them disagrees with the data, which catches both a hand edit inside a generated
+# region and a change to data/ that nobody re-rendered. render.py parses every data file
+# on the way, so a malformed JSON file fails here too.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-check:
+    name: generated tables match the data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: render.py --version
+        run: python3 scripts/render.py --version
+
+      - name: Generated tables match data/
+        run: python3 scripts/render.py --check
