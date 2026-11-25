@@ -15,7 +15,7 @@ decided to leave it open is a different thing from a gap nobody noticed.
 ## Open walls
 
 <!-- generated:gaps-blockers:start -->
-7 closed, 10 narrowed or being fixed, 4 open with no fix under way.
+8 closed, 11 narrowed or being fixed, 4 open with no fix under way.
 
 |  | Wall | State | Evidence | Notes |
 |---|---|---|---|---|
@@ -24,7 +24,7 @@ decided to leave it open is a different thing from a gap nobody noticed.
 | B3 | Mounting the Preboot volume needs an arm64e-only program | in progress | measured | Closed by a 945-byte stand-in script; lifting 27's mount would retire it. |
 | B4 | No x86_64 Sandbox kext for 27 | done | measured | 27's own Sandbox kext, recompiled, boots and enforces. Inside it: network-outbound rows are no reading, a sysctl deny is not closed, and ten deny pairs against real 27 are undecided. |
 | B5 | fork safety under translation | in progress | measured | 15,500 children at 4 vCPU: none hung, none wrong, no guest panic; the 1,000 that died did so where the native program dies the same way. 8 vCPU under heavy host load not retested. |
-| B6 | pid 1 from 27's own launchd | in progress | measured | Works on the furthest configuration (3 boots); not folded into an image. Whether the lab trusted-key route stays is the owner's decision. |
+| B6 | pid 1 from 27's own launchd | in progress | measured | Works on the furthest configuration (3 boots); since 2026-11-24 also in the default test base, one standalone disk image (2 test boots). Whether the lab trusted-key route stays is the owner's decision. |
 | B7 | Display-state mismatch and the backdrop abort (hybrid image) | done | measured | Both are small byte edits on disk, found by pattern per build. One risk, that an edit could be silently wrong, is the owner's to accept. |
 | B8 | No GPU | not started | measured | Below the main line. A software Vulkan compute test passes in the guest. |
 | B9 | Building the kernel collection with 27's own tools | in progress | measured | Still macOS 26's kmutil in a recovery guest. 27's kmutil runs under translation but has not loaded a kext. |
@@ -36,10 +36,12 @@ decided to leave it open is a different thing from a gap nobody noticed.
 | B15 | The first translated run of a boot is slow | not started | measured | Up to 233 s and 412 s for a first read, 9 to 65 s later, on a host at load 130 to 198 with no translation cache kept across boots. Not split between translation cost and starvation. |
 | B16 | File flags lost on the Data volume | done | measured | Restored and read back, 14,024 of 14,024 flagged entries equal. |
 | B17 | 27's sandboxd staying up under launchd is not shown | in progress | measured | Traced to a refused write to guest memory; a translator fix removed it for a hand-started copy in 2 of 2 boots, while in the second the launchd-started copy kept restarting (with a trace option the hand-started one lacked). That fix (patch X) had an open race and has been replaced by patch Y, whose boots are not written up in this record yet. |
-| B18 | The 240-second registry stall and the HID driver extension | in progress | measured | An arm64e-only DriverKit serial extension, whose kernel side (com.apple.driver.driverkit.serial) had no x86_64 build in the boot collection, keeps IOUserResources from ever matching (the mechanism is inference; the fixes are measured). Two fixes work: Apple's x86_64 IOUserSerial.kext from the Kernel Debug Kit added to the boot collection (4 boots), or the extension moved out of the scanned folder (7 boots). With either, the registry went quiet in every boot, and no stall line or hidden disk was seen in any boot that counted them. With the registry quiet, 27's own DiskArbitration served the scratch-disk round in 7 of 8 boots counted. Neither fix is in the furthest configuration yet. The HID extension's crash at start is fixed in 3 boots (docs/boot-programs.md); keyboard and mouse input does not work yet. Both written up for other projects: docs/notes-for-liberator.md. |
+| B18 | The 240-second registry stall and the HID driver extension | in progress | measured | An arm64e-only DriverKit serial extension, whose kernel side (com.apple.driver.driverkit.serial) had no x86_64 build in the boot collection, keeps IOUserResources from ever matching (the mechanism is inference; the fixes are measured). Two fixes work: Apple's x86_64 IOUserSerial.kext from the Kernel Debug Kit added to the boot collection (4 boots), or the extension moved out of the scanned folder (7 boots). With either, the registry went quiet in every boot, and no stall line or hidden disk was seen in any boot that counted them. With the registry quiet, 27's own DiskArbitration served the scratch-disk round in 7 of 8 boots counted. The project's default test base, adopted on 2026-11-24, carries the first fix (2 test boots); most rows of this record predate that base. The HID extension's crash at start is fixed in 3 boots (docs/boot-programs.md). Keyboard input typed at the login window has reached it in each login boot since (B21); pointer events reached the HID queue in earlier boots, but whether a click reaches a control is not tested. Both written up for other projects: docs/notes-for-liberator.md. |
 | B19 | A launchd-managed sshd on the furthest configuration | not started | measured | Logins so far are to a debug sshd the test payload starts. |
 | B20 | Stopping a service panicked the guest | done | measured | The recompiled launchd exited when it stopped a service, and the kernel panicked (1 control boot). With the fix: 0 panics in 2 boots; in one, launchd waited its 10 s exit timeout, then killed a service that ignored the stop request, and stayed pid 1. |
-| B21 | No login window on the display test overlays | in progress | measured | WindowServer stays up and, in 5 of 6 boots, showed the boot progress window (in the remaining boot the screen stayed on the text console). No login window appeared in any of the six. In the boot with WindowServer's complete log, the login window was never ordered in, and WindowServer refused SecurityAgent the front once because another program had made itself the only one allowed there; whether that refusal matters is not read. In the same boot SecurityAgent logged that it was showing its window while its main thread stayed blocked in a synchronous LocalAuthentication call that never got a reply (stack samples); the peer is probably coreauthd (inference). WindowServer's render-fence timeouts were checked in that boot and are not the wall. Why the reply never comes is not read. |
+| B21 | No login window on the display test overlays | done | measured | Closed: the login window appears. In the six boots this row first counted, WindowServer stayed up and in 5 of them showed the boot progress window (the sixth stayed on the text console), but no login window appeared. Whether it appears looks like a race: SecurityAgent has to show its window before the guest's display goes to sleep, and once the display sleeps nothing redraws it (inferred from one boot's timing, in which SecurityAgent logged that it was showing its window one second before the screens slept). The window was drawn in 2 of 2 boots of one set-up and 1 of 2 of another when nothing held the display awake, and in each of 6 later boots in which a login was typed. In 4 other boots, set up differently, it did not appear; the cause is read for some of them only. What follows the login: B22. |
+| B22 | No desktop after the first login | in progress | measured | After the first login, User Account Updater completes (1 boot), then loginwindow launches the first-login Setup Assistant. It becomes the frontmost app, but no pane of it appears; the screen stays black to the end of the boot, and no Dock or Finder process starts (1 boot). Why is not read; that it is Setup Assistant's own fault rather than drawing or compositing is not shown. In that boot the disk also ran out of space about a minute after Setup Assistant was launched (B23), a lead not yet followed. A second try with Setup Assistant's record for the user already marked complete never reached a login window (1 boot; cause not read). A boot on a clean root with that record and with B23's fix, late on 2026-11-24, stayed on the text console and showed no login window (1 boot; cause not read). |
+| B23 | The translator's shared-cache data fills the disk | in progress | measured | The translator's store of slid shared-cache data (docs/translator-patches.md, R) is kept per home directory, and macOS gives every sandbox container and daemon user its own, so the same files are copied into a store for each that uses it: in one boot 16 stores held about 9 GiB of cache files, mostly duplicated slid data, and the root's 51.5 GB container ran out of space. A fix keeps one root-owned store for every user (R2): built, its cache tests pass, and a later build of it passed the whole test suite; it has booted once, on 2026-11-24: the shared store held one copy (14 data files, about 560 MiB) and the disk did not fill, but that boot never reached the login window, so disk use through a login is not shown yet. That every user's processes trust root's copy is a lab policy the owner has not ruled on. |
 
 <sub>Generated from `data/gaps.json` by `scripts/render.py`. Data and generated tables: [CC0-1.0](../LICENSE-CC0) (public domain).</sub>
 <!-- generated:gaps-blockers:end -->
@@ -79,7 +81,7 @@ failure was found, so it is not closed.
 <!-- generated:gaps-risks:start -->
 Every gap is judged by three questions: what the fix costs, whether the gap arises on the macOS 27 path at all, and whether a general translation route would close it along with others. The project's rule is also to compare how Rosetta, Wine, QEMU, FEX-Emu and box64 handle the same thing, and to copy them where they agree. Most records carry such a comparison, but not all: some were judged not to be translation gaps (a value the boot loader supplies, a limit of the project's own test script), at least one still owes its comparison until its cause is read, one has no comparison field at all, and at least one says outright that no translator was compared. The comparisons are in the project's private working notes, not in this table. Where the project's behaviour equals Apple's own, on the hardware macOS 27 ships on, and being stricter would be optional, the project matches Apple rather than being stricter, and records the case as bug-for-bug compatible with Apple.
 
-The risks table is a selection: 51 rows drawn from the project's register of 82 accepted-risk records. Related records are combined into one row (for example, eight path-rewriting corner cases are one row). Which records were left out, and why, is not recorded here.
+The risks table is a selection: 52 rows drawn from the project's register of 83 accepted-risk records. Related records are combined into one row (for example, eight path-rewriting corner cases are one row). Which records were left out, and why, is not recorded here. The register's total is the last snapshot's 82 plus the one record added since (G-52's); counts of the register's ID fields differ from it by one or two, depending on how combined records are counted.
 
 | Who decided | Records | What that means |
 |---|---|---|
@@ -87,7 +89,7 @@ The risks table is a selection: 51 rows drawn from the project's register of 82 
 | bug-for-bug compatible with Apple | 1 | the owner accepted it because it is what Apple's own system does, on the hardware macOS 27 ships on (the term is Wine's: it aims at "bug-for-bug" compatibility with Windows); a stricter choice was possible and was declined, and the record is looked at again if Apple changes. Never used where the project is looser than Apple |
 | direction set by the owner | 4 | not accepted as a gap; the owner chose the fix |
 | project default | 15 | fails loudly and loses nothing, so the project accepted it by its own rule; the owner may overturn it |
-| pending the owner | 14 | could fail silently or loosens a policy, so only the owner may accept it; not yet decided |
+| pending the owner | 15 | could fail silently or loosens a policy, so only the owner may accept it; not yet decided |
 | fixed | 8 | the fix was built and measured |
 | retired | 3 | the thing it was about is no longer used day to day |
 
@@ -203,6 +205,15 @@ The risks table is a selection: 51 rows drawn from the project's register of 82 
 |  | What could go wrong | Who decided | Notes |
 |---|---|---|---|
 | G-39 | Some boot recipes still inject macOS 26's vmxnet3 driver | project default | &mdash; |
+
+</details>
+
+<details>
+<summary><strong>Platform</strong> &mdash; 1 record</summary>
+
+|  | What could go wrong | Who decided | Notes |
+|---|---|---|---|
+| G-52 | Every way programs run here needs Apple's x86_64 libraries, which macOS 27 ships for Rosetta and a later release may drop | pending the owner | Native and recompiled programs load them; the translator itself starts on Apple's x86_64 dyld and libSystem. macOS 27, the target, ships them. Apple has said general-purpose Rosetta stays through macOS 27 and only a subset after. A translator needing no x86_64 user space would remove most of the exposure; it is not started (docs/roadmap.md). |
 
 </details>
 

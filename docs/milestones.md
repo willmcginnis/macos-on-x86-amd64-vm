@@ -35,13 +35,17 @@ Milestones, in the order they were set. Dates are when the pass condition was fi
 | R1 | A root built only from 27.0.1's own system volume | Boots with a Data volume to launchd's daemon phase | done | 2026-11-04 | measured | &mdash; |
 | R2 | 27's own Sandbox kext, recompiled to x86_64, enforcing | Deny probes give native 27.0.1's results | done | 2026-11-04 | measured | &mdash; |
 | R3 | A kernel built from Apple's published source boots 27.0.1 | loginwindow and ssh, no kernel patch | done | 2026-11-04 | measured | Self-built; not Apple's kernel. Met on the hybrid image (macOS 26's recovery volume with 27's files placed over it); the 27-only root has no graphical session. |
-| R4 | 27's own launchd as pid 1 and xpcproxy, recompiled | Boots to a running payload; the kernel's hash of pid 1 names the lift | done | 2026-11-08 | measured | Not yet folded into a disk image. |
+| R4 | 27's own launchd as pid 1 and xpcproxy, recompiled | Boots to a running payload; the kernel's hash of pid 1 names the lift | done | 2026-11-08 | measured | Since 2026-11-24 the project's default test base, one standalone disk image, carries both (2 test boots). |
 | R5 | 27's own amfid, logd, logd_helper and sandboxd in place of macOS 26's | Each stays up and does its job | in progress | &mdash; | measured | logd and logd_helper replaced (3 boots, running; read-back measured on other configurations); amfid stays up (4 boots; validation partly tested); sandboxd is not shown staying up under launchd (docs/boot-programs.md). |
 | R6 | Fold the furthest configuration into one disk image | The image boots with its placed files verified | not started | &mdash; | not measured | &mdash; |
 | R7 | launchd's own sshd reachable from the host | Host logins to launchd's sshd job | not started | &mdash; | not measured | &mdash; |
 | R8 | No macOS 26 piece left in the boot | logd, logd_helper, the nine kexts, kmutil and the APFS EFI driver all replaced | in progress | &mdash; | measured | logd and logd_helper replaced (3 boots); the nine kexts, kmutil and the APFS EFI driver remain. So does macOS 26's x86 boot.efi, which the condition as first written left out: 27.0.1 ships no x86 boot loader. |
-| M4 | A desktop on 27's own programs | loginwindow, then Finder, with no macOS 26 program in the session | in progress | &mdash; | measured | The pass condition is not met and there is no graphical session. In progress because, on overlays of the 27-only root, 27's WindowServer under translation stays up and in most boots shows the boot progress window, and 27's loginwindow runs; no login window has appeared (docs/gaps.md, B21). |
+| M4 | A desktop on 27's own programs | loginwindow, then Finder, with no macOS 26 program in the session | in progress | &mdash; | measured | The pass condition is not met: there is no desktop yet. On test overlays of the 27-only root, 27's loginwindow under translation now draws the login window, a typed login is authorized, the user session starts and the first-login User Account Updater completes (milestones L1 to L4); then no window of the first-login Setup Assistant appears and Dock and Finder do not start (docs/gaps.md, B22). |
 | M5 | Graphics acceleration | A Metal device in the guest | not started | &mdash; | not measured | &mdash; |
+| L1 | 27's login window on the 27-only root | The login window drawn on screen on a test overlay of the 27-only root | done | 2026-11-23 | measured | Drawn in 2 of 2 boots of one set-up and 1 of 2 of another when nothing held the display awake: whether it appears looks like a race with the guest's display going to sleep (inferred from one boot's timing, in which SecurityAgent logged that it was showing its window one second before the screens slept). It was also drawn in each of the 6 later boots in which a login was typed. |
+| L2 | A typed login authorized | A name and password typed at the login window, and the console login authorized | done | 2026-11-24 | measured | In the first 2 boots no session followed; authorized again in each of the 4 later login boots. |
+| L3 | The user session starts | Processes of the logged-in user run after the login | done | 2026-11-24 | measured | Needed a translator fix for mapping short shared-memory objects (docs/translator-patches.md, Q2). 4 boots. |
+| L4 | The first-login User Account Updater completes | loginwindow reports that User Account Updater exited with success after the first login | done | 2026-11-24 | measured | Needed xpcproxy relinked with the newer link tools, so that accountsd could start (docs/boot-programs.md). 1 boot. Its Screen Time plug-in logged a failed call along the way. |
 
 <sub>Generated from `data/milestones.json` by `scripts/render.py`. Data and generated tables: [CC0-1.0](../LICENSE-CC0) (public domain).</sub>
 <!-- generated:milestones-table:end -->
@@ -62,11 +66,12 @@ The milestones still open are not all of the same size:
   borrowed from macOS 26: the boot loader, nine kernel extensions, the collection
   builder and the boot loader's APFS driver.
 - **M4** (a desktop) needs the arm64e-only session programs to run, translated or
-  recompiled. So far, on overlays of the 27-only root, 27's WindowServer under
-  translation stays up and in most boots shows the boot progress window, and 27's
-  `loginwindow` runs, but no login window has appeared ([gaps.md](gaps.md), B21); in an earlier boot
-  WindowServer did not open the framebuffer at all, and a recompiled `loginwindow`
+  recompiled. So far, on test overlays of the 27-only root, 27's WindowServer and
+  `loginwindow` under translation draw the login window, a typed login is authorized, the
+  user session starts and the first-login User Account Updater finishes (L1 to L4). What
+  is missing is the desktop itself: no window of the first-login Setup Assistant appears,
+  and Dock and Finder do not start ([gaps.md](gaps.md), B22). A recompiled `loginwindow`
   launches and exits in one overlay boot (see [components.md](components.md#graphics) and
-  [boot-programs.md](boot-programs.md)). There is no graphical session.
+  [boot-programs.md](boot-programs.md)).
 - **M5** (graphics acceleration) needs a Metal device, and there is no route to one yet.
   It is the furthest off, and nothing below it depends on it.

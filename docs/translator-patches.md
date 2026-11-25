@@ -9,20 +9,25 @@ recorded on other pages: the file flags changed on `sandboxd` and `taskgated`
 ([docs/launchd-labels.md](launchd-labels.md)), and the renumbered message ids in 27's
 disk-arbitration client, record G-08 in [docs/gaps.md](gaps.md).
 
-## On not keeping a fork
+## Where the patches live, and what has gone upstream
 
-The user-space translator is Maclator, an existing open-source project. Every patch in
-the first table below is a **fix aimed upstream**, written as a small, self-contained
-change framed around what that project is itself trying to do &mdash; not as a local
-divergence to be maintained forever. Deliberately keeping a fork would mean carrying the
-whole stack against every upstream change, which is a cost with no end.
+The user-space translator is Maclator, an existing open-source project. Since 2026-11-24
+the changes this project runs are kept on a public branch of its own fork,
+[willmcginnis/maclator, `queue/boot-tested-2026-11-24`](https://github.com/willmcginnis/maclator/tree/queue/boot-tested-2026-11-24):
+29 commits on upstream's current main: the same changes as the build behind the project's
+default test base, with internal comments removed.
+Changes made after that build (R2 below) are not on it yet. Each change that fits upstream
+is still offered there as a small, self-contained change framed around what that project
+is itself trying to do; the measured state of those offers is in
+[UPSTREAMS.md](../UPSTREAMS.md).
 
-That is the intent, and the honest status is that **only one of these patches, G, has
-gone upstream**: posted on 2026-11-08 and merged on 2026-11-10 as commit `de04499f`
-(pull request #12). A second, patch K redone as a single change on upstream's current
-main, was posted on 2026-11-23 (pull request #16) and is open. That is the first test of
-the intent against the maintainers' view, and one merged patch is a small sample. Two of the others are not in a shape to send: patch J is about 3,750 lines and
-needs splitting, and patch Y, which does the same job as X by another mechanism and has
+So far **one of these patches, G, has gone upstream**: posted on 2026-11-08 and merged on
+2026-11-10 as commit `de04499f` (pull request #12). Patch K, redone as a single change on
+upstream's current main, was posted on 2026-11-23 (pull request #16), and the same day
+three more fault-safety changes (#17, #18 and #19), K's follow-up (#22) and two questions
+as issues (#20 and #21) were posted; all were open, with no reply from upstream yet, at this snapshot.
+Two of the others are not in a shape to send: patch J is about 3,750 lines and needs
+splitting, and patch Y, which does the same job as X by another mechanism and has
 replaced it, is still under test.
 
 Upstream has moved on since this stack was built. Its main branch is now at `2d2f5b3e`,
@@ -62,6 +67,14 @@ its 14 test cases on arm64 and on arm64e; and in the two store directories sampl
 translator's file count rose in one early step and then showed no net growth over the last
 ten samples. That comparison is one boot.
 
+The build behind the project's default test base is that later engine plus Q2, the fix for
+mapping a short shared-memory object; the fork's branch is its corresponding source,
+rebuilt and unit-tested separately, not the binary the boots ran. Since 2026-11-24 that
+build is the default translator on the default test base (`amfid` still runs an older build,
+and recompiled programs are not translated): in that base's two test boots every required
+row passed (24 of 24 and 22 of 22), and with it the user session first started after a
+login (milestone L3 in [milestones.md](milestones.md)).
+
 Several of these are not Apple-specific at all. The memory-ordering fix (B), the
 reserve-before-mapping fix (P) and the page-rounding fix (Q) are the sort of thing any
 user-space translator gets wrong once; P was fixed by doing what Wine, QEMU's user mode
@@ -70,7 +83,7 @@ and FEX already do, which is generally the right place to look.
 <!-- generated:translator-tables:start -->
 <h2 id="maclator-patches">Patches to the translator</h2>
 
-21 done, 1 in progress, 0 not started, 2 superseded.
+22 done, 2 in progress, 0 not started, 2 superseded.
 
 | Patch | Area | What it fixes | State | Evidence | n | Notes |
 |---|---|---|---|---|---|---|
@@ -83,14 +96,16 @@ and FEX already do, which is generally the right place to look.
 | G | Guest memory | An unreadable path pointer crashed the translator where the kernel answers EFAULT | done | measured | unit tests | Posted upstream on 2026-11-08, the first of the stack, after two independent reviews; its upstream cut was merged 2026-11-10 (de04499f, pull request #12), and a smaller remainder of the local patch stays in the queue. A local follow-up reports a refused guest read instead of failing silently; in one boot of an engine carrying it, no such report appeared in the error output that could be read (most daemons' error output goes nowhere visible). |
 | H | Path rewriting | A '..' after a cache prefix could climb out of the sysroot | done | measured | unit tests | Eight corner cases are recorded as accepted coverage gaps (docs/gaps.md). |
 | J | fork safety | A forked child could hang or die on a lock another thread held at fork time | done | measured | 15,500 children in a guest | Large (about 3,750 lines); needs splitting before it goes upstream. |
-| K | sysctl | Crashed on an unreadable sysctl name; answered writes and hardware-feature names unlike native | done | measured | unit tests | Redone as a single change on upstream's current main (2d2f5b3e), with its own guest test, and posted upstream on 2026-11-23 as pull request #16, open at this snapshot. A local follow-up answers name lookups for the sysctl names the translator itself provides: its 14 test cases passed on arm64 and on arm64e under an engine carrying it (1 boot). |
+| K | sysctl | Crashed on an unreadable sysctl name; answered writes and hardware-feature names unlike native | done | measured | unit tests | Redone as a single change on upstream's current main (2d2f5b3e), with its own guest test, and posted upstream on 2026-11-23 as pull request #16, open at this snapshot. A local follow-up answers name lookups for the sysctl names the translator itself provides: its 14 test cases passed on arm64 and on arm64e under an engine carrying it (1 boot); posted on 2026-11-23 as pull request #22, open. |
 | L | Path rewriting | A descriptor race between a check and the call it guards | done | measured | unit tests | &mdash; |
 | M | Process identity | A translated program asking about its own code signature got the translator's answer; it now gets its own, using Apple's own validator code | done | measured | 1 boot | Its first spawn at boot gets no answer from a framework check and falls back (a recorded gap). |
 | N | Path rewriting | Adds a mode with no sysroot, for running at 27's real paths | done | measured | unit tests | &mdash; |
 | O | Residuals | Closed the earlier accepted gaps that turned out to be real defects | done | measured | unit tests | &mdash; |
 | P | Shared-cache mapping | Mapped over unmapped space with MAP_FIXED, raising kernel guard exceptions (fatal in a platform binary); now reserves the range first, as Wine, QEMU user mode and FEX do | done | measured | guard exceptions 102 to 0 | &mdash; |
 | Q | Page size | An anywhere VM map was not rounded to the 16 KiB pages the guest believes in, so freeing one took its neighbour | done | measured | unit tests | &mdash; |
+| Q2 | Page size | Rounded every file mapping up to 16 KiB, so mapping notifyd's 4 KiB shared-memory object failed; every translated process's notification registration then failed, and 27's loginwindow stopped the login at its audit step. Now, when the rounded mapping is refused with EINVAL and the program asked for less, it retries at the program's own length (a retry the kernel refuses is still refused) | done | measured | 4 unit tests; 4 login boots; 2 test boots of the default base | Matches Apple silicon, whose kernel maps the short object. The user session first started with it. On the fork's public branch; not yet offered upstream. |
 | R | Shared cache | Each process kept its own slid copy of the cache; now one file mapped copy-on-write | done | measured | 396 MB to 19 MB for one daemon | Two later local revisions: each slid file is checked once per boot and then trusted through a stamp, and a file that failed a whole check is refused for the rest of the boot. In one 38-minute boot of an engine carrying them, stamps were written, and all 14 early stamps kept their modification times while more translated programs started, which is consistent with reuse; in the two store directories sampled, the file count rose in one early step and then showed no net growth over the last ten samples (other per-daemon stores were not sampled). |
+| R2 | Shared cache | R's slid store was kept per home directory, so the same files were copied into each home directory and sandbox container that used it (16 stores in one boot held about 9 GiB of cache files, mostly duplicated slid data, and the disk ran out of space); now, where a root-owned shared store exists, every user maps root's copy, and a process that cannot use it slides privately rather than write a copy under its home; where the shared store is missing or not trustworthy, the old per-home store is still used | in progress | measured | unit tests; 1 boot | It has booted once, on 2026-11-24: the shared store held one copy (14 data files, about 560 MiB) and the disk did not fill, but that boot never reached the login window, so disk use through a login is not shown yet. That every user's processes trust root's copy is a lab policy the owner has not ruled on. Not on the fork's public branch yet. |
 | S | Loader | Refused to load a position-independent image when its preferred base was taken; now slides it as the kernel does | done | measured | engine tests and boots | This is what let 27's amfid load. |
 | T | Memory limits | The translator's own memory was not charged to the process's limit | done | measured | 1 boot | &mdash; |
 | U | JIT | Aborted when MAP_JIT is refused (27's sandbox profile for sandboxd denies it); now falls back to the interpreter | done | measured | 1 boot | &mdash; |
@@ -120,7 +135,7 @@ and FEX already do, which is generally the right place to look.
 | SkyLight backdrop clip, 1 byte (hybrid image) | 27's code assumes a Metal compositor | on disk, found by pattern per build | done | measured | 2 boots per arm | Also placed in the 27-only root's cache for the display test boots. |
 | Data volume group id written offline | 27's system volume ships with a zero group id and no tool sets it | offline superblock edit, checksums recomputed | done | measured | many boots | &mdash; |
 | DriverKit shared cache: eight libdyld forwarding stubs moved up one table slot | They call dyld's API table one slot short of where 27.0.1's dyld keeps those functions (seven matched by name; the eighth stub's name is stripped and its target was inferred from its neighbours), which crashed the HID driver extension at start | on disk, cache re-signed with its own 16 KiB hash pages | done | measured | 3 boots | All eight moved, every page hash re-checked. Not yet in the furthest configuration. |
-| A DriverKit serial extension moved out of the scanned folder | It has no x86_64 slice, and its kernel side had no x86_64 build in the collection; with it moved, the registry goes quiet (why it held matching back is inference) | on disk, the .dext moved to another folder | done | measured | 7 boots | One of two fixes for the registry stall (docs/gaps.md, B18); the other adds Apple's own x86_64 kext to the boot collection and edits no Apple file. Which one the furthest configuration takes is not decided. |
+| A DriverKit serial extension moved out of the scanned folder | It has no x86_64 slice, and its kernel side had no x86_64 build in the collection; with it moved, the registry goes quiet (why it held matching back is inference) | on disk, the .dext moved to another folder | done | measured | 7 boots | One of two fixes for the registry stall (docs/gaps.md, B18); the other adds Apple's own x86_64 kext to the boot collection and edits no Apple file. The project's default test base, adopted on 2026-11-24, takes the other fix and leaves this extension in place. |
 
 <sub>Generated from `data/translator.json` by `scripts/render.py`. Data and generated tables: [CC0-1.0](../LICENSE-CC0) (public domain).</sub>
 <!-- generated:translator-tables:end -->

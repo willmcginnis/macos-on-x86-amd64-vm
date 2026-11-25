@@ -166,7 +166,7 @@ This only matters if Apple's DriverKit drivers are loaded on Intel. It was not t
 
 | What | Boots | Note |
 |---|---|---|
-| The login window is never shown. SecurityAgent logs that it is showing the window; its main thread stays blocked in a synchronous LocalAuthentication call that never gets a reply | 1 (stack samples); the missing window, 6 | See below the table |
+| The login window was not shown in the six boots this row first counted. SecurityAgent logs that it is showing the window; its main thread stays blocked in a synchronous LocalAuthentication call that never gets a reply | 1 (stack samples); the missing window, 6 | See below the table. **Since found to appear; most likely a race** (2026-11-24 update below) |
 | `loginwindow`'s child job `com.apple.MenuBarAgent` exits with status 134, three times per boot | 2 | Not shown to relate to anything else |
 
 On the login window: the peer of SecurityAgent's blocked call is probably `coreauthd`, from
@@ -179,8 +179,17 @@ after them.
 Both could come from our virtual machine or our translated programs rather than from
 macOS 27 on Intel; nothing here says which.
 
+**Update, 2026-11-24.** The login window does appear. Whether it does looks like a race:
+SecurityAgent has to show its window before the guest's display goes to sleep, and once the
+display sleeps nothing redraws it (inferred from one boot's timing, in which SecurityAgent
+logged that it was showing its window one second before the screens slept; no frame of
+that boot showed it). The window was drawn in 2 of 2 boots of one set-up and
+1 of 2 of another when nothing kept the display awake, and in each of 6 later boots in
+which a login was typed; keyboard input typed at it reached it. Where the login goes after
+that: [docs/gaps.md](gaps.md), B21 and B22.
+
 ---
 
-Boots from 2026-11-09 to 2026-11-23, most of them on 2026-11-22 and 2026-11-23. The counts on
+Boots from 2026-11-09 to 2026-11-24, most of them on 2026-11-22 and 2026-11-23. The counts on
 this page come from the project's private working notes, at the revision named in
 [`data/status.json`](../data/status.json).

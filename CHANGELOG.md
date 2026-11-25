@@ -10,6 +10,53 @@ Dates are US Pacific time. The underlying work happened over a longer period tha
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
 
+## [3.0.0] &mdash; 2026-11-24
+
+### Added
+
+- `docs/roadmap.md`: the two stages of the work (something that works first, then
+  replacing what it leans on), what done means for the first, the dependence on Apple's
+  x86-64 libraries stated plainly, the safeguards and their state, and what would change
+  the plan.
+- `UPSTREAMS.md`: the projects this work builds on and others close to it, with measured
+  activity read on 2026-11-24, this project's open items with them, a quarterly base check,
+  and how the page is kept.
+- `README.md`: a dated *Where it stands* section with the first stage's steps, their dates
+  and boot counts, and the two current blockers.
+- Milestones L1 to L4: the login window on the 27-only root (2026-11-23), a typed login
+  authorized, the user session started, and the first-login User Account Updater completed
+  (2026-11-24).
+- Open walls B22 (no desktop after the first login: no window of the first-login Setup
+  Assistant appears) and B23 (the translator's shared-cache data fills the disk).
+- Translator patches Q2 (mapping a short shared-memory object at the program's own length;
+  the user session first started with it) and R2 (one root-owned store of slid shared-cache
+  data for every user; built, booted once with the disk not filling, not yet through a login).
+- Boot-path programs: Setup Assistant (first login), and `accountsd` with `ScreenTimeAgent`.
+- Accepted-risk record G-52, which is *pending the owner*: every way programs run here needs
+  Apple's x86-64 libraries, which a release after macOS 27 may drop.
+
+### Changed
+
+- The record is refreshed as of 2026-11-24.
+- B21 is closed: the login window appears; whether it does looks like a race with the
+  guest's display going to sleep (inferred from one boot's timing). The Liberator notes page says so in a dated update.
+- `loginwindow` is recorded as running *translated*, which is how it runs in the login
+  boots; the recompiled build still exits with status 70.
+- `xpcproxy`, relinked with the newer link tools, lets the two `launchd` jobs that name a
+  cryptex start; the link tools' row says so.
+- The project's default test base, adopted on 2026-11-24, carries the registry-stall fix
+  that adds Apple's x86-64 `IOUserSerial.kext` to the boot collection, and the translator
+  build with Q2 as its default translator; the rows that named "not in the furthest
+  configuration yet" say so.
+- Keyboard input typed at the login window reaches it; the earlier "keyboard and mouse
+  input does not work yet" is replaced. Whether a click reaches a control is not tested.
+- The translator: the earlier "no long-lived fork" is replaced. The changes the project
+  runs are kept on a public branch of its fork, and each change that fits upstream is still
+  offered there. The withdrawn "no long-lived fork" statement makes this a major version.
+  Pull requests #17, #18, #19 and #22 and issues #20 and #21, posted on
+  2026-11-23, are recorded, all open.
+- The risks table is 52 rows drawn from a register of 83.
+
 ## [2.0.0] &mdash; 2026-11-23
 
 ### Added
