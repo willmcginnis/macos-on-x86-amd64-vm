@@ -6,8 +6,10 @@ of it is a judgement of a project or of the people who run it.
 
 **Read on 2026-11-24**, between 22:19 and 22:45 UTC (2:19 to 2:45 PM US Pacific), through
 GitHub's and GitLab's public APIs, read-only. Our own open items were read again at about
-00:15 UTC on 2026-11-25 (4:15 PM Pacific on 2026-11-24), and once more at 03:47 UTC
-(7:47 PM Pacific), after the #19 and #22 updates.
+00:15 UTC on 2026-11-25 (4:15 PM Pacific on 2026-11-24), once more at 03:47 UTC
+(7:47 PM Pacific), after the #19 and #22 updates, and again at 16:29 UTC on 2026-11-25
+(8:29 AM Pacific), when nothing in them had changed. The activity tables are from the
+2026-11-24 read.
 
 ## How each column was read
 
@@ -39,7 +41,7 @@ table: it is published as source drops, not developed in the open.
 
 ### Our open items there
 
-| Where | Item | Opened | State, 2026-11-24 |
+| Where | Item | Opened | State, 2026-11-25 |
 |---|---|---|---|
 | Maclator | [pull request #12](https://github.com/linuxkid473/maclator/pull/12): an unreadable path name returns EFAULT instead of crashing | 2026-11-08 | merged 2026-11-10 |
 | Maclator | [pull request #16](https://github.com/linuxkid473/maclator/pull/16): the same for an unreadable sysctl name or MIB | 2026-11-23 | open; one follow-up comment of ours, 2026-11-23 |
@@ -50,16 +52,21 @@ table: it is published as source drops, not developed in the open.
 | Maclator | [issue #20](https://github.com/linuxkid473/maclator/issues/20): each translated launch keeps its own slid copy of the shared cache; would sharing it be welcome? | 2026-11-23 | open |
 | Maclator | [issue #21](https://github.com/linuxkid473/maclator/issues/21): store-release ordering on x86; would a small fence fix be welcome? | 2026-11-23 | open |
 
-The items opened on 2026-11-23 were about a day old at the read. The repository's earlier
+The items opened on 2026-11-23 were about two days old at the latest read, with no review
+or comment from anyone else yet. The repository's earlier
 merged pull requests were merged between 6 hours and 19 days after they were opened.
 
 The translator changes this project runs, including ones not offered upstream yet, are on a
 public branch of its fork:
 [willmcginnis/maclator, branch `queue/boot-tested-2026-11-24`](https://github.com/willmcginnis/maclator/tree/queue/boot-tested-2026-11-24)
-(29 commits on Maclator's current main: the same changes as the translator build behind the
-project's default test base, with internal comments removed). Changes made after that build,
-such as one root-owned store of slid shared-cache data for every user
-([docs/translator-patches.md](docs/translator-patches.md), R2), are not on it yet.
+(45 commits on Maclator's current main, read on 2026-11-25, with internal comments removed:
+the changes behind the project's default test bases, among them one root-owned store of
+slid shared-cache data for every user (R2) and the fix for guest memory (Z), which are in
+the base adopted on 2026-11-25; the fix for app-sandboxed programs (AA; all three in
+[docs/translator-patches.md](docs/translator-patches.md)); and some smaller fixes to the
+translation cache and its tests). The translator built from the branch's tip
+has not itself been booted. Local builds carrying R2, Z and AA have been; the smaller cache
+fixes have unit tests only.
 
 ## Others working on something close
 

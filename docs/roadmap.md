@@ -1,6 +1,6 @@
 # Roadmap
 
-As of **2026-11-24**. The goal has not changed: macOS 27 as a virtual machine guest on
+As of **2026-11-25**. The goal has not changed: macOS 27 as a virtual machine guest on
 ordinary x86-64 hardware, under QEMU and KVM on Linux. What this page adds is the order the
 work is done in, and what each stage leans on.
 
@@ -36,11 +36,16 @@ GPU (software rendering), as bring-up was always meant to be.
 **Where it stands.** The steps reached so far are in the README,
 [Where it stands](../README.md#where-it-stands), each with its date and `n`. In
 short: the login window is drawn, a typed login is authorized, the user session starts and
-the first-login User Account Updater completes; then no window of the first-login Setup
-Assistant appears and no Dock or Finder start ([gaps.md](gaps.md), B22, 2 boots). In the
-first of those boots the disk also ran out of space after 16 stores of the translator's
-cache, mostly duplicated slid shared-cache data, came to about 9 GiB (B23); in the second
-it did not, and the screen went black the same way.
+the first-login User Account Updater completes. The first-login Setup Assistant showed no
+pane when it ran (2 boots); it is now skipped by a per-user marker the test places, so a
+first login through Setup Assistant is not shown. With it skipped, the Dock, Finder,
+SystemUIServer and Control Center start (4 boots), the Dock is drawn about half an hour
+after the login, and in one boot a menu bar and a wallpaper were drawn and a click opened
+the Apple menu. WindowManager keeps crashing ([gaps.md](gaps.md), B25), so there is no
+usable desktop yet. In the last three of those boots the translator's shared-cache data
+did not come near filling the disk (the lowest free space was 5.1 GiB or more; in the one
+before, 2.33 GiB, against a 2 GiB stop), but disk use through a login with every program on
+the fix is not shown (B23).
 
 ## Stage 2: the longer tail
 
@@ -83,6 +88,13 @@ and translated) needs it **as built today**:
   shared cache itself has not been settled (the file listings taken cannot answer it: they
   do not show the shared region as a file, even for a native process).
 
+The translator's own use of `libSystem` has already caused one defect: `libSystem`'s
+start-up ran for the translator as well as for the program, in the same process, so in the
+four app-sandboxed session agents diagnosed the sandbox was asked for twice and the second
+request was refused ([gaps.md](gaps.md), B24). Patch AA, in progress, removes the translator's
+request for the five agents and the test program given it so far; the translator's start-up still runs in every translated process. Apple's Rosetta runtime is a static program that
+loads no libraries (read on 27.0.1), which is the shape step 1 below is after.
+
 Apple has said that Rosetta stays available as a general-purpose tool through macOS 27, and
 that after that only a subset, aimed at older games, will be kept
 ([Apple's page](https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment)).
@@ -110,7 +122,7 @@ would do (none has been met so far).
 
 ## Safeguards, and their state today
 
-| Practice | State, 2026-11-24 |
+| Practice | State, 2026-11-25 |
 |---|---|
 | Every lifted program stays runnable under the translator, checked by a boot with only translated programs, in which each program has to do its job, not only start | **Not in place.** On the default test base, the original of at least one lifted program (`xpcproxy`) is not kept beside it. No translated-only test boot has run |
 | At each new macOS release or beta, before it is adopted, read what it still ships for x86: the programs' x86-64 builds, the x86-64 library cache and its count, `dyld`'s x86-64 build, whether every library the lifted programs import is still there (an unchanged count can hide a missing one), the Kernel Debug Kit's x86 kernels and kexts, and the x86 xnu source | **Not yet run as one check.** 27.2 was read in parts. First due at the next release adopted |

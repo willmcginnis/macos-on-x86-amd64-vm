@@ -13,7 +13,7 @@ abstract: >-
   A progress record for an independent research project working to boot and run
   macOS 27.0.1, a release Apple ships for Apple silicon only, on x86-64 hardware
   as a virtual machine guest. Its furthest configuration so far reaches launchd's
-  daemon phase and ssh logins, on a self-built kernel, with no desktop. It holds
+  daemon phase and ssh logins, on a self-built kernel, with no usable desktop. It holds
   machine-readable progress tables covering a
   feature matrix by layer, the boot-path programs, the launchd job labels whose
   program paths are on 27.0.1's system volume or its Data-volume template, every
@@ -34,8 +34,8 @@ keywords:
   - xnu
   - reverse engineering
 license: CC0-1.0
-version: "3.1.0"
-date-released: "2026-11-24"
+version: "3.2.0"
+date-released: "2026-11-25"
 
 # version and date-released name the latest release in CHANGELOG.md.
 #

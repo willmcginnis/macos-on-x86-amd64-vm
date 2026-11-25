@@ -11,6 +11,57 @@ Dates are US Pacific time. The underlying work happened over a longer period tha
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
 
+## [3.2.0] &mdash; 2026-11-25
+
+The login line reaches a partly drawn desktop; a new default test base; three translator
+changes on the fork's public branch.
+
+### Added
+
+- Milestones L5 (the Dock, Finder, SystemUIServer and Control Center start after the first
+  login, 2026-11-24, 4 boots), L6 (a menu bar and a wallpaper drawn, 2026-11-25, 1 boot) and
+  L7 (a click is seen to open the Apple menu, 2026-11-25, 1 boot). All three rest on a per-user
+  marker, placed by the test, that skips the first-login Setup Assistant.
+- Open walls B24 (the session's app-sandboxed agents stopped before their main function,
+  because the translator's start-up asked for their sandbox before they did; with patch AA,
+  each observed process of the five agents asked once and none stopped at that point, 1
+  boot) and B25 (WindowManager keeps crashing: its own sandbox profile refuses the
+  translator's event-queue calls; a fix is being worked on, with no result yet).
+- Translator patches Z (guest memory read through the task name libSystem keeps: refused-read
+  warnings 1,001 to 0) and AA (one App Sandbox request per program, under its own name).
+- Boot-path programs: WindowManager, and the five app-sandboxed session agents.
+- The kernel row in `docs/components.md`: one call the self-built kernel allowed that
+  Apple's arm64 kernel refused on an Apple silicon Mac running macOS 27.0.1, under different
+  security settings, and that Apple's published source allows only with a kernel-debugger
+  setting the guest leaves off.
+
+### Changed
+
+- The login steps' counts: 11 boots for the window and an authorized login, 9 for the
+  session, 6 for User Account Updater.
+- B22 is now "No usable desktop after the first login". The boots of the login line with no
+  login window each had a disk-management service crashing; with Apple's own disk-arbitration
+  daemon in place of the recompiled one, the window appeared in all 4 scored boots
+  (`diskarbitrationd` row); the earlier lead that the guest's load may be why one of them
+  showed no window is dropped. Setup Assistant is skipped, not fixed: why it showed no pane
+  is still not read.
+- Dock, Finder, SystemUIServer (now with ControlCenter): from *not started* to *in progress*,
+  run translated.
+- The default test base was replaced on 2026-11-25 (31 of 31 and 29 of 29 required rows;
+  free space fell 1.54 GiB against 5.23 GiB for a matched control of the previous base; no
+  per-home copies of the slid data).
+- R2 and B23: free space in the three latest login boots stayed at 5.1 GiB or more; disk use
+  through a login with every program on the fix is still not shown. R2 is now on the fork's
+  public branch, which has 45 commits on Maclator's main; the translator built from its tip
+  has not itself been booted. Our upstream items were read again: unchanged.
+- One click has now been seen to open a control (the Apple menu, 1 boot), replacing "whether
+  a click reaches a control has not been tested" everywhere it was said.
+- `docs/roadmap.md`: a paragraph on the defect the translator's own use of `libSystem`
+  caused (B24), and that Apple's Rosetta runtime loads no libraries.
+- `docs/notes-for-liberator.md`: the MenuBarAgent exits were traced to our translator in
+  later boots (inferred for the two boots that row first counted), and one count (7 to 11
+  later boots with a typed login).
+
 ## [3.1.0] &mdash; 2026-11-24
 
 Later the same day: the results of two more login boots, what was read in an earlier one,

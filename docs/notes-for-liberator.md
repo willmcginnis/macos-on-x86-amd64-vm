@@ -167,7 +167,7 @@ This only matters if Apple's DriverKit drivers are loaded on Intel. It was not t
 | What | Boots | Note |
 |---|---|---|
 | The login window was not shown in the six boots this row first counted. SecurityAgent logs that it is showing the window; its main thread stays blocked in a synchronous LocalAuthentication call that never gets a reply | 1 (stack samples); the missing window, 6 | See below the table. **Since found to appear; most likely a race** (2026-11-24 update below) |
-| `loginwindow`'s child job `com.apple.MenuBarAgent` exits with status 134, three times per boot | 2 | Not shown to relate to anything else |
+| `loginwindow`'s child job `com.apple.MenuBarAgent` exits with status 134, three times per boot | 2 | **Most likely our translator's fault**: in later boots the same exit was traced to it (the translator's own start-up asked for the program's app sandbox first, so the program's own request was refused); for the 2 boots this row counted, that is inferred (2026-11-25 update below) |
 
 On the login window: the peer of SecurityAgent's blocked call is probably `coreauthd`, from
 a log line on the same thread (inference). In the same boot WindowServer also refused
@@ -184,12 +184,20 @@ SecurityAgent has to show its window before the guest's display goes to sleep, a
 display sleeps nothing redraws it (inferred from one boot's timing, in which SecurityAgent
 logged that it was showing its window one second before the screens slept; no frame of
 that boot showed it). The window was drawn in 2 of 2 boots of one set-up and
-1 of 2 of another when nothing kept the display awake, and in each of 7 later boots in
+1 of 2 of another when nothing kept the display awake, and in each of 11 later boots in
 which a login was typed; keyboard input typed at it reached it. Where the login goes after
 that: [docs/gaps.md](gaps.md), B21 and B22.
 
+**Update, 2026-11-25.** In later boots the same MenuBarAgent exits were traced to our
+translator. It starts on Apple's x86-64 `libSystem`, so in a translated app-sandboxed
+program the translator's start-up asked for the program's sandbox before the program did,
+and the program's own request was then refused. With that changed in our translator, it
+asked once and stayed up (1 boot). For the boots the row above first counted, the same
+cause is inferred, not read; as far as we can tell, it is not about macOS 27 on Intel
+hardware.
+
 ---
 
-Boots from 2026-11-09 to 2026-11-24, most of them on 2026-11-22 and 2026-11-23. The counts on
+Boots from 2026-11-09 to 2026-11-25, most of them on 2026-11-22 to 2026-11-24. The counts on
 this page come from the project's private working notes, at the revision named in
 [`data/status.json`](../data/status.json).
