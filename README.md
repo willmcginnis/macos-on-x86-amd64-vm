@@ -52,10 +52,10 @@ The first stage's steps so far, all on test overlays of the 27-only root:
 
 | Step | First reached | Boots |
 |---|---|---|
-| macOS 27's login window on screen | 2026-11-23 | Drawn in 2 of 2 boots of one set-up and 1 of 2 of another when nothing kept the display awake; whether it appears looks like a race with the guest's display going to sleep (inferred from one boot's timing, in which SecurityAgent logged that it was showing its window one second before the screens slept). Drawn in each of the 6 later boots in which a login was typed |
-| A name and password typed at that window are authorized | 2026-11-24 | 6; in the first two, no session followed |
-| The user session starts | 2026-11-24 | 4, all with a translator fix for mapping short shared-memory objects ([Q2](docs/translator-patches.md)) |
-| The first-login User Account Updater completes | 2026-11-24 | 1, after `xpcproxy` was relinked so that `accountsd` could start |
+| macOS 27's login window on screen | 2026-11-23 | Drawn in 2 of 2 boots of one set-up and 1 of 2 of another when nothing kept the display awake; whether it appears looks like a race with the guest's display going to sleep (inferred from one boot's timing, in which SecurityAgent logged that it was showing its window one second before the screens slept). Drawn in each of the 7 later boots in which a login was typed |
+| A name and password typed at that window are authorized | 2026-11-24 | 7; in the first two, no session followed |
+| The user session starts | 2026-11-24 | 5, all with a translator fix for mapping short shared-memory objects ([Q2](docs/translator-patches.md)) |
+| The first-login User Account Updater completes | 2026-11-24 | 2, both after `xpcproxy` was relinked so that `accountsd` could start |
 
 Separately, a new default test base was adopted on 2026-11-24: one standalone disk image,
 with the build carrying that translator fix as its default translator (`amfid` still runs
@@ -69,19 +69,29 @@ Blocked now, at two places:
 - **No Setup Assistant window appears after the first login.** After User Account
   Updater, `loginwindow` launches the first-login Setup Assistant for the new user; it
   becomes the frontmost app, no pane of it appears, the screen stays black, and no Dock or
-  Finder process starts (1 boot). Why is not read ([docs/gaps.md](docs/gaps.md), B22).
+  Finder process starts (1 boot). A second boot ended the same way, with the same final
+  frame, byte for byte, and again no Dock or Finder; in it the disk did not run out, so
+  running out of space is not why (1 boot). Marking Setup Assistant's record for the user
+  complete beforehand did not stop it: it was launched anyway, the updater logging that
+  this was a new user account. Why no pane appears is not read ([docs/gaps.md](docs/gaps.md), B22).
 - **The translator's shared-cache data fills the disk.** The same files were copied into
   every store directory the translator made, one per home directory or sandbox container
   that used it: 16 stores held about 9 GiB of cache files in one boot, mostly duplicated
-  slid data, and the disk ran out about a minute after Setup Assistant was launched, which
-  may be part of the first blocker. A fix (one root-owned store) has booted once, below:
-  the shared store held one copy (14 data files, about 560 MiB) and the disk did not fill
-  (B23).
+  slid data, and the disk ran out about a minute after Setup Assistant was launched. The
+  first build of a fix (one root-owned store) has booted in two arrangements (1 boot each).
+  With nearly every translated program on it, the shared store held one copy (14 data
+  files, about 560 MiB) and the disk did not fill, but no login window appeared. With it
+  named for 81 programs on the login path and another build as the default, the login went
+  through, but the programs on the other build made 140 copies in 10 per-home stores, and
+  free space fell to about 2.15 GiB, just above the 2 GiB at which the test stops (B23).
 
-A first login boot with both of those addressed (Setup Assistant's record for the user
-marked complete beforehand, and the disk fix) ran late on 2026-11-24. It stayed on the text
-console and showed no login window, so neither fix is shown through a login yet; why is not
-read yet. A second attempt is next.
+A later boot on 2026-11-24 placed a per-user marker that may let the first login skip
+Setup Assistant, and named a later build of the fix (it keeps each reader's own checks of
+the shared store in that reader's own store) for those 81 programs and 16 more of the login
+session (97). No login window appeared by the end of the test (1 boot), so whether the
+marker works is not read; the guest was not overloaded (its load fell to 7), and why no
+window appeared is not read. A control boot, the same set-up with the first build, has no
+result yet.
 
 What does not work yet, plainly: there is no desktop and no GPU acceleration, and whether
 a click reaches a control has not been tested; for most programs seen running, whether
@@ -172,7 +182,7 @@ times.
 - On that root, macOS 27's own launchd (pid 1) and xpcproxy run as x86_64 programs recompiled from Apple's arm64e builds by the project's lifter. *(measured, n = 3 boots for launchd and 2 for xpcproxy, one configuration each)*
 - macOS 27's own arm64e Sandbox kext, its 958 reachable functions (of 967) recompiled to x86_64, loads and enforces: file read, write and exec denies, a network deny and default-deny give the same results as native 27.0.1. *(measured, n = 2 boots on Apple's kernel image; on the self-built kernel, 2 boots agreeing on every probe row plus 1 on a later version)*
 - Root logins over ssh return sw_vers 27.0.1 on x86_64. *(measured, n = 3 of 3 logins in 8 of 9 boots of the furthest configuration with a 180 s login timeout, 1 of 3 in one; 0 with a 60 s timeout, explained in docs/components.md)*
-- On test overlays of the 27-only root, 27's own login window is drawn, a name and password typed at it are authorized, the user session starts, and the first-login User Account Updater completes. No desktop follows yet. *(measured, n = window and authorized login: 6 boots; session: 4; User Account Updater: 1)*
+- On test overlays of the 27-only root, 27's own login window is drawn, a name and password typed at it are authorized, the user session starts, and the first-login User Account Updater completes. No desktop follows yet. *(measured, n = window and authorized login: 7 boots; session: 5; User Account Updater: 2)*
 - The kernel the furthest configuration uses is built by the project from Apple's published xnu source (macOS 26.5's), plus the interfaces 27 needs, re-derived from 27's own x86_64 machine code. It is not Apple's kernel and reports version 25.5.0. *(measured, n = build reproduced for each version)*
 
 <sub>Generated from `data/status.json` by `scripts/render.py`. Data and generated tables: [CC0-1.0](LICENSE-CC0) (public domain).</sub>
@@ -184,7 +194,7 @@ This list is the point of the page. It is kept at least as current as the one ab
 because a progress record that lists only the wins is not a record of anything.
 
 <!-- generated:readme-not-shown:start -->
-- No desktop on the 27-only root yet. On its test overlays the first login now gets through User Account Updater (1 boot); then the first-login Setup Assistant becomes the frontmost app but no pane of it appears, the screen stays black, and no Dock or Finder process starts (1 boot; docs/gaps.md, B22). The 27-only root's login window is drawn; the recovery window, Disk Utility and the installer are drawn only on a hybrid image (macOS 26's recovery volume with 27's files placed over it), with a software compositor.
+- No desktop on the 27-only root yet. On its test overlays the first login now gets through User Account Updater (2 boots); then the first-login Setup Assistant is launched but no pane of it appears, the screen stays black, and no Dock or Finder process starts (2 boots; docs/gaps.md, B22). The 27-only root's login window is drawn; the recovery window, Disk Utility and the installer are drawn only on a hybrid image (macOS 26's recovery volume with 27's files placed over it), with a software compositor.
 - The kernel is self-built from Apple's macOS 26.5 source, not Apple's 27.0.1 kernel. Apple's own 27.0.1 x86_64 kernel also boots, but only with load-time patches.
 - No GPU acceleration: there is no Metal device.
 - Pieces of macOS 26 (Tahoe) are still in the boot: the x86 boot loader (boot.efi, which 27.0.1 does not ship), nine kexts, the tool that builds the kernel collection, and the APFS driver the boot loader uses; some boot set-ups also add macOS 26's vmxnet3 network driver. 27's own logd and logd_helper replaced macOS 26's in three boots.
@@ -192,7 +202,7 @@ because a progress record that lists only the wins is not a record of anything.
 - macOS 27's own amfid runs under translation and stays up (4 boots). In one boot it refused an ad hoc signed program carrying a restricted entitlement, as Apple's does; whether it answers every signature check correctly has not been tested, and an edited-signature test did not discriminate.
 - sandboxd is not shown staying up when launchd starts it. With an earlier fix, a hand-started copy got past the failure in 2 of 2 boots, while the launchd-started copy kept restarting in the second (it ran with a trace option the hand-started one did not). That fix (patch X) had an open race and has been replaced by patch Y, whose boots are not written up in this record yet.
 - The 240-second registry stall early in boot is explained (docs/gaps.md, B18), and the project's default test base, adopted on 2026-11-24, carries one of its two fixes; most rows of this record predate that base. Keyboard input typed at the login window reaches it; pointer events were seen reaching the HID queue in earlier boots, but whether a click reaches a control has not been tested.
-- The translator copies the same slid shared-cache data into a store per home directory or sandbox container that uses it: in one boot 16 stores held about 9 GiB of cache files, mostly duplicated slid data, and the root's 51.5 GB container ran out of space. A fix that keeps one shared copy is built, its cache tests pass, and a later build of it passed the whole test suite; it has booted once, on 2026-11-24: the shared store held one copy (14 data files, about 560 MiB) and the disk did not fill, but that boot never reached the login window, so disk use through a login is not shown yet (docs/gaps.md, B23).
+- The translator copies the same slid shared-cache data into a store per home directory or sandbox container that uses it: in one boot 16 stores held about 9 GiB of cache files, mostly duplicated slid data, and the root's 51.5 GB container ran out of space. A fix that keeps one shared copy is built, its cache tests pass, and a later build of it passed the whole test suite. The first build has booted in two arrangements on 2026-11-24: with nearly every translated program on it, the shared store held one copy (14 data files, about 560 MiB) and the disk did not fill, but no login window appeared; named for 81 programs on the login path, the login went through, but the programs on another build made 140 per-home copies and free space fell to about 2.15 GiB. The later build has booted once, with no login window (docs/gaps.md, B22). So disk use through a login with every program on the fix is not shown yet (docs/gaps.md, B23).
 - Every way programs run here needs Apple's x86_64 libraries, which macOS 27 ships for Rosetta: Apple's own x86_64 programs, the recompiled ones, and the translator itself. Apple has said general-purpose Rosetta stays through macOS 27 and only a subset after it. What that means for the plan: docs/roadmap.md.
 - For most programs only 'running' was measured, not that they do their job.
 - Many results are one boot per configuration, often on a heavily loaded lab host. Behaviour past a 1-minute load average of about 100 has not been tested systematically; the first-run timings in docs/gaps.md (B15) were taken at a load of 130 to 198.
@@ -280,7 +290,7 @@ Every program, with its note: [docs/boot-programs.md](docs/boot-programs.md).
 <details>
 <summary><strong>Translator patches</strong> &mdash; 22 done, 2 in progress, 0 not started, 2 superseded</summary>
 
-The translator changes the project runs are kept on a public branch of its fork (queue/boot-tested-2026-11-24 on willmcginnis/maclator; UPSTREAMS.md). Each change that fits upstream is still offered there as a small, clean change framed around that project's own goals; patch J still needs splitting first. The upstream cut of patch G was merged on 2026-11-10 (de04499f, pull request #12). On 2026-11-23 patch K (pull request #16), four more changes (#17, #18, #19 and #22) and two questions as issues (#20 and #21) were posted; all are open at this snapshot. The rest have not been posted.
+The translator changes the project runs are kept on a public branch of its fork (queue/boot-tested-2026-11-24 on willmcginnis/maclator; UPSTREAMS.md). Each change that fits upstream is still offered there as a small, clean change framed around that project's own goals; patch J still needs splitting first. The upstream cut of patch G was merged on 2026-11-10 (de04499f, pull request #12). On 2026-11-23 patch K (pull request #16), four more changes (#17, #18, #19 and #22) and two questions as issues (#20 and #21) were posted; all are open at this snapshot. On 2026-11-24 a commit was added to #22 (the runtime's own sysctl names stay usable in a forked child), and the descriptions of #19 and #22 were revised. The rest have not been posted.
 
 Every patch, what it fixes and how it was tested: [docs/translator-patches.md](docs/translator-patches.md).
 

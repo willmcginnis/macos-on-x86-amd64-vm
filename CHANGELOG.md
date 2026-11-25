@@ -4,11 +4,37 @@ Notable changes to this record. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions are
 [semantic](https://semver.org/) &mdash; for a record of measurements, a **major** change
 means a claim was withdrawn or a state went backwards, a **minor** change means new rows
-or new pages, and a **patch** change means corrections and wording.
+or new pages or new results in existing rows, and a **patch** change means corrections and
+wording.
 
 Dates are US Pacific time. The underlying work happened over a longer period than this
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
+
+## [3.1.0] &mdash; 2026-11-24
+
+Later the same day: the results of two more login boots, what was read in an earlier one,
+and two updates to the project's items with Maclator.
+
+### Changed
+
+- A second boot got through the login and User Account Updater (2 boots now): Setup
+  Assistant was launched anyway, although its record for the user was marked complete
+  beforehand, and the screen went black in the same way, with the same final frame; the
+  disk did not run out in that boot, so running out of space is not why (B22). The login
+  steps' counts are 7 boots for the window and an authorized login, 5 for the session and
+  2 for User Account Updater.
+- R2 and B23: the first build of the one root-owned store has booted in two arrangements.
+  With nearly every translated program on it, one copy and no full disk, but no login
+  window (the boot 3.0.0 recorded, now with what was read in it: the guest's load rose past
+  300, which may be why); named for 81 programs on the login path, a login, but 140 per-home copies made by
+  the programs on another build. A later build has booted once, with no login window.
+- B21: two more boots without a login window. B22: one more, which placed a per-user
+  marker that may let the first login skip Setup Assistant; whether it does is not read.
+  Its control boot has no result yet.
+- Patch K and `UPSTREAMS.md`: a commit was added to pull request #22 (the runtime's own
+  sysctl names stay usable in a forked child), and the descriptions of #19 and #22 were
+  revised.
 
 ## [3.0.0] &mdash; 2026-11-24
 

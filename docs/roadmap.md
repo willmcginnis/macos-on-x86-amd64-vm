@@ -37,9 +37,10 @@ GPU (software rendering), as bring-up was always meant to be.
 [Where it stands](../README.md#where-it-stands), each with its date and `n`. In
 short: the login window is drawn, a typed login is authorized, the user session starts and
 the first-login User Account Updater completes; then no window of the first-login Setup
-Assistant appears and no Dock or Finder start ([gaps.md](gaps.md), B22), and in the same
-boot the disk ran out of space after 16 stores of the translator's cache, mostly duplicated
-slid shared-cache data, came to about 9 GiB (B23).
+Assistant appears and no Dock or Finder start ([gaps.md](gaps.md), B22, 2 boots). In the
+first of those boots the disk also ran out of space after 16 stores of the translator's
+cache, mostly duplicated slid shared-cache data, came to about 9 GiB (B23); in the second
+it did not, and the screen went black the same way.
 
 ## Stage 2: the longer tail
 
@@ -76,10 +77,11 @@ and translated) needs it **as built today**:
 - Lifted programs bind every library call to Apple's x86-64 builds of those libraries.
   Lifting more programs makes more of the boot depend on the full set.
 - Translated programs need it too, though far less of it: the translator is itself an
-  x86-64 program that starts on Apple's x86-64 `dyld` and `libSystem`. In one boot, a
+  x86-64 program that starts on Apple's x86-64 `dyld` and `libSystem`. In two boots, a
   translated process was seen to map x86-64 `libSystem` files from Apple's Rosetta
-  component (measured, n = 1); whether translated processes also map the x86-64 shared
-  cache itself has not been settled (the one reading taken could not answer it).
+  component (measured, n = 2 boots); whether translated processes also map the x86-64
+  shared cache itself has not been settled (the file listings taken cannot answer it: they
+  do not show the shared region as a file, even for a native process).
 
 Apple has said that Rosetta stays available as a general-purpose tool through macOS 27, and
 that after that only a subset, aimed at older games, will be kept

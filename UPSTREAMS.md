@@ -6,7 +6,8 @@ of it is a judgement of a project or of the people who run it.
 
 **Read on 2026-11-24**, between 22:19 and 22:45 UTC (2:19 to 2:45 PM US Pacific), through
 GitHub's and GitLab's public APIs, read-only. Our own open items were read again at about
-00:15 UTC on 2026-11-25 (4:15 PM Pacific on 2026-11-24).
+00:15 UTC on 2026-11-25 (4:15 PM Pacific on 2026-11-24), and once more at 03:47 UTC
+(7:47 PM Pacific), after the #19 and #22 updates.
 
 ## How each column was read
 
@@ -44,8 +45,8 @@ table: it is published as source drops, not developed in the open.
 | Maclator | [pull request #16](https://github.com/linuxkid473/maclator/pull/16): the same for an unreadable sysctl name or MIB | 2026-11-23 | open; one follow-up comment of ours, 2026-11-23 |
 | Maclator | [pull request #17](https://github.com/linuxkid473/maclator/pull/17): the same for an unreadable code-signing `fcntl` structure | 2026-11-23 | open |
 | Maclator | [pull request #18](https://github.com/linuxkid473/maclator/pull/18): reading an executable mapping's Mach-O header without crashing | 2026-11-23 | open |
-| Maclator | [pull request #19](https://github.com/linuxkid473/maclator/pull/19): EFAULT or E2BIG instead of crashing on bad `posix_spawn` or `execve` arguments | 2026-11-23 | open |
-| Maclator | [pull request #22](https://github.com/linuxkid473/maclator/pull/22): answering the runtime's own sysctl names (builds on #16) | 2026-11-23 | open |
+| Maclator | [pull request #19](https://github.com/linuxkid473/maclator/pull/19): EFAULT or E2BIG instead of crashing on bad `posix_spawn` or `execve` arguments | 2026-11-23 | open; its description revised by us, 2026-11-24 |
+| Maclator | [pull request #22](https://github.com/linuxkid473/maclator/pull/22): answering the runtime's own sysctl names (builds on #16) | 2026-11-23 | open; a commit of ours added (the names stay usable in a forked child) and its description revised, 2026-11-24 |
 | Maclator | [issue #20](https://github.com/linuxkid473/maclator/issues/20): each translated launch keeps its own slid copy of the shared cache; would sharing it be welcome? | 2026-11-23 | open |
 | Maclator | [issue #21](https://github.com/linuxkid473/maclator/issues/21): store-release ordering on x86; would a small fence fix be welcome? | 2026-11-23 | open |
 

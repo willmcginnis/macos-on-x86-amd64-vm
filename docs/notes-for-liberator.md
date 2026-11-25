@@ -184,7 +184,7 @@ SecurityAgent has to show its window before the guest's display goes to sleep, a
 display sleeps nothing redraws it (inferred from one boot's timing, in which SecurityAgent
 logged that it was showing its window one second before the screens slept; no frame of
 that boot showed it). The window was drawn in 2 of 2 boots of one set-up and
-1 of 2 of another when nothing kept the display awake, and in each of 6 later boots in
+1 of 2 of another when nothing kept the display awake, and in each of 7 later boots in
 which a login was typed; keyboard input typed at it reached it. Where the login goes after
 that: [docs/gaps.md](gaps.md), B21 and B22.
 
