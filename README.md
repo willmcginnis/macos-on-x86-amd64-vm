@@ -92,13 +92,9 @@ Two further limits worth stating plainly, because no single row carries them:
 
 ## The pages
 
-The sections that earlier versions of this page carried (where it stands step by step,
-status at a glance, what has been measured, what is not shown yet, the detail tables, how
-to read the tables, and the data files) are on these pages now.
-
 | Page | What it holds | Changes |
 |---|---|---|
-| <a id="status-at-a-glance"></a><a id="what-has-been-measured"></a><a id="what-is-not-shown-yet"></a><a id="detail"></a>[docs/progress.md](docs/progress.md) | Where it stands, step by step; status at a glance; what has been measured; what is not shown yet | each snapshot |
+| [docs/progress.md](docs/progress.md) | Where it stands, step by step; status at a glance; what has been measured; what is not shown yet | each snapshot |
 | [docs/milestones.md](docs/milestones.md) | Milestones, with the pass condition each one had to meet | each snapshot |
 | [docs/components.md](docs/components.md) | The feature matrix: every layer, and what runs there today | each snapshot |
 | [docs/boot-programs.md](docs/boot-programs.md) | Boot-path programs (a few rows group several), with what is and is not known | each snapshot |
@@ -110,8 +106,8 @@ to read the tables, and the data files) are on these pages now.
 | [UPSTREAMS.md](UPSTREAMS.md) | The projects this builds on and others close to it, with measured activity, and the open items with them | each snapshot |
 | [docs/notes-for-liberator.md](docs/notes-for-liberator.md) | Two DriverKit findings written up for other projects booting macOS 27 on Intel | rarely |
 | [docs/approach.md](docs/approach.md) | The three ways the project closes the gap, and how many `launchd` jobs run a program with no x86-64 slice | rarely |
-| <a id="how-to-read-the-tables"></a>[docs/reading-guide.md](docs/reading-guide.md) | How to read the tables: the evidence labels, `n` and the state words | rarely |
-| <a id="the-data-and-how-these-tables-are-made"></a>[docs/data.md](docs/data.md) | The data files, and how the tables and charts are made from them | rarely |
+| [docs/reading-guide.md](docs/reading-guide.md) | How to read the tables: the evidence labels, `n` and the state words | rarely |
+| [docs/data.md](docs/data.md) | The data files, and how the tables and charts are made from them | rarely |
 | [docs/maintaining.md](docs/maintaining.md) | What a routine update touches, and when this page changes | rarely |
 | [CHANGELOG.md](CHANGELOG.md) | What changed in each snapshot | each snapshot |
 

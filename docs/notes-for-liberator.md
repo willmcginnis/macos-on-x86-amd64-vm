@@ -166,7 +166,7 @@ This only matters if Apple's DriverKit drivers are loaded on Intel. It was not t
 
 | What | Boots | Note |
 |---|---|---|
-| The login window was not shown in the six boots this row first counted. SecurityAgent logs that it is showing the window; its main thread stays blocked in a synchronous LocalAuthentication call that never gets a reply | 1 (stack samples); the missing window, 6 | See below the table. **Since found to appear; most likely a race** (2026-11-24 update below) |
+| The login window was not shown in six earlier boots. SecurityAgent logs that it is showing the window; its main thread stays blocked in a synchronous LocalAuthentication call that never gets a reply | 1 (stack samples); the missing window, 6 | See below the table. **Since found to appear; most likely a race** (2026-11-24 update below) |
 | `loginwindow`'s child job `com.apple.MenuBarAgent` exits with status 134, three times per boot | 2 | **Most likely our translator's fault**: in later boots the same exit was traced to it (the translator's own start-up asked for the program's app sandbox first, so the program's own request was refused); for the 2 boots this row counted, that is inferred (2026-11-25 update below) |
 
 On the login window: the peer of SecurityAgent's blocked call is probably `coreauthd`, from
@@ -192,7 +192,7 @@ that: [docs/gaps.md](gaps.md), B21 and B22.
 translator. It starts on Apple's x86-64 `libSystem`, so in a translated app-sandboxed
 program the translator's start-up asked for the program's sandbox before the program did,
 and the program's own request was then refused. With that changed in our translator, each
-of its processes asked once and it stayed up (4 boots). For the boots the row above first counted, the same
+of its processes asked once and it stayed up (4 boots). For the 2 boots the row above counts, the same
 cause is inferred, not read; as far as we can tell, it is not about macOS 27 on Intel
 hardware.
 

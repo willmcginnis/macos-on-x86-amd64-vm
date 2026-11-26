@@ -11,6 +11,11 @@ Dates are US Pacific time. The underlying work happened over a longer period tha
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
 
+## [4.0.1] &mdash; 2026-11-26
+
+A wording cleanup of the README's page list and of a few sentences and data notes on other
+pages, and a shorter 3.4.0 entry below; no figure, state or claim changed.
+
 ## [4.0.0] &mdash; 2026-11-26
 
 `sandboxd` and 27's own `amfid` stay up through login boots; a translated program's
@@ -64,30 +69,16 @@ set-up. Major, because one measured claim of 3.3.0 to 3.4.0 is withdrawn (below)
 
 ## [3.4.0] &mdash; 2026-11-25
 
-A new layout, with charts. No figure, state or claim changed: every table row and every
-number of 3.3.0 is still in the record, moved to the pages below.
+A new layout, with charts; no figure, state or claim changed.
 
 ### Added
 
-- `docs/progress.md`: the current figures, moved here from the README (where it stands,
-  status at a glance, the inventories, what has been measured, what is not shown yet, and
-  the detail tables). This page takes each routine update.
 - Charts, drawn from `data/*.json` by `scripts/charts.py` and shown in GitHub's light or
   dark theme to match the reader's: milestones (as tiles in the order set, and met by
   date), where each progress table stands, the feature matrix part by part, and how the
   pieces run. Every chart has a legend, and its figures are also in a table.
-- `docs/approach.md` (the three ways the gap is closed, moved from the README),
-  `docs/reading-guide.md` (how to read the tables, moved from the README), `docs/data.md`
-  (the data files and how the tables and charts are made, moved from the README), and
-  `docs/maintaining.md` (which files a routine update touches).
 - `scripts/render.py` 1.2.0: draws and checks the charts as it does the tables; links in
   generated tables resolve from any page.
-
-### Changed
-
-- `README.md` is now a short front page that changes only at a major milestone: what is
-  being attempted, the milestones met and not yet met, two headline charts, and the list of
-  pages with how often each changes.
 
 ## [3.3.0] &mdash; 2026-11-25
 

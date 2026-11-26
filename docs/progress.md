@@ -38,7 +38,7 @@ The first stage's steps so far, all on test overlays of the 27-only root:
 | `sandboxd` and 27's own `amfid` stay up through a login boot | 2026-11-25 | 3, on the display test overlays |
 | A translated program's arm64-only helper is started as itself | 2026-11-26 | 2, with a translator change ([AC](translator-patches.md)) |
 
-What changed since the last snapshot (every boot here is one boot of its set-up, n = 1):
+The newest results (every boot here is one boot of its set-up, n = 1):
 
 - **`sandboxd` and 27's `amfid` stay up.** On the display test overlays, `sandboxd` was named
   for a newer translator build, and Apple's 27 `amfid` was put back in place of macOS 26's,
@@ -69,8 +69,7 @@ What changed since the last snapshot (every boot here is one boot of its set-up,
   the boot before had no such crash, one with an illegal instruction.
 - **On the default test base, the load and the late Dock are read.** In its first two login
   boots the Dock was drawn only after 35 minutes, by about 50, while the guest's load stayed
-  5 to 10 times higher; this page said "no Dock" before, from frames read only up to 35
-  minutes.
+  5 to 10 times higher; frames read only up to 35 minutes had shown no Dock.
   The load is read: three network daemons exit and are restarted about every 10 seconds all
   boot (the guest has no Wi-Fi hardware); on that base's default translator build each run
   lasts seconds, at many of airportd's exits the translator starts background work to rebuild
