@@ -8,7 +8,8 @@ of it is a judgement of a project or of the people who run it.
 GitHub's and GitLab's public APIs, read-only. Our own open items were read again at about
 00:15 UTC on 2026-11-25 (4:15 PM Pacific on 2026-11-24), once more at 03:47 UTC
 (7:47 PM Pacific), after the #19 and #22 updates, and again at 16:29 UTC on 2026-11-25
-(8:29 AM Pacific), when nothing in them had changed. The activity tables are from the
+(8:29 AM Pacific) and at 04:51 UTC on 2026-11-26 (8:51 PM Pacific on 2026-11-25), when
+nothing in them had changed. The activity tables are from the
 2026-11-24 read.
 
 ## How each column was read
@@ -59,14 +60,14 @@ merged pull requests were merged between 6 hours and 19 days after they were ope
 The translator changes this project runs, including ones not offered upstream yet, are on a
 public branch of its fork:
 [willmcginnis/maclator, branch `queue/boot-tested-2026-11-24`](https://github.com/willmcginnis/maclator/tree/queue/boot-tested-2026-11-24)
-(45 commits on Maclator's current main, read on 2026-11-25, with internal comments removed:
+(54 commits on Maclator's current main, read on 2026-11-25, with internal comments removed:
 the changes behind the project's default test bases, among them one root-owned store of
 slid shared-cache data for every user (R2) and the fix for guest memory (Z), which are in
-the base adopted on 2026-11-25; the fix for app-sandboxed programs (AA; all three in
+the base adopted on 2026-11-25; the fix for app-sandboxed programs (AA); the fix that keeps WindowManager up (AB; all four in
 [docs/translator-patches.md](docs/translator-patches.md)); and some smaller fixes to the
-translation cache and its tests). The translator built from the branch's tip
-has not itself been booted. Local builds carrying R2, Z and AA have been; the smaller cache
-fixes have unit tests only.
+translation cache, the translator's imitation of kernel events and their tests). The
+translator built from the branch's tip has not itself been booted. Local builds carrying
+R2, Z, AA and AB have been; the smaller fixes have unit tests only.
 
 ## Others working on something close
 

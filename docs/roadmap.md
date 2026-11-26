@@ -39,13 +39,28 @@ short: the login window is drawn, a typed login is authorized, the user session 
 the first-login User Account Updater completes. The first-login Setup Assistant showed no
 pane when it ran (2 boots); it is now skipped by a per-user marker the test places, so a
 first login through Setup Assistant is not shown. With it skipped, the Dock, Finder,
-SystemUIServer and Control Center start (4 boots), the Dock is drawn about half an hour
-after the login, and in one boot a menu bar and a wallpaper were drawn and a click opened
-the Apple menu. WindowManager keeps crashing ([gaps.md](gaps.md), B25), so there is no
-usable desktop yet. In the last three of those boots the translator's shared-cache data
-did not come near filling the disk (the lowest free space was 5.1 GiB or more; in the one
-before, 2.33 GiB, against a 2 GiB stop), but disk use through a login with every program on
-the fix is not shown (B23).
+SystemUIServer and Control Center start (7 boots), and a menu bar and a wallpaper are drawn
+(4 boots). With a translator fix (AB) WindowManager stays up (3 boots), a Finder window
+opens (3 boots) and TextEdit opens a window and takes a typed word (2 boots). Drawing is
+still slow or incomplete ([gaps.md](gaps.md), B22): the Dock was first seen between about
+10 and 35 minutes after the login, or not at all (2 of 7 boots). These boots run on display
+test overlays, except one boot of the same set-up on the default test base (counted in the
+figures above), which drew no Dock, had one daemon refused system calls and another
+aborting, and ran with a much higher load, so the set-up has not been moved there. Disk use
+through a login with every program on the fix for the translator's shared-cache data is not
+shown (B23).
+
+**How close stage 1 is, and so the first guide.** Each part of the definition above, as of
+this snapshot (measured, `n` as given):
+
+| Part of the definition | State |
+|---|---|
+| From a cold boot of the default test base | **Not met.** The login boots run on separate display test overlays; the one login boot on the default test base drew no Dock (1 boot) |
+| A user logs in | **Met**: a typed login authorized in 14 boots (13 on the display test overlays, 1 on the default test base) and the session started in 12. Setup Assistant ran in 2 and showed no pane; in the 7 that reached the desktop steps it was skipped by a per-user marker the test places, so a first login through it is not shown |
+| The menu bar, the Dock and Finder drawn | **Met in 2 boots**: a menu bar, a Dock and a Finder window all on screen. The Dock was late or missing in others |
+| Open and use an app | **Partly.** TextEdit opened a window and took a typed word (2 boots); nothing more was tried |
+| On more than one boot | **Not met.** On a display test overlay a menu bar, a Dock, a Finder window and a word typed into TextEdit came together in 1 boot; on the default test base, in 0 (its login boot took text in TextEdit but drew no Dock) |
+| Drawn without a GPU | **Met**: there is no Metal device in the guest |
 
 ## Stage 2: the longer tail
 
@@ -56,7 +71,9 @@ where they do not compete:
 1. **The remaining macOS 26 pieces.** A known list: the x86 boot loader (`boot.efi`, which
    27.0.1 does not ship), nine kexts, the tool that builds the kernel collection, and the
    boot loader's APFS driver; some boot set-ups also still add macOS 26's `vmxnet3` network
-   driver ([gaps.md](gaps.md), G-39). What each needs:
+   driver ([gaps.md](gaps.md), G-39); and the default test base and the login test overlays
+   still carry macOS 26's `amfid`, where putting Apple's 27 build back, on a translator build
+   carrying patch S, is the chosen fix, not yet booted on the login line (B11). What each of the others needs:
    - the real-time clock kext: 27.0.1's Kernel Debug Kit has an x86-64 build of it, so this
      one is a swap;
    - the kernel-collection builder: a way to build an x86 kernel collection without macOS
@@ -92,7 +109,7 @@ The translator's own use of `libSystem` has already caused one defect: `libSyste
 start-up ran for the translator as well as for the program, in the same process, so in the
 four app-sandboxed session agents diagnosed the sandbox was asked for twice and the second
 request was refused ([gaps.md](gaps.md), B24). Patch AA, in progress, removes the translator's
-request for the five agents and the test program given it so far; the translator's start-up still runs in every translated process. Apple's Rosetta runtime is a static program that
+request for the programs given it so far (among them the five agents, TextEdit and a test program); the translator's start-up still runs in every translated process. Apple's Rosetta runtime is a static program that
 loads no libraries (read on 27.0.1), which is the shape step 1 below is after.
 
 Apple has said that Rosetta stays available as a general-purpose tool through macOS 27, and

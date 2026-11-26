@@ -184,15 +184,15 @@ SecurityAgent has to show its window before the guest's display goes to sleep, a
 display sleeps nothing redraws it (inferred from one boot's timing, in which SecurityAgent
 logged that it was showing its window one second before the screens slept; no frame of
 that boot showed it). The window was drawn in 2 of 2 boots of one set-up and
-1 of 2 of another when nothing kept the display awake, and in each of 11 later boots in
-which a login was typed; keyboard input typed at it reached it. Where the login goes after
+1 of 2 of another when nothing kept the display awake, and in each of 14 later scored boots
+(to 2026-11-25) in which a login was typed; keyboard input typed at it reached it. Where the login goes after
 that: [docs/gaps.md](gaps.md), B21 and B22.
 
 **Update, 2026-11-25.** In later boots the same MenuBarAgent exits were traced to our
 translator. It starts on Apple's x86-64 `libSystem`, so in a translated app-sandboxed
 program the translator's start-up asked for the program's sandbox before the program did,
-and the program's own request was then refused. With that changed in our translator, it
-asked once and stayed up (1 boot). For the boots the row above first counted, the same
+and the program's own request was then refused. With that changed in our translator, each
+of its processes asked once and it stayed up (4 boots). For the boots the row above first counted, the same
 cause is inferred, not read; as far as we can tell, it is not about macOS 27 on Intel
 hardware.
 

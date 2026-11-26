@@ -11,6 +11,55 @@ Dates are US Pacific time. The underlying work happened over a longer period tha
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
 
+## [3.3.0] &mdash; 2026-11-25
+
+Later the same day: with the first-login Setup Assistant skipped by the test, WindowManager
+stays up after the login, a Finder window opens and an app takes typed text; the login set-up tried on the default test base; causes found for two
+crashing daemons and for a translated program's arm64-only children carrying the translator's
+identity.
+
+### Added
+
+- Milestones L8 (a Finder window drawn after the login, 3 boots) and L9 (an app opens a
+  window and takes typed text: TextEdit, 2 boots).
+- Translator patch AB: the translator makes its event queues and raises the memory limit
+  before the program starts, never takes a refused queue for a descriptor, and leaves its
+  stores alone in a sandboxed process (3 login boots). On the fork's public branch with five
+  later commits that have unit tests only; the translator built from the branch's tip has
+  not been booted.
+- Open wall B26: an arm64-only program that a translated program starts itself carries the
+  translator's identity, so peers asking the kernel for its entitlements get the
+  translator's. Cause read in source; a translator change is built and not booted.
+- New steps in the README's "Where it stands": WindowManager stays up, a Finder window
+  opens, TextEdit takes typed text, About This Mac and Control Center open (late and partly
+  drawn). `docs/roadmap.md`: how close stage 1 is, part by part.
+
+### Changed
+
+- B25 (now "WindowManager kept crashing after the login") is closed by AB: one instance all
+  boot, no crash report, 3 boots.
+- The login steps' counts: 14 boots for the window and an authorized login, 12 for the
+  session, 9 for User Account Updater, 7 for the Dock, Finder, SystemUIServer and Control
+  Center; the Dock drawn in 5 of 7, first seen between about 10 and 35 minutes after the
+  login; a menu bar and a wallpaper in 4; the Apple menu click in 2; more clicks (L7).
+- B22: what is still wrong with the drawing (causes not read); the same set-up placed on the
+  default test base had more free space but drew no Dock, had one daemon refused system calls
+  and another aborting, and ran
+  with a much higher load (1 boot), so the login boots stay on their own overlays.
+- `amfid` and `sandboxd` (B11, B17, R5, R8, the boot-program and component rows): on the login
+  overlays and the default test base `amfid` is macOS 26's, and on the overlays `sandboxd` runs on
+  a build without patch U; both crash there, with causes read and placement-only fixes chosen, not yet booted on the login line.
+- R2 and B23: free space in the newest login boots; on the default test base, one per-home
+  store of slid data was left in a login boot, and the translator's other cached files were
+  still kept per home. AA and B24: each observed process of the five agents asked once in each of
+  the 3 later boots.
+- Q2 and Z: login-boot counts (12 and 5; 0 refused-read warnings in the 3 new boots' captured
+  output). R3's note dated (the 27-only root had no graphical session then).
+- The fork's public branch has 54 commits on Maclator's main. Our upstream items were read
+  again: unchanged.
+- `docs/notes-for-liberator.md`: two counts (11 to 14 later boots with a typed login; 1 to 4
+  boots in which each observed MenuBarAgent process asked once).
+
 ## [3.2.0] &mdash; 2026-11-25
 
 The login line reaches a partly drawn desktop; a new default test base; three translator
