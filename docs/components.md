@@ -13,8 +13,15 @@ only when 27's own piece is in place, or when nothing needs replacing at that la
 
 The `n` column says how many boots or test cases a row rests on; `measured` with
 `n = 1` means exactly one boot of one configuration. See
-[the README's reading guide](../README.md#how-to-read-the-tables) for the state and
+[the reading guide](reading-guide.md) for the state and
 evidence words.
+
+<!-- generated:chart-feature-matrix:start -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/feature-matrix-dark.svg">
+  <img alt="Tile chart: every feature-matrix row as a tile, a column per area, marked done, in progress or not started. Every row is also in the tables of docs/components.md." src="charts/feature-matrix-light.svg" width="880">
+</picture>
+<!-- generated:chart-feature-matrix:end -->
 
 <!-- generated:components-table:start -->
 <h2 id="host">Host, firmware and boot loader</h2>

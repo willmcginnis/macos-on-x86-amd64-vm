@@ -6,8 +6,9 @@ problem than a row that is missing.
 
 ## Edit the data, not the table
 
-Every table inside a generated region of `README.md` and `docs/` is generated; the few
-short tables outside those regions are hand-written. If you edit a rendered table
+Every table inside a generated region of `README.md` and `docs/` is generated, and so is
+every chart under `docs/charts/`; the few short tables outside those regions are
+hand-written. If you edit a rendered table
 directly, CI will fail and your edit will be overwritten the next time anyone runs the
 renderer.
 
@@ -29,7 +30,8 @@ markers:
 ```
 
 Prose outside the markers is hand-written and is never touched, so a correction to the
-*wording* of a page goes straight into the Markdown.
+*wording* of a page goes straight into the Markdown. Which files a routine update touches,
+and when the README changes: [docs/maintaining.md](docs/maintaining.md).
 
 ## How the data files are shaped
 

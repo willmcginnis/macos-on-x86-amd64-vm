@@ -1,7 +1,7 @@
 name: check
 
-# The tables in README.md and docs/ are generated from data/*.json. This job fails if
-# any of them disagrees with the data, which catches both a hand edit inside a generated
+# The tables in README.md and docs/, and the charts in docs/charts/, are generated from
+# data/*.json. This job fails if any of them disagrees with the data, which catches both a hand edit inside a generated
 # region and a change to data/ that nobody re-rendered. render.py parses every data file
 # on the way, so a malformed JSON file fails here too.
 

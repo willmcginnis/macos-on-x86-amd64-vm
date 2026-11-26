@@ -33,8 +33,8 @@ default test base, a user logs in and reaches the desktop, with the menu bar, th
 Finder drawn, and can open and use an app; on more than one boot, not once; drawn without a
 GPU (software rendering), as bring-up was always meant to be.
 
-**Where it stands.** The steps reached so far are in the README,
-[Where it stands](../README.md#where-it-stands), each with its date and `n`. In
+**Where it stands.** The steps reached so far are on the progress page,
+[Where it stands](progress.md#where-it-stands), each with its date and `n`. In
 short: the login window is drawn, a typed login is authorized, the user session starts and
 the first-login User Account Updater completes. The first-login Setup Assistant showed no
 pane when it ran (2 boots); it is now skipped by a per-user marker the test places, so a

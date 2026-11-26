@@ -10,6 +10,13 @@ ships no x86-64 build of that program in 27.0.1, so it has to be recompiled, tra
 borrowed from macOS 26, or stood in for. Where it says **x86_64**, Apple's own build runs
 unchanged and the row is there only to record that it was seen working.
 
+<!-- generated:chart-how-pieces-run:start -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/how-pieces-run-dark.svg">
+  <img alt="Segmented bars: the boot-path program rows, the listed launchd job labels and the kernel-collection entries, split by where their code comes from (Apple&#x27;s x86_64 code, lifted, translated, macOS 26, other, not running yet). The same counts are in the tables of docs/progress.md." src="charts/how-pieces-run-light.svg" width="880">
+</picture>
+<!-- generated:chart-how-pieces-run:end -->
+
 <!-- generated:boot-programs-table:start -->
 | Program | How Apple ships it in 27.0.1 | How it runs here | State | Evidence | n | Notes |
 |---|---|---|---|---|---|---|

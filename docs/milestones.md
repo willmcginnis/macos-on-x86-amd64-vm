@@ -21,6 +21,13 @@ steps from the login window to the desktop on that root. The series are
 kept as they were rather than renumbered, so that earlier write-ups still refer to the
 same things.
 
+<!-- generated:chart-milestones:start -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/milestones-dark.svg">
+  <img alt="Milestone chart: tiles show each of the 26 milestones in the order set, by its state now (20 met); a step line counts milestones by the date each was first met (20 so far). Every milestone is also in the table of docs/milestones.md." src="charts/milestones-light.svg" width="880">
+</picture>
+<!-- generated:chart-milestones:end -->
+
 <!-- generated:milestones-table:start -->
 Milestones, in the order they were set. Dates are when the pass condition was first met, US Pacific time.
 

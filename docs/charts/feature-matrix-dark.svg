@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="534" viewBox="0 0 880 534" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>The feature matrix, part by part</title>
+<desc>Feature matrix. Host, firmware and boot loader: Hypervisor (done); Firmware (done); Boot loader (done); APFS driver for the boot loader (in progress); boot.efi (in progress) | Kernel: Apple&#x27;s 27.0.1 x86_64 kernel (done); Self-built kernel (done); Kernel soak (done); DEVELOPMENT build of the self-built kernel (in progress); Running arm64e programs as themselves (done) | Kernel extensions: Kernel collection contents (in progress); Kernel collection builder (in progress); Sandbox kext (done); Platform kexts with no 27 x86_64 build (in progress); Real-time clock kext (in progress) | Boot-path userland: dyld and the shared cache (done); Boot volume (done); pid 1 (launchd) and xpcproxy (done); Boot tasks (done); Daemons (in progress); Unified logging (in progress); Code-signing daemon (amfid) (in progress); sandboxd (in progress); Kernel extension management (in progress) | Network and remote access: Network interface (done); DHCP (done); ssh (in progress) | Graphics and desktop: WindowServer, hybrid image (in progress); WindowServer, 27-only root (in progress); GPU (not started); Desktop (loginwindow, Dock, Finder, SystemUIServer) (in progress) | Translation tooling: Lifter (arm64/arm64e function to C) (done); User-space differential test (done); Link tools (done); Kext adapter generator (done); Kernel-side differential test (in progress); Third-party user-space translator (in progress); Mutation tests of the tools&#x27; self-tests (done)</desc>
+<rect x="0.0" y="0.0" width="880.0" height="534.0" rx="0" fill="#0d1117"/>
+<text x="16.0" y="26.0" fill="#f0f6fc" font-size="15" font-weight="600" text-anchor="start">The feature matrix, part by part</text>
+<text x="16.0" y="46.0" fill="#9198a1" font-size="12" font-weight="normal" text-anchor="start">One tile per row of docs/components.md, a column per area. As of 2026-11-25.</text>
+<circle cx="21.0" cy="68.0" r="4.5" fill="#0aac23"/>
+<text x="32.0" y="72.0" fill="#9198a1" font-size="12" font-weight="normal" text-anchor="start">done</text>
+<circle cx="82.8" cy="68.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M82.8,63.5 A4.5,4.5 0 0 1 82.8,72.5 Z" fill="#338ced"/>
+<text x="93.8" y="72.0" fill="#9198a1" font-size="12" font-weight="normal" text-anchor="start">in progress</text>
+<circle cx="193.4" cy="68.0" r="3.75" fill="#0d1117" stroke="#8b949e" stroke-width="1.5"/>
+<text x="204.4" y="72.0" fill="#9198a1" font-size="12" font-weight="normal" text-anchor="start">not started</text>
+<text x="16.0" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Host, firmware</text>
+<text x="16.0" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">and boot loader</text>
+<text x="16.0" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">3 of 5 done</text>
+<rect x="16.0" y="134.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="16.0" y="134.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="121.3" cy="144.0" r="4.5" fill="#0aac23"/>
+<text x="26.0" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Hypervisor</text>
+<rect x="16.0" y="164.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="16.0" y="164.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="121.3" cy="174.0" r="4.5" fill="#0aac23"/>
+<text x="26.0" y="181.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Firmware</text>
+<rect x="16.0" y="194.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="16.0" y="194.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="121.3" cy="204.0" r="4.5" fill="#0aac23"/>
+<text x="26.0" y="211.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Boot loader</text>
+<rect x="16.0" y="224.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="16.0" y="224.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="121.3" cy="234.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M121.3,229.5 A4.5,4.5 0 0 1 121.3,238.5 Z" fill="#338ced"/>
+<text x="26.0" y="241.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">APFS driver</text>
+<text x="26.0" y="255.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">for the boot</text>
+<text x="26.0" y="269.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">loader</text>
+<rect x="16.0" y="282.0" width="114.3" height="26.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="16.0" y="282.0" width="4.0" height="26.0" rx="2" fill="#338ced"/>
+<circle cx="121.3" cy="292.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M121.3,287.5 A4.5,4.5 0 0 1 121.3,296.5 Z" fill="#338ced"/>
+<text x="26.0" y="299.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">boot.efi</text>
+<text x="138.3" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Kernel</text>
+<text x="138.3" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">4 of 5 done</text>
+<rect x="138.3" y="134.0" width="114.3" height="54.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="138.3" y="134.0" width="4.0" height="54.0" rx="2" fill="#0aac23"/>
+<circle cx="243.6" cy="144.0" r="4.5" fill="#0aac23"/>
+<text x="148.3" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Apple&#x27;s</text>
+<text x="148.3" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">27.0.1 x86_64</text>
+<text x="148.3" y="179.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">kernel</text>
+<rect x="138.3" y="192.0" width="114.3" height="40.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="138.3" y="192.0" width="4.0" height="40.0" rx="2" fill="#0aac23"/>
+<circle cx="243.6" cy="202.0" r="4.5" fill="#0aac23"/>
+<text x="148.3" y="209.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Self-built</text>
+<text x="148.3" y="223.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">kernel</text>
+<rect x="138.3" y="236.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="138.3" y="236.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="243.6" cy="246.0" r="4.5" fill="#0aac23"/>
+<text x="148.3" y="253.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kernel soak</text>
+<rect x="138.3" y="266.0" width="114.3" height="68.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="138.3" y="266.0" width="4.0" height="68.0" rx="2" fill="#338ced"/>
+<circle cx="243.6" cy="276.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M243.6,271.5 A4.5,4.5 0 0 1 243.6,280.5 Z" fill="#338ced"/>
+<text x="148.3" y="283.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">DEVELOPMENT</text>
+<text x="148.3" y="297.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">build of the</text>
+<text x="148.3" y="311.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">self-built</text>
+<text x="148.3" y="325.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">kernel</text>
+<rect x="138.3" y="338.0" width="114.3" height="68.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="138.3" y="338.0" width="4.0" height="68.0" rx="2" fill="#0aac23"/>
+<circle cx="243.6" cy="348.0" r="4.5" fill="#0aac23"/>
+<text x="148.3" y="355.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Running</text>
+<text x="148.3" y="369.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">arm64e</text>
+<text x="148.3" y="383.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">programs as</text>
+<text x="148.3" y="397.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">themselves</text>
+<text x="260.6" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Kernel</text>
+<text x="260.6" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">extensions</text>
+<text x="260.6" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">1 of 5 done</text>
+<rect x="260.6" y="134.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="260.6" y="134.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="365.9" cy="144.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M365.9,139.5 A4.5,4.5 0 0 1 365.9,148.5 Z" fill="#338ced"/>
+<text x="270.6" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kernel</text>
+<text x="270.6" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">collection</text>
+<text x="270.6" y="179.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">contents</text>
+<rect x="260.6" y="192.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="260.6" y="192.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="365.9" cy="202.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M365.9,197.5 A4.5,4.5 0 0 1 365.9,206.5 Z" fill="#338ced"/>
+<text x="270.6" y="209.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kernel</text>
+<text x="270.6" y="223.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">collection</text>
+<text x="270.6" y="237.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">builder</text>
+<rect x="260.6" y="250.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="260.6" y="250.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="365.9" cy="260.0" r="4.5" fill="#0aac23"/>
+<text x="270.6" y="267.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Sandbox kext</text>
+<rect x="260.6" y="280.0" width="114.3" height="68.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="260.6" y="280.0" width="4.0" height="68.0" rx="2" fill="#338ced"/>
+<circle cx="365.9" cy="290.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M365.9,285.5 A4.5,4.5 0 0 1 365.9,294.5 Z" fill="#338ced"/>
+<text x="270.6" y="297.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Platform</text>
+<text x="270.6" y="311.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">kexts with no</text>
+<text x="270.6" y="325.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">27 x86_64</text>
+<text x="270.6" y="339.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">build</text>
+<rect x="260.6" y="352.0" width="114.3" height="40.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="260.6" y="352.0" width="4.0" height="40.0" rx="2" fill="#338ced"/>
+<circle cx="365.9" cy="362.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M365.9,357.5 A4.5,4.5 0 0 1 365.9,366.5 Z" fill="#338ced"/>
+<text x="270.6" y="369.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Real-time</text>
+<text x="270.6" y="383.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">clock kext</text>
+<text x="382.9" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Boot-path</text>
+<text x="382.9" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">userland</text>
+<text x="382.9" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">4 of 9 done</text>
+<rect x="382.9" y="134.0" width="114.3" height="40.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="382.9" y="134.0" width="4.0" height="40.0" rx="2" fill="#0aac23"/>
+<circle cx="488.1" cy="144.0" r="4.5" fill="#0aac23"/>
+<text x="392.9" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">dyld and the</text>
+<text x="392.9" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">shared cache</text>
+<rect x="382.9" y="178.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="382.9" y="178.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="488.1" cy="188.0" r="4.5" fill="#0aac23"/>
+<text x="392.9" y="195.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Boot volume</text>
+<rect x="382.9" y="208.0" width="114.3" height="54.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="382.9" y="208.0" width="4.0" height="54.0" rx="2" fill="#0aac23"/>
+<circle cx="488.1" cy="218.0" r="4.5" fill="#0aac23"/>
+<text x="392.9" y="225.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">pid 1</text>
+<text x="392.9" y="239.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">(launchd) and</text>
+<text x="392.9" y="253.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">xpcproxy</text>
+<rect x="382.9" y="266.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="382.9" y="266.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="488.1" cy="276.0" r="4.5" fill="#0aac23"/>
+<text x="392.9" y="283.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Boot tasks</text>
+<rect x="382.9" y="296.0" width="114.3" height="26.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="382.9" y="296.0" width="4.0" height="26.0" rx="2" fill="#338ced"/>
+<circle cx="488.1" cy="306.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M488.1,301.5 A4.5,4.5 0 0 1 488.1,310.5 Z" fill="#338ced"/>
+<text x="392.9" y="313.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Daemons</text>
+<rect x="382.9" y="326.0" width="114.3" height="40.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="382.9" y="326.0" width="4.0" height="40.0" rx="2" fill="#338ced"/>
+<circle cx="488.1" cy="336.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M488.1,331.5 A4.5,4.5 0 0 1 488.1,340.5 Z" fill="#338ced"/>
+<text x="392.9" y="343.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Unified</text>
+<text x="392.9" y="357.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">logging</text>
+<rect x="382.9" y="370.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="382.9" y="370.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="488.1" cy="380.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M488.1,375.5 A4.5,4.5 0 0 1 488.1,384.5 Z" fill="#338ced"/>
+<text x="392.9" y="387.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Code-signing</text>
+<text x="392.9" y="401.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">daemon</text>
+<text x="392.9" y="415.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">(amfid)</text>
+<rect x="382.9" y="428.0" width="114.3" height="26.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="382.9" y="428.0" width="4.0" height="26.0" rx="2" fill="#338ced"/>
+<circle cx="488.1" cy="438.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M488.1,433.5 A4.5,4.5 0 0 1 488.1,442.5 Z" fill="#338ced"/>
+<text x="392.9" y="445.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">sandboxd</text>
+<rect x="382.9" y="458.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="382.9" y="458.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="488.1" cy="468.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M488.1,463.5 A4.5,4.5 0 0 1 488.1,472.5 Z" fill="#338ced"/>
+<text x="392.9" y="475.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kernel</text>
+<text x="392.9" y="489.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">extension</text>
+<text x="392.9" y="503.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">management</text>
+<text x="505.1" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Network and</text>
+<text x="505.1" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">remote access</text>
+<text x="505.1" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">2 of 3 done</text>
+<rect x="505.1" y="134.0" width="114.3" height="40.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="505.1" y="134.0" width="4.0" height="40.0" rx="2" fill="#0aac23"/>
+<circle cx="610.4" cy="144.0" r="4.5" fill="#0aac23"/>
+<text x="515.1" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Network</text>
+<text x="515.1" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">interface</text>
+<rect x="505.1" y="178.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="505.1" y="178.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="610.4" cy="188.0" r="4.5" fill="#0aac23"/>
+<text x="515.1" y="195.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">DHCP</text>
+<rect x="505.1" y="208.0" width="114.3" height="26.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="505.1" y="208.0" width="4.0" height="26.0" rx="2" fill="#338ced"/>
+<circle cx="610.4" cy="218.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M610.4,213.5 A4.5,4.5 0 0 1 610.4,222.5 Z" fill="#338ced"/>
+<text x="515.1" y="225.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">ssh</text>
+<text x="627.4" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Graphics and</text>
+<text x="627.4" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">desktop</text>
+<text x="627.4" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">0 of 4 done</text>
+<rect x="627.4" y="134.0" width="114.3" height="40.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="627.4" y="134.0" width="4.0" height="40.0" rx="2" fill="#338ced"/>
+<circle cx="732.7" cy="144.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M732.7,139.5 A4.5,4.5 0 0 1 732.7,148.5 Z" fill="#338ced"/>
+<text x="637.4" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">WindowServer,</text>
+<text x="637.4" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">hybrid image</text>
+<rect x="627.4" y="178.0" width="114.3" height="40.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="627.4" y="178.0" width="4.0" height="40.0" rx="2" fill="#338ced"/>
+<circle cx="732.7" cy="188.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M732.7,183.5 A4.5,4.5 0 0 1 732.7,192.5 Z" fill="#338ced"/>
+<text x="637.4" y="195.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">WindowServer,</text>
+<text x="637.4" y="209.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">27-only root</text>
+<rect x="627.4" y="222.0" width="114.3" height="26.0" rx="4" fill="#8b949e" fill-opacity="0.14"/>
+<rect x="627.4" y="222.0" width="4.0" height="26.0" rx="2" fill="#8b949e"/>
+<circle cx="732.7" cy="232.0" r="3.75" fill="#0d1117" stroke="#8b949e" stroke-width="1.5"/>
+<text x="637.4" y="239.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">GPU</text>
+<rect x="627.4" y="252.0" width="114.3" height="68.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="627.4" y="252.0" width="4.0" height="68.0" rx="2" fill="#338ced"/>
+<circle cx="732.7" cy="262.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M732.7,257.5 A4.5,4.5 0 0 1 732.7,266.5 Z" fill="#338ced"/>
+<text x="637.4" y="269.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Desktop</text>
+<text x="637.4" y="283.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">(loginwindow,</text>
+<text x="637.4" y="297.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Dock, Finder,</text>
+<text x="637.4" y="311.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">SystemUIServer)</text>
+<text x="749.7" y="96.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">Translation</text>
+<text x="749.7" y="110.0" fill="#f0f6fc" font-size="11.5" font-weight="600" text-anchor="start">tooling</text>
+<text x="749.7" y="124.0" fill="#9198a1" font-size="11" font-weight="normal" text-anchor="start">5 of 7 done</text>
+<rect x="749.7" y="134.0" width="114.3" height="68.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="749.7" y="134.0" width="4.0" height="68.0" rx="2" fill="#0aac23"/>
+<circle cx="855.0" cy="144.0" r="4.5" fill="#0aac23"/>
+<text x="759.7" y="151.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Lifter</text>
+<text x="759.7" y="165.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">(arm64/arm64e</text>
+<text x="759.7" y="179.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">function to</text>
+<text x="759.7" y="193.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">C)</text>
+<rect x="749.7" y="206.0" width="114.3" height="54.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="749.7" y="206.0" width="4.0" height="54.0" rx="2" fill="#0aac23"/>
+<circle cx="855.0" cy="216.0" r="4.5" fill="#0aac23"/>
+<text x="759.7" y="223.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">User-space</text>
+<text x="759.7" y="237.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">differential</text>
+<text x="759.7" y="251.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">test</text>
+<rect x="749.7" y="264.0" width="114.3" height="26.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="749.7" y="264.0" width="4.0" height="26.0" rx="2" fill="#0aac23"/>
+<circle cx="855.0" cy="274.0" r="4.5" fill="#0aac23"/>
+<text x="759.7" y="281.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Link tools</text>
+<rect x="749.7" y="294.0" width="114.3" height="40.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="749.7" y="294.0" width="4.0" height="40.0" rx="2" fill="#0aac23"/>
+<circle cx="855.0" cy="304.0" r="4.5" fill="#0aac23"/>
+<text x="759.7" y="311.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kext adapter</text>
+<text x="759.7" y="325.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">generator</text>
+<rect x="749.7" y="338.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="749.7" y="338.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="855.0" cy="348.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M855.0,343.5 A4.5,4.5 0 0 1 855.0,352.5 Z" fill="#338ced"/>
+<text x="759.7" y="355.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Kernel-side</text>
+<text x="759.7" y="369.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">differential</text>
+<text x="759.7" y="383.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">test</text>
+<rect x="749.7" y="396.0" width="114.3" height="54.0" rx="4" fill="#338ced" fill-opacity="0.14"/>
+<rect x="749.7" y="396.0" width="4.0" height="54.0" rx="2" fill="#338ced"/>
+<circle cx="855.0" cy="406.0" r="3.75" fill="#0d1117" stroke="#338ced" stroke-width="1.5"/><path d="M855.0,401.5 A4.5,4.5 0 0 1 855.0,410.5 Z" fill="#338ced"/>
+<text x="759.7" y="413.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Third-party</text>
+<text x="759.7" y="427.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">user-space</text>
+<text x="759.7" y="441.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">translator</text>
+<rect x="749.7" y="454.0" width="114.3" height="68.0" rx="4" fill="#0aac23" fill-opacity="0.14"/>
+<rect x="749.7" y="454.0" width="4.0" height="68.0" rx="2" fill="#0aac23"/>
+<circle cx="855.0" cy="464.0" r="4.5" fill="#0aac23"/>
+<text x="759.7" y="471.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">Mutation</text>
+<text x="759.7" y="485.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">tests of the</text>
+<text x="759.7" y="499.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">tools&#x27;</text>
+<text x="759.7" y="513.0" fill="#f0f6fc" font-size="11" font-weight="normal" text-anchor="start">self-tests</text>
+</svg>

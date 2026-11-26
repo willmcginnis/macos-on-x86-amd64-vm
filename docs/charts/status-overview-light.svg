@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="512" viewBox="0 0 880 512" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Where each progress table stands</title>
+<desc>As of 2026-11-25. Milestones: 26 rows, 20 done, 3 in progress, 3 not started; Host, firmware and boot loader: 5 rows, 3 done, 2 in progress; Kernel: 5 rows, 4 done, 1 in progress; Kernel extensions: 5 rows, 1 done, 4 in progress; Boot-path userland: 9 rows, 4 done, 5 in progress; Network and remote access: 3 rows, 2 done, 1 in progress; Graphics and desktop: 4 rows, 3 in progress, 1 not started; Translation tooling: 7 rows, 5 done, 2 in progress; Boot-path programs: 31 rows, 11 done, 20 in progress; Translator patches: 29 rows, 23 done, 4 in progress, 2 superseded; Self-built kernel versions: 5 rows, 5 done; On-disk edits to Apple files: 8 rows, 8 done; Open walls: 26 rows, 9 done, 13 in progress, 4 not started.</desc>
+<rect x="0.0" y="0.0" width="880.0" height="512.0" rx="0" fill="#ffffff"/>
+<text x="16.0" y="26.0" fill="#1f2328" font-size="15" font-weight="600" text-anchor="start">Where each progress table stands</text>
+<text x="16.0" y="46.0" fill="#59636e" font-size="12" font-weight="normal" text-anchor="start">Share of each table&#x27;s rows by state; the number in a bar is a count of rows. As of 2026-11-25.</text>
+<rect x="16.0" y="63.0" width="10.0" height="10.0" rx="2" fill="#008a17"/>
+<text x="32.0" y="72.0" fill="#59636e" font-size="12" font-weight="normal" text-anchor="start">done</text>
+<rect x="77.8" y="63.0" width="10.0" height="10.0" rx="2" fill="#257de0"/>
+<text x="93.8" y="72.0" fill="#59636e" font-size="12" font-weight="normal" text-anchor="start">in progress</text>
+<rect x="188.4" y="63.0" width="10.0" height="10.0" rx="2" fill="#9c9c9c"/>
+<text x="204.4" y="72.0" fill="#59636e" font-size="12" font-weight="normal" text-anchor="start">not started</text>
+<rect x="299.0" y="63.0" width="10.0" height="10.0" rx="2" fill="#c4c4c4"/>
+<text x="315.0" y="72.0" fill="#59636e" font-size="12" font-weight="normal" text-anchor="start">superseded</text>
+<text x="16.0" y="107.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Milestones</text>
+<rect x="256.0" y="94.0" width="403.1" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="108.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">20</text>
+<rect x="661.1" y="94.0" width="60.5" height="20.0" rx="3" fill="#257de0"/>
+<text x="667.1" y="108.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">3</text>
+<rect x="723.5" y="94.0" width="60.5" height="20.0" rx="3" fill="#9c9c9c"/>
+<text x="729.5" y="108.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">3</text>
+<text x="794.0" y="108.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">20 of 26 done</text>
+<text x="16.0" y="136.0" fill="#1f2328" font-size="12" font-weight="600" text-anchor="start">Feature matrix</text>
+<text x="30.0" y="159.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Host, firmware and boot loader</text>
+<rect x="256.0" y="146.0" width="315.6" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="160.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">3</text>
+<rect x="573.6" y="146.0" width="210.4" height="20.0" rx="3" fill="#257de0"/>
+<text x="579.6" y="160.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">2</text>
+<text x="794.0" y="160.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">3 of 5 done</text>
+<text x="30.0" y="189.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Kernel</text>
+<rect x="256.0" y="176.0" width="420.8" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="190.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">4</text>
+<rect x="678.8" y="176.0" width="105.2" height="20.0" rx="3" fill="#257de0"/>
+<text x="684.8" y="190.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">1</text>
+<text x="794.0" y="190.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">4 of 5 done</text>
+<text x="30.0" y="219.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Kernel extensions</text>
+<rect x="256.0" y="206.0" width="105.2" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="220.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">1</text>
+<rect x="363.2" y="206.0" width="420.8" height="20.0" rx="3" fill="#257de0"/>
+<text x="369.2" y="220.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">4</text>
+<text x="794.0" y="220.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">1 of 5 done</text>
+<text x="30.0" y="249.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Boot-path userland</text>
+<rect x="256.0" y="236.0" width="233.8" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="250.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">4</text>
+<rect x="491.8" y="236.0" width="292.2" height="20.0" rx="3" fill="#257de0"/>
+<text x="497.8" y="250.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">5</text>
+<text x="794.0" y="250.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">4 of 9 done</text>
+<text x="30.0" y="279.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Network and remote access</text>
+<rect x="256.0" y="266.0" width="350.7" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="280.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">2</text>
+<rect x="608.7" y="266.0" width="175.3" height="20.0" rx="3" fill="#257de0"/>
+<text x="614.7" y="280.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">1</text>
+<text x="794.0" y="280.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">2 of 3 done</text>
+<text x="30.0" y="309.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Graphics and desktop</text>
+<rect x="256.0" y="296.0" width="394.5" height="20.0" rx="3" fill="#257de0"/>
+<text x="262.0" y="310.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">3</text>
+<rect x="652.5" y="296.0" width="131.5" height="20.0" rx="3" fill="#9c9c9c"/>
+<text x="658.5" y="310.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">1</text>
+<text x="794.0" y="310.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">0 of 4 done</text>
+<text x="30.0" y="339.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Translation tooling</text>
+<rect x="256.0" y="326.0" width="375.7" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="340.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">5</text>
+<rect x="633.7" y="326.0" width="150.3" height="20.0" rx="3" fill="#257de0"/>
+<text x="639.7" y="340.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">2</text>
+<text x="794.0" y="340.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">5 of 7 done</text>
+<text x="16.0" y="369.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Boot-path programs</text>
+<rect x="256.0" y="356.0" width="186.6" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="370.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">11</text>
+<rect x="444.6" y="356.0" width="339.4" height="20.0" rx="3" fill="#257de0"/>
+<text x="450.6" y="370.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">20</text>
+<text x="794.0" y="370.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">11 of 31 done</text>
+<text x="16.0" y="399.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Translator patches</text>
+<rect x="256.0" y="386.0" width="415.6" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="400.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">23</text>
+<rect x="673.6" y="386.0" width="72.3" height="20.0" rx="3" fill="#257de0"/>
+<text x="679.6" y="400.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">4</text>
+<rect x="747.9" y="386.0" width="36.1" height="20.0" rx="3" fill="#c4c4c4"/>
+<text x="753.9" y="400.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">2</text>
+<text x="794.0" y="400.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">23 of 29 done</text>
+<text x="16.0" y="429.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Self-built kernel versions</text>
+<rect x="256.0" y="416.0" width="528.0" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="430.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">5</text>
+<text x="794.0" y="430.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">5 of 5 done</text>
+<text x="16.0" y="459.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">On-disk edits to Apple files</text>
+<rect x="256.0" y="446.0" width="528.0" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="460.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">8</text>
+<text x="794.0" y="460.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">8 of 8 done</text>
+<text x="16.0" y="489.0" fill="#1f2328" font-size="12" font-weight="normal" text-anchor="start">Open walls</text>
+<rect x="256.0" y="476.0" width="181.4" height="20.0" rx="3" fill="#008a17"/>
+<text x="262.0" y="490.0" fill="#ffffff" font-size="12" font-weight="600" text-anchor="start">9</text>
+<rect x="439.4" y="476.0" width="262.0" height="20.0" rx="3" fill="#257de0"/>
+<text x="445.4" y="490.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">13</text>
+<rect x="703.4" y="476.0" width="80.6" height="20.0" rx="3" fill="#9c9c9c"/>
+<text x="709.4" y="490.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">4</text>
+<text x="794.0" y="490.0" fill="#59636e" font-size="11" font-weight="normal" text-anchor="start">9 of 26 done</text>
+</svg>

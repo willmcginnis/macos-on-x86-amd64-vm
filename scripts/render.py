@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the generated tables in README.md and docs/*.md from data/*.json.
+"""Render the generated tables and charts in README.md and docs/ from data/*.json.
 
 Every generated region in a Markdown file is delimited by a pair of fixed
 comment markers:
@@ -15,6 +15,9 @@ is what CI runs, so a hand edit inside a generated region, or a change to
 data/*.json that nobody re-rendered, fails the build instead of going unnoticed.
 
 Prose outside the markers is hand-written and is never touched.
+
+The charts under docs/charts/ are drawn from the same data by charts.py, one SVG
+per chart and theme, and are written and checked the same way.
 
 Markers are located by fixed-string prefix and suffix rather than by regular
 expression, per this project's style rule: matching is exact, so a marker either
@@ -35,13 +38,17 @@ import difflib
 import json
 import sys
 from collections import Counter
+from html import escape
 from pathlib import Path
 
-VERSION = "1.1.1"
-RELEASED = "2026-11-22"
+import charts
+
+VERSION = "1.2.0"
+RELEASED = "2026-11-25"
 
 REPO = Path(__file__).resolve().parent.parent
 DATA_DIR = REPO / "data"
+CHARTS_DIR = REPO / "docs" / "charts"
 
 START_PREFIX = "<!-- generated:"
 START_SUFFIX = ":start -->"
@@ -106,15 +113,15 @@ def table(headers: list[str], rows: list[list[object]]) -> list[str]:
     return out
 
 
-def state_counts(rows: list[dict], key: str = "state") -> "Counter[str]":
+def state_counts(rows: list[dict], key: str = "state") -> Counter[str]:
     return Counter(row.get(key) or "not stated" for row in rows)
 
 
-def canonical_triple(counts: "Counter[str]") -> tuple[int, int, int]:
+def canonical_triple(counts: Counter[str]) -> tuple[int, int, int]:
     return tuple(counts.get(state, 0) for state in CANONICAL_STATES)  # type: ignore[return-value]
 
 
-def extra_states(counts: "Counter[str]") -> str:
+def extra_states(counts: Counter[str]) -> str:
     """The states a table uses beyond the canonical three, as readable text."""
     extras = [(k, v) for k, v in sorted(counts.items()) if k not in CANONICAL_STATES]
     if not extras:
@@ -122,7 +129,7 @@ def extra_states(counts: "Counter[str]") -> str:
     return ", ".join(f"{v} {k}" for k, v in extras)
 
 
-def counts_sentence(counts: "Counter[str]") -> str:
+def counts_sentence(counts: Counter[str]) -> str:
     """The canonical three counts, then any extra states this table uses."""
     done, progress, not_started = canonical_triple(counts)
     parts = [f"{done} done", f"{progress} in progress", f"{not_started} not started"]
@@ -132,7 +139,7 @@ def counts_sentence(counts: "Counter[str]") -> str:
     return ", ".join(parts)
 
 
-def summary_line(title: str, counts: "Counter[str]") -> str:
+def summary_line(title: str, counts: Counter[str]) -> str:
     return f"<summary><strong>{title}</strong> &mdash; {counts_sentence(counts)}</summary>"
 
 
@@ -145,13 +152,23 @@ PHRASING = {
 LAUNCHD_STATE_ORDER = ["ran", "ran, nonzero exit status", "not started"]
 
 
-def breakdown(counts: "Counter[str]", order: list[str] | None = None) -> str:
+def breakdown(counts: Counter[str], order: list[str] | None = None) -> str:
     """Counts as readable text, in a given key order where one is supplied."""
     if order is None:
         keys = sorted(counts)
     else:
         keys = [k for k in order if k in counts] + [k for k in sorted(counts) if k not in order]
     return ", ".join(f"{counts[k]} {PHRASING.get(k, k)}" for k in keys)
+
+
+def page(path: str, depth: int, anchor: str = "") -> str:
+    """A link to a repository file, written as its path from the root, that
+    resolves from a file `depth` directories down (README.md is 0, docs/*.md 1)."""
+    if depth == 1 and path.startswith("docs/"):
+        target = path[len("docs/"):]
+    else:
+        target = "../" * depth + path
+    return f"[{path}]({target}{'#' + anchor if anchor else ''})"
 
 
 def stamp(sources: list[str], depth: int) -> list[str]:
@@ -164,15 +181,15 @@ def stamp(sources: list[str], depth: int) -> list[str]:
     names = ", ".join(f"`data/{s}.json`" for s in sources)
     return [
         "",
-        f"<sub>Generated from {names} by `scripts/render.py`. "
+        (f"<sub>Generated from {names} by `scripts/render.py`. "
         f"Data and generated tables: "
-        f"[CC0-1.0]({prefix}{CC0_URL_FROM_ROOT}) (public domain).</sub>",
+        f"[CC0-1.0]({prefix}{CC0_URL_FROM_ROOT}) (public domain).</sub>"),
     ]
 
 
-def details(title: str, counts: "Counter[str]", body: list[str]) -> list[str]:
-    """A collapsible section whose summary carries the counts."""
-    out = ["<details>", summary_line(title, counts), ""]
+def details(title: str, counts: Counter[str], body: list[str]) -> list[str]:
+    """A collapsible section whose summary carries the counts; open by default."""
+    out = ["<details open>", summary_line(title, counts), ""]
     out.extend(body)
     out.extend(["", "</details>"])
     return out
@@ -186,7 +203,7 @@ def details(title: str, counts: "Counter[str]", body: list[str]) -> list[str]:
 # --------------------------------------------------------------------------
 
 
-def block_readme_status(depth: int) -> list[str]:
+def block_progress_status(depth: int) -> list[str]:
     status = load("status")
     milestones = load("milestones")
     components = load("components")
@@ -202,24 +219,23 @@ def block_readme_status(depth: int) -> list[str]:
         rows.append([what, len(items), done, progress, not_started,
                      extra_states(counts) or None, link])
 
-    add("Milestones", milestones["milestones"], "[docs/milestones.md](docs/milestones.md)")
+    add("Milestones", milestones["milestones"], page("docs/milestones.md", depth))
     for area in components["areas"]:
         add(f"Feature matrix: {area['title']}", area["rows"],
-            f"[docs/components.md](docs/components.md#{area['id']})")
-    add("Boot-path programs", boot["programs"],
-        "[docs/boot-programs.md](docs/boot-programs.md)")
+            page("docs/components.md", depth, area["id"]))
+    add("Boot-path programs", boot["programs"], page("docs/boot-programs.md", depth))
     add("Translator patches", translator["maclator_patches"],
-        "[docs/translator-patches.md](docs/translator-patches.md)")
+        page("docs/translator-patches.md", depth))
     add("Self-built kernel versions", translator["kernel_versions"],
-        "[docs/translator-patches.md](docs/translator-patches.md#self-built-kernel-versions)")
+        page("docs/translator-patches.md", depth, "self-built-kernel-versions"))
     add("On-disk edits to Apple files", translator["apple_file_edits"],
-        "[docs/translator-patches.md](docs/translator-patches.md#on-disk-edits-to-apple-files)")
-    add("Open walls", gaps["blockers"], "[docs/gaps.md](docs/gaps.md)")
+        page("docs/translator-patches.md", depth, "on-disk-edits-to-apple-files"))
+    add("Open walls", gaps["blockers"], page("docs/gaps.md", depth))
 
     out = [
-        f"As of **{status['meta']['as_of']}**. "
+        (f"As of **{status['meta']['as_of']}**. "
         f"Guest: **{status['release']['macos']}**. "
-        f"Host: {status['release']['host']}.",
+        f"Host: {status['release']['host']}."),
         "",
     ]
     out.extend(table(
@@ -231,7 +247,7 @@ def block_readme_status(depth: int) -> list[str]:
     return out
 
 
-def block_readme_inventories(depth: int) -> list[str]:
+def block_progress_inventories(depth: int) -> list[str]:
     kexts = load("kexts")
     labels = load("launchd-labels")
     gaps = load("gaps")
@@ -244,16 +260,16 @@ def block_readme_inventories(depth: int) -> list[str]:
     rows: list[list[object]] = [
         ["Kernel-collection entries", len(kexts["kexts"]),
          breakdown(kext_classes, list(kexts["meta"]["classes"])),
-         "[docs/kexts.md](docs/kexts.md)"],
+         page("docs/kexts.md", depth)],
         ["launchd job labels, by origin", len(labels["labels"]),
          breakdown(label_classes, list(labels["meta"]["classes"])),
-         "[docs/launchd-labels.md](docs/launchd-labels.md)"],
+         page("docs/launchd-labels.md", depth)],
         ["launchd job labels, by what happened in one boot", len(labels["labels"]),
          breakdown(label_states, LAUNCHD_STATE_ORDER),
-         "[docs/launchd-labels.md](docs/launchd-labels.md)"],
+         page("docs/launchd-labels.md", depth)],
         [f"Accepted-risk records (a selection from a register of {gaps['meta']['register_total']}), by who decided", len(gaps["risks"]),
          breakdown(decisions, list(gaps["meta"]["decisions"])),
-         "[docs/gaps.md](docs/gaps.md#accepted-risk-records)"],
+         page("docs/gaps.md", depth, "accepted-risk-records")],
     ]
 
     out = table(["Inventory", "Rows", "Breakdown", "Detail"], rows)
@@ -261,7 +277,7 @@ def block_readme_inventories(depth: int) -> list[str]:
     return out
 
 
-def block_readme_headline(depth: int) -> list[str]:
+def block_progress_headline(depth: int) -> list[str]:
     status = load("status")
     out: list[str] = []
     for item in status["headline"]:
@@ -271,14 +287,14 @@ def block_readme_headline(depth: int) -> list[str]:
     return out
 
 
-def block_readme_not_shown(depth: int) -> list[str]:
+def block_progress_not_shown(depth: int) -> list[str]:
     status = load("status")
     out = [f"- {line}" for line in status["not_shown"]]
     out.extend(stamp(["status"], depth))
     return out
 
 
-def block_readme_details(depth: int) -> list[str]:
+def block_progress_details(depth: int) -> list[str]:
     milestones = load("milestones")
     components = load("components")
     boot = load("boot-programs")
@@ -293,8 +309,7 @@ def block_readme_details(depth: int) -> list[str]:
         "Milestones",
         state_counts(milestones["milestones"]),
         table(["", "Milestone", "State", "First met"], rows)
-        + ["", "Pass conditions, evidence and notes: "
-             "[docs/milestones.md](docs/milestones.md)."],
+        + ["", f"Pass conditions, evidence and notes: {page('docs/milestones.md', depth)}."],
     ))
     out.append("")
 
@@ -307,8 +322,7 @@ def block_readme_details(depth: int) -> list[str]:
         "Feature matrix, by area",
         state_counts([r for a in components["areas"] for r in a["rows"]]),
         table(["Area", "Rows", "done", "in progress", "not started"], area_rows)
-        + ["", "Every row, with what runs there today: "
-             "[docs/components.md](docs/components.md)."],
+        + ["", f"Every row, with what runs there today: {page('docs/components.md', depth)}."],
     ))
     out.append("")
 
@@ -318,8 +332,7 @@ def block_readme_details(depth: int) -> list[str]:
         state_counts(boot["programs"]),
         table(["How it runs", "Rows"],
               [[k, runs_as[k]] for k in boot["meta"]["runs_as"] if k in runs_as])
-        + ["", "Every program, with its note: "
-             "[docs/boot-programs.md](docs/boot-programs.md)."],
+        + ["", f"Every program, with its note: {page('docs/boot-programs.md', depth)}."],
     ))
     out.append("")
 
@@ -327,8 +340,8 @@ def block_readme_details(depth: int) -> list[str]:
         "Translator patches",
         state_counts(translator["maclator_patches"]),
         [translator["meta"]["upstream_rule"], "",
-         "Every patch, what it fixes and how it was tested: "
-         "[docs/translator-patches.md](docs/translator-patches.md)."],
+         ("Every patch, what it fixes and how it was tested: "
+         f"{page('docs/translator-patches.md', depth)}.")],
     ))
     out.append("")
 
@@ -337,8 +350,7 @@ def block_readme_details(depth: int) -> list[str]:
         state_counts(gaps["blockers"]),
         table(["", "Wall", "State"],
               [[b["id"], b["title"], b["state"]] for b in gaps["blockers"]])
-        + ["", "Notes, and the accepted-risk records beside them: "
-             "[docs/gaps.md](docs/gaps.md)."],
+        + ["", f"Notes, and the accepted-risk records beside them: {page('docs/gaps.md', depth)}."],
     ))
 
     out.extend(stamp(["milestones", "components", "boot-programs", "translator", "gaps"],
@@ -346,13 +358,15 @@ def block_readme_details(depth: int) -> list[str]:
     return out
 
 
-def block_readme_data_index(depth: int) -> list[str]:
+def block_data_index(depth: int) -> list[str]:
     specs = [
         ("status.json", "status", "headline", "Headline claims and what is not shown yet"),
         ("milestones.json", "milestones", "milestones", "Milestones, in the order they were set"),
         ("components.json", "components", None, "The feature matrix, by layer"),
         ("boot-programs.json", "boot-programs", "programs", "Boot-path programs; a few rows group several"),
-        ("launchd-labels.json", "launchd-labels", "labels", "launchd job labels on the furthest root whose program paths are on 27.0.1's system volume or, for five, its Data-volume template"),
+        ("launchd-labels.json", "launchd-labels", "labels",
+         ("launchd job labels on the furthest root whose program paths are on 27.0.1's system "
+         "volume or its Data-volume template")),
         ("kexts.json", "kexts", "kexts", "Every kernel-collection entry"),
         ("translator.json", "translator", None, "Translator patches, kernel versions, on-disk edits"),
         ("gaps.json", "gaps", None, "Open walls and the accepted-risk records"),
@@ -538,8 +552,8 @@ def block_gaps_blockers(depth: int) -> list[str]:
     gaps = load("gaps")
     counts = state_counts(gaps["blockers"])
     done, progress, not_started = canonical_triple(counts)
-    out = [f"{done} closed, {progress} narrowed or being fixed, {not_started} open with no "
-           "fix under way.", ""]
+    out = [(f"{done} closed, {progress} narrowed or being fixed, {not_started} open with no "
+           "fix under way."), ""]
     out.extend(table(["", "Wall", "State", "Evidence", "Notes"],
                      [[b["id"], b["title"], b["state"], b.get("evidence"), b.get("note")]
                       for b in gaps["blockers"]]))
@@ -589,13 +603,56 @@ def block_milestones_table(depth: int) -> list[str]:
     return out
 
 
+def block_readme_milestones(depth: int) -> list[str]:
+    """The README's one generated block: how many milestones are met of how many set,
+    the most recently met (id and title) with their date, and those not met yet (id and
+    title). The README changes exactly when one of those shown fields changes."""
+    milestones = load("milestones")["milestones"]
+    met = [m for m in milestones if m["state"] == "done"]
+    open_ = [m for m in milestones if m["state"] not in ("done", "superseded")]
+    if any(not m.get("date") for m in met):
+        raise DataError("data/milestones.json: a milestone marked done has no date")
+    out = [f"**{len(met)} of the {len(milestones)} milestones** set so far are met."]
+    if met:
+        latest = max(m["date"] for m in met)
+        out.extend(["", f"The most recent, first met on {latest}:", ""])
+        out.extend(f"- **{m['id']}**: {m['title']}" for m in met if m["date"] == latest)
+    if open_:
+        out.extend(["", "Not met yet:", ""])
+        out.extend(f"- **{m['id']}**: {m['title']}" for m in open_)
+    out.append("")
+    out.append(f"Pass conditions and dates: {page('docs/milestones.md', depth)}.")
+    out.extend(stamp(["milestones"], depth))
+    return out
+
+
+def chart_block(name: str):
+    """The <picture> pair for one chart: GitHub shows the file matching its theme."""
+    def block(depth: int) -> list[str]:
+        alt, _ = charts.chart_specs(load)[name]
+        prefix = "charts/" if depth == 1 else "../" * depth + "docs/charts/"
+        return [
+            "<picture>",
+            f'  <source media="(prefers-color-scheme: dark)" srcset="{prefix}{name}-dark.svg">',
+            (f'  <img alt="{escape(alt, quote=True)}" src="{prefix}{name}-light.svg" '
+            'width="880">'),
+            "</picture>",
+        ]
+    return block
+
+
 BLOCKS = {
-    "readme-status": block_readme_status,
-    "readme-inventories": block_readme_inventories,
-    "readme-headline": block_readme_headline,
-    "readme-not-shown": block_readme_not_shown,
-    "readme-details": block_readme_details,
-    "readme-data-index": block_readme_data_index,
+    "readme-milestones": block_readme_milestones,
+    "progress-status": block_progress_status,
+    "progress-inventories": block_progress_inventories,
+    "progress-headline": block_progress_headline,
+    "progress-not-shown": block_progress_not_shown,
+    "progress-details": block_progress_details,
+    "data-index": block_data_index,
+    "chart-milestones": chart_block("milestones"),
+    "chart-status-overview": chart_block("status-overview"),
+    "chart-feature-matrix": chart_block("feature-matrix"),
+    "chart-how-pieces-run": chart_block("how-pieces-run"),
     "components-table": block_components_table,
     "boot-programs-table": block_boot_programs_table,
     "launchd-summary": block_launchd_summary,
@@ -608,16 +665,23 @@ BLOCKS = {
     "milestones-table": block_milestones_table,
 }
 
-TARGETS = [
-    "README.md",
-    "docs/components.md",
-    "docs/boot-programs.md",
-    "docs/launchd-labels.md",
-    "docs/kexts.md",
-    "docs/translator-patches.md",
-    "docs/gaps.md",
-    "docs/milestones.md",
-]
+# Every file with generated regions, and exactly the blocks it must carry, in order. A
+# marker removed, renamed, moved to another page or repeated fails the run, so a page
+# cannot silently stop being checked while the same block survives somewhere else.
+TARGETS = {
+    "README.md": ("chart-milestones", "readme-milestones", "chart-status-overview"),
+    "docs/progress.md": ("chart-milestones", "chart-status-overview", "progress-status",
+                         "progress-inventories", "chart-how-pieces-run", "progress-headline",
+                         "progress-not-shown", "progress-details"),
+    "docs/data.md": ("data-index",),
+    "docs/components.md": ("chart-feature-matrix", "components-table"),
+    "docs/boot-programs.md": ("chart-how-pieces-run", "boot-programs-table"),
+    "docs/launchd-labels.md": ("launchd-summary", "launchd-table"),
+    "docs/kexts.md": ("kexts-summary", "kexts-table"),
+    "docs/translator-patches.md": ("translator-tables",),
+    "docs/gaps.md": ("gaps-blockers", "gaps-risks"),
+    "docs/milestones.md": ("chart-milestones", "milestones-table"),
+}
 
 
 # --------------------------------------------------------------------------
@@ -684,13 +748,26 @@ def render_file(path: Path) -> str:
         out.append(lines[index])
         index += 1
 
+    expected = TARGETS[path.relative_to(REPO).as_posix()]
+    if tuple(seen) != expected:
+        raise DataError(f"{path}: generated blocks {seen} differ from the expected "
+                        f"{list(expected)}")
     return "\n".join(out)
+
+
+def render_charts() -> dict[str, str]:
+    """docs/charts/<name>-<theme>.svg -> its content, drawn from the data."""
+    out = {}
+    for name, (_, draw) in charts.chart_specs(load).items():
+        for theme, colours in charts.THEMES.items():
+            out[f"docs/charts/{name}-{theme}.svg"] = draw(colours)
+    return out
 
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(
-        description="Render the generated tables in README.md and docs/*.md "
-                    "from data/*.json.")
+        description="Render the generated tables in README.md and docs/, and the "
+                    "charts in docs/charts/, from data/*.json.")
     parser.add_argument("--check", action="store_true",
                         help="render to memory and exit 1 if a file on disk differs; "
                              "writes nothing")
@@ -700,24 +777,31 @@ def main(argv: list[str]) -> int:
 
     try:
         rendered = {name: render_file(REPO / name) for name in TARGETS}
-    except DataError as exc:
+        drawn = render_charts()
+    except (DataError, charts.ChartError) as exc:
         print(f"render.py: {exc}", file=sys.stderr)
         return 2
 
-    used = set()
-    for name in TARGETS:
-        for line in rendered[name].split("\n"):
-            found = marker_name(line, START_SUFFIX)
-            if found:
-                used.add(found)
-    unused = sorted(set(BLOCKS) - used)
+    unused = sorted(set(BLOCKS) - {b for blocks in TARGETS.values() for b in blocks})
     if unused:
         print("render.py: these blocks are defined but appear in no file, so a typo in a "
               "marker would go unnoticed: " + ", ".join(unused), file=sys.stderr)
         return 2
 
+    strays = sorted(f"docs/charts/{p.name}" for p in CHARTS_DIR.glob("*.svg")
+                    if f"docs/charts/{p.name}" not in drawn) if CHARTS_DIR.is_dir() else []
+    if strays:
+        print("render.py: these chart files are drawn from nothing in the data; remove "
+              "them: " + ", ".join(strays), file=sys.stderr)
+        return 2
+
     if args.check:
         drifted = []
+        for name, content in drawn.items():
+            path = REPO / name
+            if not path.exists() or path.read_text(encoding="utf-8") != content:
+                drifted.append(name)
+                print(f"--- {name}: missing or not as drawn from the data")
         for name in TARGETS:
             path = REPO / name
             current = path.read_text(encoding="utf-8")
@@ -730,15 +814,22 @@ def main(argv: list[str]) -> int:
                 for diff_line in diff:
                     print(diff_line)
         if drifted:
-            print("", file=sys.stderr)
+            print(file=sys.stderr)
             print(f"render.py --check: {len(drifted)} file(s) differ from the data: "
                   + ", ".join(drifted), file=sys.stderr)
             print("Run `python3 scripts/render.py` and commit the result.", file=sys.stderr)
             return 1
-        print(f"render.py --check: {len(TARGETS)} file(s) match the data.")
+        print(f"render.py --check: {len(TARGETS)} page(s) and {len(drawn)} chart(s) match "
+              "the data.")
         return 0
 
     changed = []
+    CHARTS_DIR.mkdir(exist_ok=True)
+    for name, content in drawn.items():
+        path = REPO / name
+        if not path.exists() or path.read_text(encoding="utf-8") != content:
+            path.write_text(content, encoding="utf-8")
+            changed.append(name)
     for name in TARGETS:
         path = REPO / name
         if path.read_text(encoding="utf-8") != rendered[name]:
@@ -747,7 +838,8 @@ def main(argv: list[str]) -> int:
     if changed:
         print(f"render.py: rewrote {len(changed)} file(s): " + ", ".join(changed))
     else:
-        print(f"render.py: {len(TARGETS)} file(s) already match the data.")
+        print(f"render.py: {len(TARGETS)} page(s) and {len(drawn)} chart(s) already match "
+              "the data.")
     return 0
 
 
