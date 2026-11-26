@@ -25,9 +25,9 @@ which of the three each piece is using today:
    ([docs/components.md](components.md#tools)).
 3. **Translation**: running Apple's arm64e program as itself, through an exec route added
    to a self-built kernel, with an open-source user-space translator as the engine. The
-   program keeps its own Apple identity (not yet when a translated program starts an
-   arm64-only one itself: [docs/gaps.md](gaps.md), B26); only the instructions are someone
-   else's problem.
+   program keeps its own Apple identity (an arm64-only program that a translated program
+   starts itself keeps it only on translator builds carrying patch AC: [docs/gaps.md](gaps.md),
+   B26); only the instructions are someone else's problem.
 
 Where a piece has none of the three yet, a part from macOS 26 (Tahoe) stands in, or a
 small script does, and that is recorded as *in progress* rather than done. Replacing

@@ -1,6 +1,6 @@
 # Roadmap
 
-As of **2026-11-25**. The goal has not changed: macOS 27 as a virtual machine guest on
+As of **2026-11-26**. The goal has not changed: macOS 27 as a virtual machine guest on
 ordinary x86-64 hardware, under QEMU and KVM on Linux. What this page adds is the order the
 work is done in, and what each stage leans on.
 
@@ -39,14 +39,17 @@ short: the login window is drawn, a typed login is authorized, the user session 
 the first-login User Account Updater completes. The first-login Setup Assistant showed no
 pane when it ran (2 boots); it is now skipped by a per-user marker the test places, so a
 first login through Setup Assistant is not shown. With it skipped, the Dock, Finder,
-SystemUIServer and Control Center start (7 boots), and a menu bar and a wallpaper are drawn
-(4 boots). With a translator fix (AB) WindowManager stays up (3 boots), a Finder window
-opens (3 boots) and TextEdit opens a window and takes a typed word (2 boots). Drawing is
+SystemUIServer and Control Center start (12 boots), and a menu bar and a wallpaper are drawn
+(9 boots). With a translator fix (AB) WindowManager stays up (8 boots), a Finder window
+opens (8 boots) and TextEdit opens a window and takes a typed word (7 boots). Drawing is
 still slow or incomplete ([gaps.md](gaps.md), B22): the Dock was first seen between about
-10 and 35 minutes after the login, or not at all (2 of 7 boots). These boots run on display
-test overlays, except one boot of the same set-up on the default test base (counted in the
-figures above), which drew no Dock, had one daemon refused system calls and another
-aborting, and ran with a much higher load, so the set-up has not been moved there. Disk use
+10 and 50 minutes after the login, or not at all (1 of 12 boots). These boots run on display
+test overlays, except three boots of the same set-up on the default test base (counted in
+the figures above). In the first two of those the Dock came only after 35 minutes, by about 50,
+and the load was much higher. The load's cause is read, and with a diagnostic setting that
+removed it the Dock came within 15 minutes (1 boot); but the translator change meant to fix
+it is not booted, and one daemon there still aborts for want of a model identity, which is
+pending the owner, so the set-up has not been moved there. Disk use
 through a login with every program on the fix for the translator's shared-cache data is not
 shown (B23).
 
@@ -55,11 +58,11 @@ this snapshot (measured, `n` as given):
 
 | Part of the definition | State |
 |---|---|
-| From a cold boot of the default test base | **Not met.** The login boots run on separate display test overlays; the one login boot on the default test base drew no Dock (1 boot) |
-| A user logs in | **Met**: a typed login authorized in 14 boots (13 on the display test overlays, 1 on the default test base) and the session started in 12. Setup Assistant ran in 2 and showed no pane; in the 7 that reached the desktop steps it was skipped by a per-user marker the test places, so a first login through it is not shown |
-| The menu bar, the Dock and Finder drawn | **Met in 2 boots**: a menu bar, a Dock and a Finder window all on screen. The Dock was late or missing in others |
-| Open and use an app | **Partly.** TextEdit opened a window and took a typed word (2 boots); nothing more was tried |
-| On more than one boot | **Not met.** On a display test overlay a menu bar, a Dock, a Finder window and a word typed into TextEdit came together in 1 boot; on the default test base, in 0 (its login boot took text in TextEdit but drew no Dock) |
+| From a cold boot of the default test base | **Not met.** The login boots run on separate display test overlays. On the default test base (3 login boots) the set-up drew a menu bar, a Dock and a Finder window and took text in TextEdit during the test's use of the desktop in 1 boot, only with a diagnostic setting for three daemons; in the two earlier ones, frames after 35 minutes show the late Dock (in one, beside the Finder window) |
+| A user logs in | **Met**: a typed login authorized in 19 boots (16 on the display test overlays, 3 on the default test base) and the session started in 17. Setup Assistant ran in 2 and showed no pane; in the 12 that reached the desktop steps it was skipped by a per-user marker the test places, so a first login through it is not shown |
+| The menu bar, the Dock and Finder drawn | **Met in 6 boots**: a menu bar, a Dock and a Finder window all on screen during the test's use of the desktop; in the two earlier login boots on the default test base, frames after 35 minutes show the late Dock (in one, beside the Finder window). The Dock was late in others, and missing in 1 |
+| Open and use an app | **Partly.** TextEdit opened a window and took a typed word (7 boots); nothing more was tried |
+| On more than one boot | **Met on the display test overlays**: a menu bar, a Dock, a Finder window and a word typed into TextEdit came together during the test's use of the desktop in 4 boots there; on the default test base, in 1, with the diagnostic setting |
 | Drawn without a GPU | **Met**: there is no Metal device in the guest |
 
 ## Stage 2: the longer tail
@@ -71,9 +74,9 @@ where they do not compete:
 1. **The remaining macOS 26 pieces.** A known list: the x86 boot loader (`boot.efi`, which
    27.0.1 does not ship), nine kexts, the tool that builds the kernel collection, and the
    boot loader's APFS driver; some boot set-ups also still add macOS 26's `vmxnet3` network
-   driver ([gaps.md](gaps.md), G-39); and the default test base and the login test overlays
-   still carry macOS 26's `amfid`, where putting Apple's 27 build back, on a translator build
-   carrying patch S, is the chosen fix, not yet booted on the login line (B11). What each of the others needs:
+   driver ([gaps.md](gaps.md), G-39); and the default test base still carries macOS 26's
+   `amfid`; on the display test overlays used for login boots Apple's 27 build is back, named for a
+   translator build carrying patch S, and stays up (3 login boots since 2026-11-25; B11). What each of the others needs:
    - the real-time clock kext: 27.0.1's Kernel Debug Kit has an x86-64 build of it, so this
      one is a swap;
    - the kernel-collection builder: a way to build an x86 kernel collection without macOS

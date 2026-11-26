@@ -11,6 +11,57 @@ Dates are US Pacific time. The underlying work happened over a longer period tha
 file covers; the dates in [docs/milestones.md](docs/milestones.md) are the history, and
 this file records only changes to the published record.
 
+## [4.0.0] &mdash; 2026-11-26
+
+`sandboxd` and 27's own `amfid` stay up through login boots; a translated program's
+arm64-only helper is started as itself; the translator from the fork's public branch was
+booted; on the default test base the load and the late Dock are read, and a daemon's aborts
+are traced to a model identity missing from the guest's firmware description. Every boot is one boot of its
+set-up. Major, because one measured claim of 3.3.0 to 3.4.0 is withdrawn (below).
+
+### Added
+
+- Translator patch AC: when the kernel started a translated program as itself, the
+  translator hands its arm64-only children's starts to the kernel, keeping the old
+  re-launch in several named cases (2 login boots). On the fork's public branch, with five
+  changes from its reviews.
+- Two steps on the progress page: `sandboxd` and 27's own `amfid` stay up through a login
+  boot (3 boots, display test overlays), and a translated program's arm64-only helper is
+  started as itself (2 boots).
+
+### Changed
+
+- B17 (now "27's sandboxd did not stay up under launchd") is closed: named for a newer
+  translator build, launchd's `sandboxd` ran as one process all boot with no crash report
+  (first on 2026-11-25; 3 login boots).
+- B26 is closed by AC (first on 2026-11-26; 2 login boots); programs on builds without AC
+  still start their children under the translator's identity.
+- B11 and the `amfid` rows: Apple's 27 `amfid` is back on the display test overlays and
+  stays up with no crash report (3 login boots); the default test base still carries
+  macOS 26's. R5's and R8's notes say so; neither milestone changes state.
+- The login steps' counts: 19 boots for the window and an authorized login, 17 for the
+  session, 14 for User Account Updater, 12 for the Dock, Finder, SystemUIServer and Control
+  Center; the Dock drawn in 11 of 12, first seen between about 10 and 50 minutes after the
+  login; a menu bar and a wallpaper in 9; WindowManager up and a Finder window in 8; TextEdit
+  in 7; the Apple menu in 3; About This Mac and Control Center in 2.
+- B22, on the default test base: the load's cause (the translator's work for three network
+  daemons that keep restarting), and a diagnostic boot that removed it (the Dock within 15
+  minutes, 1 boot); the translator change meant to fix it is built and not booted. A
+  daemon there aborts for want of a model identity; which identity the guest presents is
+  pending the owner.
+- The fork's public branch: 60 commits on upstream's main, its tip booted (1 boot). Our
+  upstream items read again on 2026-11-26: unchanged.
+- B23: the latest disk readings (5.04 to 5.52 GiB on the display test overlays; 6.24, 5.23
+  and 6.36 GiB on the default test base).
+- `docs/roadmap.md`: "on more than one boot" is met on the display test overlays (4 boots);
+  the stage 2 list says where `amfid` stands.
+
+### Withdrawn
+
+- The Dock on the default test base: 3.3.0 to 3.4.0 said it was not drawn in that base's
+  login boot, from frames read only up to 35 minutes. Later frames of the same boot show it
+  drawn after 35 minutes, by about 50, as in the next login boot there.
+
 ## [3.4.0] &mdash; 2026-11-25
 
 A new layout, with charts. No figure, state or claim changed: every table row and every

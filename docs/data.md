@@ -17,7 +17,7 @@ library.
 | `data/boot-programs.json` | 31 | Boot-path programs; a few rows group several |
 | `data/launchd-labels.json` | 421 | launchd job labels on the furthest root whose program paths are on 27.0.1's system volume or its Data-volume template |
 | `data/kexts.json` | 196 | Every kernel-collection entry |
-| `data/translator.json` | 42 | Translator patches, kernel versions, on-disk edits |
+| `data/translator.json` | 43 | Translator patches, kernel versions, on-disk edits |
 | `data/gaps.json` | 78 | Open walls and the accepted-risk records |
 
 <sub>Generated from `data/status.json`, `data/milestones.json`, `data/components.json`, `data/boot-programs.json`, `data/launchd-labels.json`, `data/kexts.json`, `data/translator.json`, `data/gaps.json` by `scripts/render.py`. Data and generated tables: [CC0-1.0](../LICENSE-CC0) (public domain).</sub>

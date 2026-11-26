@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="348" viewBox="0 0 880 348" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
 <title>How the pieces run</title>
-<desc>Boot-path program rows, by how each runs, 31, as of 2026-11-25: 4 Apple x86_64, 12 lifted, 14 translated, 1 stand-in; Listed launchd job labels on the furthest root, by where the program comes from, 421, as of 2026-11-08: 299 apple-27-x86_64, 7 apple-27-lifted, 110 apple-27-arm64e-translated, 3 borrowed-tahoe-x86_64, 2 apple-27-flags-changed; Kernel-collection entries, by where each comes from, 196, as of 2026-11-08: 185 apple-27-x86_64, 1 apple-27-lifted, 9 borrowed-tahoe-x86_64, 1 self-built-kernel.</desc>
+<desc>Boot-path program rows, by how each runs, 31, as of 2026-11-26: 4 Apple x86_64, 12 lifted, 14 translated, 1 stand-in; Listed launchd job labels on the furthest root, by where the program comes from, 421, as of 2026-11-08: 299 apple-27-x86_64, 7 apple-27-lifted, 110 apple-27-arm64e-translated, 3 borrowed-tahoe-x86_64, 2 apple-27-flags-changed; Kernel-collection entries, by where each comes from, 196, as of 2026-11-08: 185 apple-27-x86_64, 1 apple-27-lifted, 9 borrowed-tahoe-x86_64, 1 self-built-kernel.</desc>
 <rect x="0.0" y="0.0" width="880.0" height="348.0" rx="0" fill="#0d1117"/>
 <text x="16.0" y="26.0" fill="#f0f6fc" font-size="15" font-weight="600" text-anchor="start">How the pieces run</text>
 <text x="16.0" y="46.0" fill="#9198a1" font-size="12" font-weight="normal" text-anchor="start">Where each piece&#x27;s code comes from, as a share of each list. Each list carries its own date.</text>
-<text x="16.0" y="76.0" fill="#f0f6fc" font-size="12" font-weight="600" text-anchor="start">Boot-path program rows, by how each runs (31; as of 2026-11-25)</text>
+<text x="16.0" y="76.0" fill="#f0f6fc" font-size="12" font-weight="600" text-anchor="start">Boot-path program rows, by how each runs (31; as of 2026-11-26)</text>
 <rect x="16.0" y="84.0" width="108.6" height="28.0" rx="3" fill="#9887ef"/>
 <text x="22.0" y="102.0" fill="#0b0b0b" font-size="12" font-weight="600" text-anchor="start">4</text>
 <rect x="126.6" y="84.0" width="325.9" height="28.0" rx="3" fill="#e76624"/>
